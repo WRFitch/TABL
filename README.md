@@ -6,3 +6,4 @@ TODO (current)
 * upload a basic module (such as a homepage) to this branch, then merge into master. 
 * update as required
 * add .gitignore
+* rename
