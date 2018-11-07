@@ -1,3 +1,6 @@
 <resources>
-    <string name="app_name">test</string>
+    <!-- Make sure this is kept up to date with any extra resource names -->
+    <string name="app_name">Ordr</string>
+    <string name="find_restaurant">Find Restaurant</string>
+    <string name="app_logo_name">Placeholder Logo</string>
 </resources>
