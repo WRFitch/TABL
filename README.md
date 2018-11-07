@@ -2,8 +2,13 @@
 
 ## ORDR - an app to allow users to order food on their phones, without needing an app for each restaurant. ##
 
-TODO (current)
-* upload a basic module (such as a homepage) to this branch, then merge into master. 
-* update as required
-* add .gitignore
-* rename
+For each item on the TODO, open a separate branch, implement the function, then merge when you're done. This should prevent any major merge conflicts and keep us delivering a testable app. 
+
+#### TODO ####
+* rename project 
+* design visual assets & update 
+* design restaurant finder function & implement  
+* finalise user flow & write into design doc
+* write automated tests for software functions
+* test on users
+
