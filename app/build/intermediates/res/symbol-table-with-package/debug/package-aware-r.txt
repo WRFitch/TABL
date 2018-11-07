@@ -1,4 +1,4 @@
-com.example.wrfitch.ordrprototype_1
+com.example.android.test
 anim abc_fade_in
 anim abc_fade_out
 anim abc_grow_fade_in_from_bottom
@@ -810,7 +810,7 @@ layout abc_search_dropdown_item_icons_2line
 layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
-layout activity_homescreen
+layout activity_main
 layout notification_action
 layout notification_action_tombstone
 layout notification_template_custom_big
