@@ -1,6 +1,6 @@
 # cs2001-18-19-2018-19-group-18 
 
-## ORDR - an app to allow users to order food on their phones, without needing an app for each restaurant. 
+## TABL - an app to allow users to order food on their phones, without needing an app for each restaurant. 
 
 For each item on the TODO, open a separate branch, implement the function, then merge when you're done. This should prevent any major merge conflicts and keep us delivering a testable app. The main branch of this repository should be the most polished version, any work in progress should be confined to its own branch until it is implemented and tested. See Contributing.md for details. 
 
@@ -8,7 +8,6 @@ For each item on the TODO, open a separate branch, implement the function, then 
 
 #### TODO (Android Application) 
 ##### Design
-* rename project 
 * update UI design based on feedback (tip under qr button, detailed item view/click outside item, set item quantity, possible issues with "sliding" type ui & android activity stack)
 * add user flow to design doc 
 * update prototype to fit UI design, including importing assets 
