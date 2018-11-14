@@ -15,8 +15,10 @@ public class StartPage extends AppCompatActivity {
         final Button findRestaurantButton = findViewById(R.id.findRestaurantButton);
         findRestaurantButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
-                //begin findRestaurant activity (executes on main thread)
-                //(try to keep activity stack as small as possible)
+                /* begin findRestaurant activity (executes on main thread)
+                 * this activity need not stay open indefinitely - can allow auto
+                 * memory management to delete if necessary
+                 */
             }
         });
     }
