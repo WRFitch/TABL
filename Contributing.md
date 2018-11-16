@@ -1,5 +1,8 @@
 #Contributing to this project
 
-When implementing a new feature, it's good practise to branch off of master, implement and test the feature you
-add, THEN commit to master. This prevents bugs working their way into the master branch, which can then be integrated 
-into the project (planning a release branch - check google doc). 
+- Master branch contains main development build
+- Release branch off master branch contains the “final” build
+- Testing branch off master branch is used for integrated tests & user tests
+- When developing a feature, branch off of master and implement in that branch. 
+  - Create testing sub-branch for each feature.
+  - Name each branch the name of the activity/function/requirement you are implementing 
