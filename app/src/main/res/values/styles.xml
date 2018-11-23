@@ -1,11 +1,24 @@
+<!-- TODO
+    Implement our themes from colors.xml
+    -->
+
 <resources>
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/lightThemePrimary</item>
+        <item name="colorPrimaryDark">@color/lightThemeSecondary</item>
+        <item name="colorAccent">@color/lightThemeAccent</item>
     </style>
 
+    <!-- Dark Theme -->
+    <style name="DarkAppTheme" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/darkThemePrimary</item>
+        <item name="colorPrimaryDark">@color/darkThemeSecondary</item>
+        <item name="colorAccent">@color/darkThemeAccent</item>
+    </style>
+
+    <!-- Low-vision Theme -->
 </resources>

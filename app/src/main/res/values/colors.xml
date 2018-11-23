@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!-- TODO
+    shorten theme name convention if possible
+    implement our themes
+    make dark theme dark
+    -->
+
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <!-- light theme colours -->
+    <color name="lightThemePrimary">#008577</color>
+    <color name="lightThemeSecondary">#00574B</color>
+    <color name="lightThemeAccent">#D81B60</color>
+
+    <!-- dark theme colors -->
+    <color name="darkThemePrimary">#008577</color>
+    <color name="darkThemeSecondary">#00574B</color>
+    <color name="darkThemeAccent">#D81B60</color>
 </resources>
