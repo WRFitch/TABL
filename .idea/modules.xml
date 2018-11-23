@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/cs2001-18-19-2018-19-group-18.iml" filepath="$PROJECT_DIR$/cs2001-18-19-2018-19-group-18.iml" />
     </modules>
   </component>
