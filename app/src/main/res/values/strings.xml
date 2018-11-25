@@ -1,3 +1,17 @@
+<!--TODO
+    Implement all strings from prototype design
+    Define strings required to access from REST API, such as any
+        filenames or IDs
+    Define if we need specific resource IDs
+    -->
+
 <resources>
     <string name="app_name">TABL</string>
+    <string name="location_title">Location</string>
+    <string name="qr_scan_button_label">Scan TABL tag on the table</string>
+    <string name="select_table_title">Select Table</string>
+    <string name="search_field">Search</string>
+    <string name="basket_title">Basket</string>
+    <string name="total_label">Total: </string>
+    <string name="payment_button_label">Proceed to Payment</string>
 </resources>
