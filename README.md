@@ -7,6 +7,12 @@ For each item on the TODO list, open a separate branch, implement the function, 
 [UI prototype](https://xd.adobe.com/view/0069b308-7ea3-4e31-4792-87b468c2fb61-7658/)
 
 #### TODO (Android Application) 
+
+##### Organisation
+- organise TODO
+  - Sprint backlog
+  - Sprint current issues
+
 ##### Design
 - update UI design based on feedback (tip under qr button, detailed item view/click outside item, set item quantity, possible issues with "sliding" type ui & android activity stack)
 - add user flow to design doc 
