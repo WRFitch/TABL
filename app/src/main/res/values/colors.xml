@@ -8,18 +8,9 @@
 
 <resources>
     <!-- light theme colours -->
-    <color name="lightThemePrimary">#BB2B51</color>
-    <color name="lightThemeSecondary">#F12C52</color>
-    <color name="lightThemeShade">#707070</color>
-    <color name="lightThemeBg">#F4F4F4</color>
-    <color name="lightThemeBgShade">#DFDFDF</color>
-    <color name="lightThemeAccent">#112130</color>
+    <color name="lightThemePrimary">#000000</color>
+    <color name="lightThemeSecondary">#222222</color>
+    <color name="lightThemeAccent">#BB2B51</color>
 
     <!-- dark theme colors -->
-    <color name="darkThemePrimary">#BB2B51</color>
-    <color name="darkThemeSecondary">#F12C52</color>
-    <color name="darkThemeShade">#505050</color>
-    <color name="darkThemeBg">#1A1B1C</color>
-    <color name="darkThemeBgShade">#222930</color>
-    <color name="darkThemeAccent">#4B657F</color>
 </resources>

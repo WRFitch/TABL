@@ -7,6 +7,21 @@ For each item on the TODO list, open a separate branch, implement the function, 
 [UI prototype](https://xd.adobe.com/view/0069b308-7ea3-4e31-4792-87b468c2fb61-7658/)
 
 #### TODO (Android Application) 
+
+##### Priority
+- implement startpage 
+  - add functionality to floating action button
+  - add functionality to map view
+  - implement custom widget for menu items
+  - implement recyclerview
+  - implement functionality for menu widgets
+  - implement searchbar
+- refine design
+- research Firestore system 
+  - understand Firebase NoSQL through prototyping (check [this tutorial](https://www.youtube.com/watch?v=988UZFB0heA) for practice if required)
+  - replace firebase with relational model if necessary, and find appropriate hosting solution using university resources or outside help. 
+- update TODO
+
 ##### Design
 - update UI design based on feedback (tip under qr button, detailed item view/click outside item, set item quantity, possible issues with "sliding" type ui & android activity stack)
 - add user flow to design doc 

@@ -1,4 +1,4 @@
-#Contributing to this project
+# Contributing to this project
 
 - Master branch contains main development build
 - Release branch off master branch contains the “final” build

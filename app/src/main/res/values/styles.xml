@@ -13,12 +13,6 @@
     </style>
 
     <!-- Dark Theme -->
-    <style name="DarkAppTheme" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/darkThemePrimary</item>
-        <item name="colorPrimaryDark">@color/darkThemeSecondary</item>
-        <item name="colorAccent">@color/darkThemeAccent</item>
-    </style>
 
     <!-- Low-vision Theme -->
 </resources>

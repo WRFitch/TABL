@@ -7,11 +7,5 @@
 
 <resources>
     <string name="app_name">TABL</string>
-    <string name="location_title">Location</string>
-    <string name="qr_scan_button_label">Scan TABL tag on the table</string>
-    <string name="select_table_title">Select Table</string>
-    <string name="search_field">Search</string>
-    <string name="basket_title">Basket</string>
-    <string name="total_label">Total: </string>
-    <string name="payment_button_label">Proceed to Payment</string>
+    <string name="title_activity_restaurant_map">Map</string>
 </resources>
