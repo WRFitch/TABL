@@ -1,3 +1,11 @@
+<!--TODO
+    Implement all strings from prototype design
+    Define strings required to access from REST API, such as any
+        filenames or IDs
+    Define if we need specific resource IDs
+    -->
+
 <resources>
     <string name="app_name">TABL</string>
+    <string name="title_activity_restaurant_map">Map</string>
 </resources>

@@ -1,4 +1,4 @@
-#Contributing to this project
+# Contributing to this project
 
 - Master branch contains main development build
 - Release branch off master branch contains the “final” build
@@ -6,3 +6,5 @@
 - When developing a feature, branch off of master and implement in that branch. 
   - Create testing sub-branch for each feature.
   - Name each branch the name of the activity/function/requirement you are implementing 
+  
+- **Commit and push when you're done working on something**
