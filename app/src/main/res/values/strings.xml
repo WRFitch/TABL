@@ -6,6 +6,15 @@
     -->
 
 <resources>
+    <!-- System Strings -->
     <string name="app_name">TABL</string>
     <string name="title_activity_restaurant_map">Map</string>
+
+    <!-- RestaurantMap Activity Strings -->
+    <!-- MenuActivity Strings -->
+
+    <!-- Composite View Defaults -->
+    <!-- TablMenuActivityItemView Strings -->
+    <string name="tabl_menu_activity_item_view_default">ITEM_UNDEFINED</string>
+
 </resources>

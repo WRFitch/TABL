@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!--TODO:
+<!--TODO: fix this mess.
     finish implementing MapView - fix dimensions and
     Build composite ListEntryView from three TextViews and a RelativeLayout
         or ConstraintLayout
