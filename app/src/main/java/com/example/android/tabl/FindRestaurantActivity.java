@@ -10,14 +10,28 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class RestaurantMap extends FragmentActivity implements OnMapReadyCallback {
+/**
+ * First main screen of TABL. Allows user to select the restaurant they intend to order from using
+ * either a map or search function.
+ *
+ * @WRFitch
+ */
+
+/**
+ * TODO: implement snapToLocation() on floatingActionButton
+ * TODO: implement list of restaurants, including UI and populate() method.
+ * TODO: implement list highlighting & map utilities.
+ * TODO: implement additional search method.
+ */
+
+public class FindRestaurantActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_restaurant_map);
+        setContentView(R.layout.activity_find_restaurant);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -42,5 +56,9 @@ public class RestaurantMap extends FragmentActivity implements OnMapReadyCallbac
         LatLng sydney = new LatLng(-34, 151);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+    }
+
+    public void snapToCurrentLocation(){
+
     }
 }

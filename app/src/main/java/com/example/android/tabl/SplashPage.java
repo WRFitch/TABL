@@ -1,36 +1,25 @@
 package com.example.android.tabl;
 
 /**
- * TODO: add functionality to floating action button
- * TODO: add functionality to map view
- * TODO: implement custom widget for menu items
- * TODO: implement recyclerview
- * TODO: implement functionality for menu widgets
- * TODO: implement searchbar
+ * TODO: This is now the splashscreen, not the StartPage.
+ * TODO: Refactor to fit SplashScreen - change to image fragment?
  */
 
-import android.content.pm.PackageManager;
-import android.location.Location;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class StartPage extends AppCompatActivity implements OnMapReadyCallback {
+public class SplashPage extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationClient;
@@ -38,7 +27,7 @@ public class StartPage extends AppCompatActivity implements OnMapReadyCallback {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_start_page);
+        setContentView(R.layout.activity_splash_page);
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
