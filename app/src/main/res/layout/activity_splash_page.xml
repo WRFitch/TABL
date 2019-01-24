@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!--TODO: fix this mess.
-    finish implementing MapView - fix dimensions and
-    Build composite ListEntryView from three TextViews and a RelativeLayout
-        or ConstraintLayout
-    Implement snapToUserLocation button
-    Implement searchbar
+<!--TODO: fix this mess
     -->
 
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
