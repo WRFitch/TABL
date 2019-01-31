@@ -4,12 +4,15 @@ Start: 21st Jan
 
 End: 11th Feb
 
-===
+Focus is on implementing prototypes of basic functions
+
+======
+
 ## Sprint Goals
-Complete prototypes of Table Selection, Menu 
-  - Implement custom views for Menu and Basket
+Complete prototypes of Table Selection [SIMRAN], Menu [IMAN], Basket [ADIT]
+  - Implement custom views for Menu [WILL] and Basket [MONIKA]
 - Implement some basic functionality for Table Selection, Menu, Map, Basket
-- Fix prototype of Map screen
+- Fix prototype of Map screen [WILL]
   - Find API key solution
 - Define a good backend solution
   - FireBase
