@@ -24,6 +24,10 @@ import com.google.android.gms.maps.model.MarkerOptions;
  * TODO: implement additional search method.
  */
 
+/**
+ * TODO: implement button function
+ */
+
 public class FindRestaurantActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
