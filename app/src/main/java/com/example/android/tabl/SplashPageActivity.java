@@ -3,9 +3,11 @@ package com.example.android.tabl;
 /**
  * TODO: This is now the splashscreen, not the StartPage.
  * TODO: Refactor to fit SplashScreen - change to image fragment?
+ * TODO: copy useful content into FindRestaurantActivity
  */
 
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -31,13 +33,15 @@ public class SplashPageActivity extends AppCompatActivity implements OnMapReadyC
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
-        /*if(ContextCompat.checkSelfPermission(
+        /*
+        if(ContextCompat.checkSelfPermission(
                 this, android.Manifest.permission.ACCESS_FINE_LOCATION ) !=
                 PackageManager.PERMISSION_GRANTED ) {
             ActivityCompat.requestPermissions( this, new String[] {
                     android.Manifest.permission.ACCESS_FINE_LOCATION  },
                     );
-        }*/
+        }
+        */
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -56,12 +60,14 @@ public class SplashPageActivity extends AppCompatActivity implements OnMapReadyC
     //consider implementing point focus if required
     public void snapToCurrentLocation(View view){
         //CameraUpdate currentLocation = mMap.get;
-        /*Location l = mFusedLocationClient.getLastLocation();
+        /*
+        Location l = mFusedLocationClient.getLastLocation();
         LatLng currentLocation = new LatLng(mFusedLocationClient.getLastLocation());
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 0));
-        Snackbar.make(view, "functionality not implemented",
-                Snackbar.LENGTH_LONG).setAction("Action", null)
-                .show();*/
+        */
+        Snackbar.make(view, getString(R.string.function_todo),
+                Snackbar.LENGTH_LONG).setAction("whoops", null)
+                .show();
     }
 
     public void onMapReady(GoogleMap googleMap) {
