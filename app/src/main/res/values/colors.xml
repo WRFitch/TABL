@@ -11,7 +11,7 @@
     <color name="lightThemePrimary">#000000</color>
     <color name="lightThemeSecondary">#222222</color>
     <color name="lightThemeAccent">#BB2B51</color>
-    <colour name="White">#FFFFFF</colour>
+    <color name="white">#FFF</color>
 
     <!-- dark theme colors -->
 </resources>
