@@ -51,7 +51,7 @@
         android:layout_height="91dp"
         android:background="@color/lightThemeAccent"
         android:text="proceed to checkout"
-        android:textColor="@color/White"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         tools:layout_editor_absoluteY="641dp" />
 
