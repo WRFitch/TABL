@@ -8,6 +8,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -33,7 +34,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
  * TODO: implement additional search method.
  */
 
-public class FindRestaurantActivity extends FragmentActivity implements OnMapReadyCallback {
+public class FindRestaurantActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private FusedLocationProviderClient mFusedLocationClient;
     private GoogleMap mMap;
@@ -130,9 +131,6 @@ public class FindRestaurantActivity extends FragmentActivity implements OnMapRea
 
     /*
 
-    private GoogleMap mMap;
-    private FusedLocationProviderClient mFusedLocationClient;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -140,7 +138,7 @@ public class FindRestaurantActivity extends FragmentActivity implements OnMapRea
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
-        /*
+
         if(ContextCompat.checkSelfPermission(
                 this, android.Manifest.permission.ACCESS_FINE_LOCATION ) !=
                 PackageManager.PERMISSION_GRANTED ) {
@@ -148,7 +146,7 @@ public class FindRestaurantActivity extends FragmentActivity implements OnMapRea
                     android.Manifest.permission.ACCESS_FINE_LOCATION  },
                     );
         }
-        *//*
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);

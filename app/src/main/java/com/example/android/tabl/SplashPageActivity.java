@@ -10,7 +10,6 @@ package com.example.android.tabl;
  */
 
 /**
- * TODO: This is now the splashscreen, not the StartPage.
  * TODO: Refactor to fit SplashScreen - change to image fragment?
  */
 
@@ -23,6 +22,13 @@ public class SplashPageActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_table);
+
+
+    }
+
+    //swipe
+    private void onSwipe() {
+
     }
 
 }

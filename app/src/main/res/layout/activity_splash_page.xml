@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!--TODO: fix this mess
-    -->
+<!--
+    TODO: add colored background
+    TODO: add hi-res version of app logo
+    TODO: add animation to swipe away - consider fragment instead of full activity
+ -->
 
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
