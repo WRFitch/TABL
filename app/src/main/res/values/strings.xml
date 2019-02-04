@@ -9,7 +9,7 @@
     <!-- System Strings -->
     <string name="app_name">TABL</string>
     <string name="title_activity_restaurant_map">Map</string>
-    <string name="function_todo">Functionality not implemented</string>
+    <string name="todo">Functionality not implemented</string>
 
     <!-- FindRestaurantActivity Activity Strings -->
     <!-- MenuActivity Strings -->
