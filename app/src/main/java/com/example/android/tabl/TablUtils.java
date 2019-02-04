@@ -12,6 +12,7 @@ import android.view.View;
 
 public class TablUtils {
 
+    //a standard error message. T
     public static void functionNotImplemented(View view){
         //this code will be useful in future for basically anything
         Snackbar.make(view, view.getContext().getString(R.string.todo),

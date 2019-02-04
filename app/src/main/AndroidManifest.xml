@@ -13,9 +13,12 @@
         <activity android:name=".CheckoutActivity"/>
         <activity android:name=".SelectTableActivity" />
         <activity android:name=".MenuActivity" />
+        <activity android:name=".FindRestaurantActivity"
+            android:label="Select Restaurant"/>
+
+        <!-- starting activity -->
         <activity
-            android:name=".FindRestaurantActivity"
-            android:label="@string/title_activity_restaurant_map">
+            android:name=".SplashPageActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
