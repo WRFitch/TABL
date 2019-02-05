@@ -4,9 +4,14 @@
 /.idea/caches/build_file_checksums.ser
 /.idea/libraries
 /.idea/modules.xml
+/.idea/misc.xml
 /.idea/workspace.xml
+/.idea/assetWizardSettings.xml
+/.idea/caches/gradle_models.ser
 .DS_Store
 /build
 /captures
 .externalNativeBuild
-\src\debug\res\values\google_maps_api.xml
+/app/src/debug/res/values/google_maps_api.xml
+/app/src/release/res/values/google_maps_api.xml
+

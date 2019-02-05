@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+<!--TODO: Implement custom view for RecyclerView
+    TODO: Implement RecyclerView
+    TODO: Test Map fragment
+    TODO: Implement functionality
+    TODO: Get resources for snapToLocation button
+    TODO: Test layout on different devices
+    -->
+
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -22,7 +30,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
-    <!-- TODO: add snapToLocation icon for this button-->
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/snapToLocationButton"
         android:layout_width="wrap_content"

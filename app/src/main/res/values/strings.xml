@@ -8,9 +8,14 @@
 <resources>
     <!-- System Strings -->
     <string name="app_name">TABL</string>
-    <string name="title_activity_restaurant_map">Map</string>
+    <string name="version_name">Version 0.2</string>
+
+    <!-- Util Strings -->
+    <string name="todo">Functionality not implemented</string>
 
     <!-- FindRestaurantActivity Activity Strings -->
+    <string name="title_activity_restaurant_map">Map</string>
+
     <!-- MenuActivity Strings -->
 
     <!-- Composite View Defaults -->
