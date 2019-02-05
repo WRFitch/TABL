@@ -2,7 +2,7 @@
 
 Start: 21st Jan 
 
-End: 11th Feb
+End: 10th Feb
 
 Focus is on implementing prototypes of certain functions in XML and Java, as well as deciding on a backend solution to be implemented starting in Sprint 4. 
 

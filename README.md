@@ -4,14 +4,14 @@
 
 For each item on the TODO list, open a separate branch, implement the function, then merge when you're done. This should prevent any major merge conflicts and keep us delivering a testable app. The main branch of this repository should be the most polished version, any work in progress should be confined to its own branch until it is implemented and tested. See Contributing.md for details. 
 
-[UI prototype](https://xd.adobe.com/view/0069b308-7ea3-4e31-4792-87b468c2fb61-7658/)
+[UI prototype](https://xd.adobe.com/view/0c960684-092a-4486-4bf5-192b4e8bfabb-7aa7/)
 
 #### TODO (Android Application) 
 See sprint/Sprint2.md
 
-#### Weekly Schedule [PROTOTYPE]
+#### Weekly Plan
 Monday - Meeting @ 11
        - Work session after meeting
-Tuesday - App development session
-Thursday - App Development session
-Friday - CS2005 Design session
+Tuesday - App development session 10-1
+Thursday - App Development session 2-5
+Friday - CS2005 Design Lab

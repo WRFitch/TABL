@@ -4,6 +4,88 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".CheckoutActivity">
+
+    <Button
+        android:id="@+id/CrossExitButton"
+        android:layout_width="64dp"
+        android:layout_height="56dp"
+        android:background="@color/white"
+        android:text="X"
+        android:textStyle="bold"
+        android:textSize="25sp"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="38dp"
+        android:text="Ongoing Order"
+        android:textColor="@color/lightThemePrimary"
+        android:textSize="25sp"
+        tools:layout_editor_absoluteX="80dp"
+        tools:layout_editor_absoluteY="27dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:text="Order Accepted"
+        android:textColor="@color/lightThemePrimary"
+        android:textSize="33sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="88dp"
+        tools:layout_editor_absoluteY="155dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="38dp"
+        android:text="Thank You For Ordering"
+        android:textColor="@color/lightThemePrimary"
+        android:textSize="19sp"
+        tools:layout_editor_absoluteX="107dp"
+        tools:layout_editor_absoluteY="203dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="38dp"
+        android:text="Order Details:"
+        android:textColor="@color/lightThemePrimary"
+        android:textSize="23sp"
+        tools:layout_editor_absoluteX="25dp"
+        tools:layout_editor_absoluteY="306dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="38dp"
+        android:text="Total:"
+        android:textColor="@color/lightThemePrimary"
+        android:textSize="23sp"
+        tools:layout_editor_absoluteX="274dp"
+        tools:layout_editor_absoluteY="502dp" />
+
+
+    <Button
+        android:id="@+id/CancelOrderButton"
+        android:layout_width="412dp"
+        android:layout_height="74dp"
+        android:background="@color/white"
+        android:text="Cancel Order"
+        android:textColor="@color/lightThemeAccent"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="576dp" />
+
+    <Button
+        android:id="@+id/HelpWithOrderButton"
+        android:layout_width="436dp"
+        android:layout_height="80dp"
+        android:background="@color/white"
+        android:text="Help With Order"
+        android:textColor="@color/lightThemePrimary"
+        android:textSize="20sp"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="650dp" />
 
 </android.support.constraint.ConstraintLayout>
