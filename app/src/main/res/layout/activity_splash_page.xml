@@ -5,7 +5,8 @@
     TODO: add animation to swipe away - consider fragment instead of full activity
  -->
 
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/lightThemeAccent"
@@ -16,6 +17,7 @@
 
     <ImageView
         android:id="@+id/SplashPageLogo"
+        android:contentDescription="app logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -52,7 +54,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/SplashPageLogo" />
+        app:layout_constraintTop_toBottomOf="@+id/SplashPageLogo"
+        android:focusable="true" />
 
     <TextView
         android:id="@+id/SplashPageVersionName"

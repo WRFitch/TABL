@@ -25,7 +25,7 @@ public class SplashPageActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_select_table);
+        setContentView(R.layout.activity_splash_page);
 
         ImageView logo = findViewById(R.id.SplashPageLogo);
         logo.setOnClickListener(new View.OnClickListener() {
@@ -36,7 +36,7 @@ public class SplashPageActivity extends AppCompatActivity{
                         FindRestaurantActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
-                finish();
+                //finish();
             }
         });
 
