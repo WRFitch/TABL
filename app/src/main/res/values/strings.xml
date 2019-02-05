@@ -9,6 +9,7 @@
     <!-- System Strings -->
     <string name="app_name">TABL</string>
     <string name="version_name">Version 0.2</string>
+    <string name="var_undefined">UNDEFINED</string>
 
     <!-- Util Strings -->
     <string name="todo">Functionality not implemented</string>
@@ -19,7 +20,5 @@
     <!-- MenuActivity Strings -->
 
     <!-- Composite View Defaults -->
-    <!-- TablMenuActivityItemView Strings -->
-    <string name="tabl_menu_activity_item_view_default">ITEM_UNDEFINED</string>
 
 </resources>
