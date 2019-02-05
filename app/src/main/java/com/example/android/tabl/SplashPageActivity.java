@@ -50,6 +50,9 @@ public class SplashPageActivity extends AppCompatActivity{
 
     //preloads menu data in preparation for next method.
     private static void preloadMenuData(){
-
+        /**
+         * requirements:
+         * list of restaurants from nearby
+         */
     }
 }
