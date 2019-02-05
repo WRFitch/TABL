@@ -43,6 +43,7 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_restaurant);
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -81,12 +82,11 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
+        //THIS IS IN SYDNEY
         LatLng userLocation = new LatLng(-34, 151);
 
         //get nearby restaurants and mark on map
         mMap.addMarker(new MarkerOptions().position(userLocation).title("Marker in Sydney"));
-
-
 
         mMap.moveCamera(CameraUpdateFactory.newLatLng(userLocation));
     }
@@ -111,47 +111,12 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 0));
         */
 
-        //this code will be useful in future for basically anything
-        Snackbar.make(view, getString(R.string.todo),
-                Snackbar.LENGTH_LONG).setAction(R.string.todo, null)
-                .show();
+        TablUtils.functionNotImplemented(view);
     }
 
+    //finds nearby restaurants - could set it to within camera view?
     public LatLng[] getRestaurantsInRadius(){
         return null;
     }
 
-    /**
-     * /////////////////////////////////////////////////////////////////////////////////////////////
-     *
-     * OLD CODE FROM STARTPAGE
-     *
-     * /////////////////////////////////////////////////////////////////////////////////////////////
-     */
-
-    /*
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash_page);
-
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-
-
-        if(ContextCompat.checkSelfPermission(
-                this, android.Manifest.permission.ACCESS_FINE_LOCATION ) !=
-                PackageManager.PERMISSION_GRANTED ) {
-            ActivityCompat.requestPermissions( this, new String[] {
-                    android.Manifest.permission.ACCESS_FINE_LOCATION  },
-                    );
-        }
-
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
-
-    }
-    */
 }
