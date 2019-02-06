@@ -7,45 +7,31 @@
     android:background="@color/white"
     tools:context=".CheckoutActivity">
 
-    <Button
-        android:id="@+id/CrossExitButton"
-        android:layout_width="64dp"
-        android:layout_height="56dp"
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="34dp"
+        android:layout_height="33dp"
         android:background="@color/white"
-        android:text="X"
-        android:textStyle="bold"
-        android:textSize="25sp"
+        app:srcCompat="@drawable/black_close_exit_button"
         tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="16dp" />
+        tools:layout_editor_absoluteY="17dp" />
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="38dp"
+        android:layout_height="34dp"
         android:text="Ongoing Order"
         android:textColor="@color/lightThemePrimary"
         android:textSize="25sp"
-        tools:layout_editor_absoluteX="80dp"
-        tools:layout_editor_absoluteY="27dp" />
+        tools:layout_editor_absoluteX="50dp"
+        tools:layout_editor_absoluteY="16dp" />
 
-    <TextView
+    <ImageView
+        android:id="@+id/imageView2"
         android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:layout_gravity="center"
-        android:text="Order Accepted"
-        android:textColor="@color/lightThemePrimary"
-        android:textSize="33sp"
-        android:textStyle="bold"
-        tools:layout_editor_absoluteX="88dp"
-        tools:layout_editor_absoluteY="155dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="38dp"
-        android:text="Thank You For Ordering"
-        android:textColor="@color/lightThemePrimary"
-        android:textSize="19sp"
-        tools:layout_editor_absoluteX="107dp"
-        tools:layout_editor_absoluteY="203dp" />
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/order_accepted_confetti"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="40dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -53,8 +39,8 @@
         android:text="Order Details:"
         android:textColor="@color/lightThemePrimary"
         android:textSize="23sp"
-        tools:layout_editor_absoluteX="25dp"
-        tools:layout_editor_absoluteY="306dp" />
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="346dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -62,30 +48,41 @@
         android:text="Total:"
         android:textColor="@color/lightThemePrimary"
         android:textSize="23sp"
-        tools:layout_editor_absoluteX="274dp"
-        tools:layout_editor_absoluteY="502dp" />
+        tools:layout_editor_absoluteX="269dp"
+        tools:layout_editor_absoluteY="562dp" />
 
 
     <Button
         android:id="@+id/CancelOrderButton"
-        android:layout_width="412dp"
-        android:layout_height="74dp"
-        android:background="@color/white"
+        android:layout_width="442dp"
+        android:layout_height="70dp"
+        android:background="@drawable/border_top_bottom"
         android:text="Cancel Order"
         android:textColor="@color/lightThemeAccent"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteY="576dp" />
+        tools:layout_editor_absoluteX="-6dp"
+        tools:layout_editor_absoluteY="600dp" />
 
     <Button
         android:id="@+id/HelpWithOrderButton"
-        android:layout_width="436dp"
-        android:layout_height="80dp"
-        android:background="@color/white"
+        android:layout_width="442dp"
+        android:layout_height="70dp"
+        android:background="@drawable/border_top_bottom"
         android:text="Help With Order"
         android:textColor="@color/lightThemePrimary"
         android:textSize="20sp"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="650dp" />
+        tools:layout_editor_absoluteX="-6dp"
+        tools:layout_editor_absoluteY="665dp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="395dp"
+        android:layout_height="177dp"
+        android:scrollbars="vertical"
+        tools:itemCount="9"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="384dp"
+        tools:listitem="@layout/recycler_view_item" />
+
+
 
 </android.support.constraint.ConstraintLayout>
