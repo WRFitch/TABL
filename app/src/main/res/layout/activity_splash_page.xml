@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--
-    TODO: add hi-res version of app logo
+    TODO: add hi-res version of app logo (currently doesn't work with any transparent image)
     TODO: add animation to swipe away - consider fragment instead of full activity
  -->
 
@@ -14,48 +14,6 @@
     android:layout_height="match_parent"
     tools:context=".SplashPageActivity"
     >
-
-    <ImageView
-        android:id="@+id/SplashPageLogo"
-        android:contentDescription="app logo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.294"
-        app:srcCompat="@drawable/tabl_ic_launcher" />
-
-    <TextView
-        android:clickable="true"
-        android:id="@+id/SplashPageText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:lineSpacingExtra="8sp"
-        android:text="@string/app_name"
-        android:textColor="@color/white"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        android:typeface="sans"
-        app:fontFamily="sans-serif"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/SplashPageLogo"
-        android:focusable="true" />
 
     <TextView
         android:id="@+id/SplashPageVersionName"
@@ -71,5 +29,26 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <!--
+    Currently only the tabl_ic_launcher.png works in the correct resolution - this might be to
+    do with transparency, implementation or some problem with finding the correct pixel density
+    -->
+    <ImageView
+        android:adjustViewBounds="true"
+        android:id="@+id/SplashPageLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/SplashPageVersionName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/tabl_splash_screen_logo" />
 
 </android.support.constraint.ConstraintLayout>

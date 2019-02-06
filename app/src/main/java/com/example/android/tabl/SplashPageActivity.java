@@ -27,20 +27,26 @@ public class SplashPageActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_page);
 
+
         ImageView logo = findViewById(R.id.SplashPageLogo);
+        logo.setImageResource(R.drawable.tabl_splash_screen_logo);
         logo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //call next activity
-                Intent intent = new Intent(v.getContext(),
-                        FindRestaurantActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                //finish();
+                callFindRestaurantActivity(v);
             }
         });
 
         preloadMenuData();
+    }
+
+    private void callFindRestaurantActivity(View v){
+        //call next activity
+        Intent intent = new Intent(v.getContext(),
+                FindRestaurantActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        //finish();
     }
 
     //swipe to remove

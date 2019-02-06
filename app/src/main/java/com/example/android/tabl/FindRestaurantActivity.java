@@ -11,6 +11,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.example.android.tabl.restaurant_recyclerview.Restaurant;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -20,6 +21,9 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * First main screen of TABL. Allows user to select the restaurant they intend to order from using
  * either a map or search function.
@@ -28,6 +32,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
  */
 
 /**
+ * TODO: get location permissions from user
  * TODO: implement snapToLocation() on floatingActionButton
  * TODO: implement list of restaurants, including UI and populate() method.
  * TODO: implement list highlighting & map utilities.
@@ -36,6 +41,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class FindRestaurantActivity extends AppCompatActivity implements OnMapReadyCallback {
 
+    private List<Restaurant> restaurantList= new ArrayList<>();
     private FusedLocationProviderClient mFusedLocationClient;
     private GoogleMap mMap;
 

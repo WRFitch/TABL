@@ -7,6 +7,7 @@
 <!--
     TODO: revise layout - which is best?
     TODO: fix up constraints
+    TODO: implement textview UI
 -->
 
 <android.support.constraint.ConstraintLayout

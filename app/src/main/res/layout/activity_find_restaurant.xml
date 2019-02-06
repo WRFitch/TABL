@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!--TODO: Implement custom view for RecyclerView
+<!--
+    TODO: Implement custom view for RecyclerView
     TODO: Implement RecyclerView
     TODO: Test Map fragment
     TODO: Implement functionality

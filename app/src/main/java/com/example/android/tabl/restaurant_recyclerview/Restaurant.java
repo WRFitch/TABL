@@ -1,4 +1,4 @@
-package com.example.android.tabl;
+package com.example.android.tabl.restaurant_recyclerview;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -10,7 +10,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 /**
  * TODO: lighten class - too many variables
- * TODO: define class requirements better
+ * TODO: define class requirements better - can this be used for network processing?
  */
 
 public class Restaurant {
@@ -18,19 +18,22 @@ public class Restaurant {
     private String id;
     private String address;
     private String[] flags;
-    LatLng location;//find best location datatype to use
+    private LatLng location;//find best location datatype to use
+    private int distanceFromUser;
 
     public Restaurant(){
     }
 
     public Restaurant(String name, String id, String address,
                       String[] flags,
-                      LatLng location){
+                      LatLng location,
+                      int distanceFromUser){
         this.name = name;
         this.id = id;
         this.address = address;
         this.flags = flags;
         this.location = location;
+        this.distanceFromUser = distanceFromUser;
     }
 
     public String getName() {
@@ -71,5 +74,13 @@ public class Restaurant {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public int getDistanceFromUser() {
+        return distanceFromUser;
+    }
+
+    public void setDistanceFromUser(int distanceFromUser) {
+        this.distanceFromUser = distanceFromUser;
     }
 }
