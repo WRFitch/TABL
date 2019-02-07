@@ -56,9 +56,6 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_restaurant);
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-
-
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -67,14 +64,6 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
-        /*
-        if(ContextCompat.checkSelfPermission(
-                this, android.Manifest.permission.ACCESS_FINE_LOCATION ) !=
-                PackageManager.PERMISSION_GRANTED ) {
-            ActivityCompat.requestPermissions( this, new String[] {
-                            android.Manifest.permission.ACCESS_FINE_LOCATION},
-                    );
-        }*/
 
         FloatingActionButton fab = findViewById(R.id.snapToLocationButton);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -83,6 +72,7 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
                 snapToCurrentLocation(view);
             }
         });
+
 
         recyclerView = (RecyclerView) findViewById(R.id.find_restaurant_recyView);
 
@@ -116,11 +106,6 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
         mMap.moveCamera(CameraUpdateFactory.newLatLng(userLocation));
     }
 
-    private void snapToCurrentLocation(){
-        //get user location from phone
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(getUserLocation()));
-    }
-
     private LatLng getUserLocation(){
         return null;
     }
@@ -137,12 +122,13 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
         */
 
         TablUtils.functionNotImplemented(view);
+        //mMap.moveCamera(CameraUpdateFactory.newLatLng(getUserLocation()));
     }
 
     private void prepRestaurantData(){
         //current implementation uses test data!
         Restaurant resta;
-        for(int i=0; i<5; i++){
+        for(int i=0; i<20; i++){
             resta = new Restaurant(FindRestaurantActivity.this);
             restaurantList.add(resta);
         }
