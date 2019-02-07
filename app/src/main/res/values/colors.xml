@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!-- TODO
-    shorten theme name convention if possible
-    finalise custom themes
-    implement text colors
-    -->
+<!-- TODO: shorten theme name convention if possible
+     TODO: finalise custom themes
+     TODO: implement text colors
+ -->
 
 <resources>
     <!-- light theme colours -->

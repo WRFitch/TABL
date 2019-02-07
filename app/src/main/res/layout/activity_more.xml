@@ -25,17 +25,17 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="49dp"
+        android:layout_width="66dp"
         android:layout_height="83dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="624dp"
+        android:layout_marginBottom="615dp"
         app:layout_constraintBottom_toBottomOf="parent"
 
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.023"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/exit_button" />
 
@@ -46,47 +46,50 @@
         android:layout_marginLeft="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="652dp"
+        android:layout_marginBottom="644dp"
         android:text="More"
         android:textColor="@color/white"
-        android:textSize="28sp"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.172"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/DarkMode"
-        android:layout_width="442dp"
-        android:layout_height="70dp"
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="34dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="560dp"
-        android:background="@drawable/border_top_bottom"
-        android:duplicateParentState="false"
+        android:layout_marginBottom="576dp"
         android:text="Dark Mode"
-        android:textAllCaps="false"
         android:textColor="@color/lightThemePrimary"
         android:textSize="20sp"
-        android:textStyle="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.659"
+        app:layout_constraintHorizontal_bias="0.026"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <Switch
+        android:id="@+id/switchDarkMode"
+        android:layout_width="95dp"
+        android:layout_height="48dp"
+        android:text=""
+        tools:layout_editor_absoluteX="300dp"
+        tools:layout_editor_absoluteY="108dp" />
+
     <Button
-        android:id="@+id/PastOrders"
+        android:id="@+id/OngoingOrders"
         android:layout_width="442dp"
         android:layout_height="66dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="504dp"
+        android:layout_marginBottom="500dp"
         android:background="@drawable/border_top_bottom"
-        android:text="Past Orders"
+        android:text="Ongoing Order"
         android:textAllCaps="false"
         android:textColor="@color/lightThemePrimary"
         android:textSize="20sp"
@@ -95,13 +98,42 @@
         app:layout_constraintHorizontal_bias="0.319"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Switch
-        android:id="@+id/switch1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Switch"
-        tools:layout_editor_absoluteX="313dp"
-        tools:layout_editor_absoluteY="119dp" />
+    <Button
+        android:id="@+id/pastOrders"
+        android:layout_width="442dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="444dp"
+        android:background="@drawable/border_top_bottom"
+        android:text="Past Orders"
+        android:textAllCaps="false"
+        android:textColor="@color/lightThemePrimary"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.297"
+        app:layout_constraintStart_toStartOf="parent" />
 
+    <Button
+        android:id="@+id/Help"
+        android:layout_width="442dp"
+        android:layout_height="66dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="384dp"
+        android:background="@drawable/border_top_bottom"
+        android:text="Help"
+        android:textAllCaps="false"
+        android:textColor="@color/lightThemePrimary"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.276"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
