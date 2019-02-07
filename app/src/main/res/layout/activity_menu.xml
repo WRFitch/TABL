@@ -2,27 +2,50 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     tools:context=".MenuActivity">
+
     <LinearLayout
+        android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
-
-    </LinearLayout>
+        <TextView
+            android:id="@+id/nameofresTextView"
+            android:layout_width="459dp"
+            android:layout_height="wrap_content"
+            android:background="@android:color/darker_gray"
+            android:baselineAligned="true"
+            android:text="Bella Italia"
+            android:textStyle="bold" />
 
 
     <TextView
-        android:id="@+id/mytext"
-        android:layout_width="412dp"
+        android:id="@+id/locationtextView"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background=" @android:color/darker_gray"
+        android:text=" 10 High Street, Uxbridge"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/locationTextView"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Menu"
-        android:textAlignment="center"
-        android:textSize="70dp"
-
-        />
-
+        android:background="@android:color/darker_gray"
+        android:text="10, Uxbridge High Street"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="19dp" />
 
 
 </android.support.constraint.ConstraintLayout>

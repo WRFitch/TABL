@@ -9,8 +9,8 @@
 <resources>
     <!-- light theme colours -->
     <color name="lightThemePrimary">#000000</color>
-    <color name="lightThemeSecondary">#222222</color>
-    <color name="lightThemeAccent">#BB2B51</color>
+    <color name="lightThemeSecondary">#626262</color>
+    <color name="lightThemeAccent">#000000</color>
 
     <!-- dark theme colors -->
 </resources>
