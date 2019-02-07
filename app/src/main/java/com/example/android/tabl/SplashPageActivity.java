@@ -29,7 +29,6 @@ public class SplashPageActivity extends AppCompatActivity{
 
 
         ImageView logo = findViewById(R.id.SplashPageLogo);
-        logo.setImageResource(R.drawable.tabl_splash_screen_logo);
         logo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -38,6 +37,9 @@ public class SplashPageActivity extends AppCompatActivity{
         });
 
         preloadMenuData();
+        //wait 3 seconds, then load. delete this once next activity is implemented.
+        TablUtils.waitXMillis(3000);
+        callFindRestaurantActivity(logo); //this feels wrong
     }
 
     private void callFindRestaurantActivity(View v){
@@ -60,5 +62,6 @@ public class SplashPageActivity extends AppCompatActivity{
          * requirements:
          * list of restaurants from nearby
          */
+
     }
 }
