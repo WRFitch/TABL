@@ -15,8 +15,11 @@
     <string name="var_undefined">UNDEFINED</string>
     <string name="var_unavailable">(unavailable)</string>
 
-    <!-- FindRestaurantActivity Activity Strings -->
+    <!-- FindRestaurantActivity Strings -->
     <string name="title_activity_restaurant_map">Map</string>
     <string name="dist_miles">miles</string>
     <string name="dist_km">km</string>
+    <string name="dialog_info_text">Do you want this app to use your location? It can still function without if you use the search function.</string>
+    <string name="cancel_dialog">Cancel</string>
+    <string name="dialog_confirm_gps">OK</string>
 </resources>

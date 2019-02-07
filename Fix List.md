@@ -1,4 +1,4 @@
-# BUGS
+# Fixes
 
 If you've got some free time, try to fix one of these. 
 
@@ -11,3 +11,8 @@ If you've got some free time, try to fix one of these.
   - app currently doesn't ask for location permissions, might be to do with that.  
   
 - RecyclerItemClickListener.java has not been fully tested
+
+
+###Project Architecture
+- At some point we're going to need to refactor the methods that get the default data 
+  - this can probably be left until a better solution is found during sprint 4

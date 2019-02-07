@@ -20,5 +20,11 @@ public class TablUtils {
                 .show();
     }
 
+    public static void functionNotImplemented(View view, String msg){
+        //this code will be useful in future for basically anything
+        Snackbar.make(view, msg + view.getContext().getString(R.string.todo),
+                Snackbar.LENGTH_LONG).setAction(R.string.todo, null)
+                .show();
+    }
 
 }

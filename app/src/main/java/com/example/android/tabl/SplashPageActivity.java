@@ -50,25 +50,12 @@ public class SplashPageActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 firedNext = true;
-                callFindRestaurantActivity(v);
+                callFindRestaurantActivity(v.getContext());
                 finish();
             }
         });
 
 
-    }
-
-    /*
-    these two methods could be refactored to fit in tablUtils. possible fixes:
-    - make View ver just call Context ver
-    - pass FindRestaurantActivity.class as parameter.
-     */
-    private void callFindRestaurantActivity(View v){
-        //call next activity
-        Intent intent = new Intent(v.getContext(),
-                FindRestaurantActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
     }
 
     private void callFindRestaurantActivity(Context c){
@@ -80,7 +67,7 @@ public class SplashPageActivity extends AppCompatActivity{
 
     //swipe to remove method - just call callFindRestaurantActivity(v);
     private void onSwipe(View v) {
-        callFindRestaurantActivity(v);
+        callFindRestaurantActivity(v.getContext());
     }
 
     //preloads menu data in preparation for next method.

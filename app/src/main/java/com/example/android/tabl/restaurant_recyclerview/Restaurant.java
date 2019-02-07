@@ -15,6 +15,7 @@ import com.google.android.gms.maps.model.LatLng;
 /**
  * TODO: lighten class - too many variables
  * TODO: define class requirements better - can this be used for network processing?
+ *
  */
 
 public class Restaurant {
@@ -36,6 +37,7 @@ public class Restaurant {
         this.address = res.getString(R.string.default_addr);
         this.distanceFromUser = res.getString(R.string.default_distance) + " "
                 + res.getString(R.string.dist_miles);
+        this.id = res.getString(R.string.default_id);
     }
 
     public Restaurant(String name, String id, String address, String distanceFromUser,
@@ -95,5 +97,20 @@ public class Restaurant {
 
     public void setDistanceFromUser(String distanceFromUser) {
         this.distanceFromUser = distanceFromUser;
+    }
+
+    //debug ver - do not add to final app!
+    public String[] getMenuTitles(){
+        String[] returnVal = {
+
+        };
+        return returnVal;
+    }
+
+    public String[] getMenuTitles(String restaurantId){
+        String[] returnVal = {
+
+        };
+        return returnVal;
     }
 }
