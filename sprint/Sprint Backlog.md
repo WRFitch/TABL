@@ -4,9 +4,11 @@
   - Complete delegation - further define group options
 
 ## App
-- Complete Splash Screen
+- Complete Splash Screen 
+  - import hi-res image 
 
 - Complete Map activity
+  - implement recyclerview controller
   - Define camera controls including floating button
   - Distribute API key so anybody can prototype the program.
 

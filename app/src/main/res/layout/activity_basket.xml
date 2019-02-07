@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".BasketActivity">
+
+
+    <ImageView
+        android:layout_width="426dp"
+        android:layout_height="150dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg_header"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="-3dp" />
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Basket"
+        android:textColor="@color/white"
+        android:textSize="40sp"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="38dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Location"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="100dp" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="47dp"
+        android:layout_height="48dp"
+        app:srcCompat="@drawable/exit_button"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
+
+
+
+    <Button
+        android:id="@+id/CheckoutButton"
+        android:layout_width="436dp"
+        android:layout_height="91dp"
+        android:background="@color/lightThemeAccent"
+        android:text="Proceed To Payment "
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="641dp" />
+
+    <Button
+        android:id="@+id/addtipbutton"
+        android:layout_width="412dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_top_bottom"
+        android:text="Add Tip"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="592dp" />
+
+    <Button
+        android:id="@+id/selecttable"
+        android:layout_width="427dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_top_bottom"
+        android:text="Select A Table "
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="543dp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/basket_recyclerview"
+        android:layout_width="395dp"
+        android:layout_height="350dp"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="185dp" />
+
+
+</android.support.constraint.ConstraintLayout>
