@@ -26,6 +26,7 @@ public class SplashPageActivity extends AppCompatActivity{
 
     private final int WAIT_VALUE = 10000;
     //private Class NEXT_CLASS = FindRestaurantActivity.class;
+    private boolean firedNext = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,21 +34,28 @@ public class SplashPageActivity extends AppCompatActivity{
         setContentView(R.layout.activity_splash_page);
         preloadMenuData();
 
+        //wait x seconds, then load. delete this once next activity is implemented.
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(!firedNext) {
+                    callFindRestaurantActivity(SplashPageActivity.this);
+                    finish();
+                }
+            }
+        }, WAIT_VALUE);
+
         ImageView logo = findViewById(R.id.SplashPageLogo);
         logo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                firedNext = true;
                 callFindRestaurantActivity(v);
+                finish();
             }
         });
 
-        //wait 3 seconds, then load. delete this once next activity is implemented.
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                callFindRestaurantActivity(SplashPageActivity.this);
-            }
-        }, WAIT_VALUE);
+
     }
 
     /*
@@ -61,7 +69,6 @@ public class SplashPageActivity extends AppCompatActivity{
                 FindRestaurantActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
-        finish(); // or this.finish()?
     }
 
     private void callFindRestaurantActivity(Context c){
@@ -69,7 +76,6 @@ public class SplashPageActivity extends AppCompatActivity{
         Intent intent = new Intent(c, FindRestaurantActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
-        finish();
     }
 
     //swipe to remove method - just call callFindRestaurantActivity(v);

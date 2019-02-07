@@ -15,6 +15,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.example.android.tabl.restaurant_recyclerview.RecyclerItemClickListener;
 import com.example.android.tabl.restaurant_recyclerview.Restaurant;
 import com.example.android.tabl.restaurant_recyclerview.RestaurantsAdapter;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -74,7 +75,20 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
         });
 
 
-        recyclerView = (RecyclerView) findViewById(R.id.find_restaurant_recyView);
+        recyclerView = findViewById(R.id.find_restaurant_recyView);
+        //itemTouchListener taken from stackoverflow - needs testing!
+        recyclerView.addOnItemTouchListener(
+                new RecyclerItemClickListener(this, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override public void onItemClick(View view, int position) {
+                        TablUtils.functionNotImplemented(view);
+                    }
+
+                    @Override public void onLongItemClick(View view, int position) {
+                        //perhaps use this to display restaurant info/add to favourites?
+                        TablUtils.functionNotImplemented(view);
+                    }
+                })
+        );
 
         rAdapter = new RestaurantsAdapter(restaurantList);
         RecyclerView.LayoutManager rLayoutManager = new LinearLayoutManager(
