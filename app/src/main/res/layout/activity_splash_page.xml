@@ -49,6 +49,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/tabl_splash_screen_logo" />
+        app:srcCompat="@drawable/debug_splash_screen_logo" />
 
 </android.support.constraint.ConstraintLayout>

@@ -9,18 +9,12 @@
     <!-- System Strings -->
     <string name="app_name">TABL</string>
     <string name="version_name">Version 0.1.1</string>
-    <string name="var_undefined">UNDEFINED</string>
 
     <!-- Util Strings -->
-    <string name="todo">Functionality not implemented</string>
+    <string name="todo">Function not implemented</string>
+    <string name="var_undefined">UNDEFINED</string>
+    <string name="var_unavailable">(unavailable)</string>
 
     <!-- FindRestaurantActivity Activity Strings -->
     <string name="title_activity_restaurant_map">Map</string>
-
-    <!-- MenuActivity Strings -->
-
-    <!-- Composite View Defaults -->
-    <!-- TablMenuActivityItemView Strings -->
-    <string name="tabl_menu_activity_item_view_default">ITEM_UNDEFINED</string>
-
 </resources>

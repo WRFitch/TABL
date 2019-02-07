@@ -42,7 +42,7 @@
         android:focusable="true"
         app:layout_constraintBottom_toBottomOf="@+id/map"
         app:layout_constraintEnd_toEndOf="@+id/map"
-        app:srcCompat="@drawable/location_icon" />
+        app:srcCompat="@drawable/debug_location_icon" />
 
     <!-- update to adaptively change listview height (or don't) -->
     <android.support.v7.widget.RecyclerView
