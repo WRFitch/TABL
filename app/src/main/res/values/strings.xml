@@ -17,5 +17,6 @@
 
     <!-- FindRestaurantActivity Activity Strings -->
     <string name="title_activity_restaurant_map">Map</string>
-
+    <string name="dist_miles">miles</string>
+    <string name="dist_km">km</string>
 </resources>

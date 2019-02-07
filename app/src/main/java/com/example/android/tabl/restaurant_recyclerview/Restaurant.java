@@ -34,7 +34,8 @@ public class Restaurant {
         Resources res = c.getResources();
         this.name = res.getString(R.string.default_restaurant);
         this.address = res.getString(R.string.default_addr);
-        this.distanceFromUser = res.getString(R.string.default_distance);
+        this.distanceFromUser = res.getString(R.string.default_distance) + " "
+                + res.getString(R.string.dist_miles);
     }
 
     public Restaurant(String name, String id, String address, String distanceFromUser,
