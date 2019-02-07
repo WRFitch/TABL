@@ -9,9 +9,14 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.example.android.tabl.restaurant_recyclerview.Restaurant;
+import com.example.android.tabl.restaurant_recyclerview.RestaurantsAdapter;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -42,6 +47,8 @@ import java.util.List;
 public class FindRestaurantActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private List<Restaurant> restaurantList= new ArrayList<>();
+    private RecyclerView recyclerView;
+    private RestaurantsAdapter rAdapter;
     private FusedLocationProviderClient mFusedLocationClient;
     private GoogleMap mMap;
 
@@ -49,6 +56,9 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_restaurant);
+        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -74,6 +84,15 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
             }
         });
 
+        recyclerView = (RecyclerView) findViewById(R.id.find_restaurant_recyView);
+
+        rAdapter = new RestaurantsAdapter(restaurantList);
+        RecyclerView.LayoutManager rLayoutManager = new LinearLayoutManager(
+                getApplicationContext());
+        recyclerView.setLayoutManager(rLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(rAdapter);
+        prepRestaurantData();
     }
 
     /**
@@ -97,18 +116,18 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
         mMap.moveCamera(CameraUpdateFactory.newLatLng(userLocation));
     }
 
-    public void snapToCurrentLocation(){
+    private void snapToCurrentLocation(){
         //get user location from phone
         mMap.moveCamera(CameraUpdateFactory.newLatLng(getUserLocation()));
     }
 
-    public LatLng getUserLocation(){
+    private LatLng getUserLocation(){
         return null;
     }
 
     //This method is bad and I should be ashamed.
     //consider implementing point focus if required
-    public void snapToCurrentLocation(View view){
+    private void snapToCurrentLocation(View view){
         //CameraUpdate currentLocation = mMap.get;
 
         /*
@@ -120,9 +139,13 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
         TablUtils.functionNotImplemented(view);
     }
 
-    //finds nearby restaurants - could set it to within camera view?
-    public LatLng[] getRestaurantsInRadius(){
-        return null;
+    private void prepRestaurantData(){
+        //current implementation uses test data!
+        Restaurant resta;
+        for(int i=0; i<5; i++){
+            resta = new Restaurant(FindRestaurantActivity.this);
+            restaurantList.add(resta);
+        }
+        rAdapter.notifyDataSetChanged();
     }
-
 }
