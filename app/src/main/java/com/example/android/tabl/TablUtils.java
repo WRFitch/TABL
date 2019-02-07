@@ -1,7 +1,6 @@
 package com.example.android.tabl;
 
 
-import android.os.Handler;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 
@@ -21,22 +20,5 @@ public class TablUtils {
                 .show();
     }
 
-    //get data re restaurant from server
-    public static String[] getRestaurantData(){
-        String[] returnVal = {
 
-        };
-
-
-        return null;
-    }
-
-    public static void waitXMillis(int ms){
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                return;
-            }
-        }, ms);
-    }
 }

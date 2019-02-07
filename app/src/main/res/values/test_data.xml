@@ -5,8 +5,9 @@
 <resources>
     <!-- resources for menu view -->
     <string name="default_restaurant">RESTAURANT_NAME</string>
+    <string name="default_id">-1</string>
     <string name="default_addr">111 Streetname, Townname</string>
-    <string name="default_distance">-1 MILES</string>
+    <string name="default_distance">-1</string>
     <string name="menuId">-1</string>
     <integer name="menuIntId">-1</integer>
 
