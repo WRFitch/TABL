@@ -69,7 +69,7 @@
         android:id="@+id/CheckoutButton"
         android:layout_width="436dp"
         android:layout_height="91dp"
-        android:background="@color/lightThemeAccent"
+        android:background="@color/colorPrimaryDark"
         android:text="@string/button_proceed_to_payment"
         android:textColor="@color/white"
         tools:layout_editor_absoluteY="640dp"

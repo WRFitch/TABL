@@ -101,7 +101,7 @@
         android:background="@drawable/border_top"
         android:text="Cancel Order"
         android:textAllCaps="false"
-        android:textColor="@color/lightThemeAccent"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/HelpWithOrderButton"
         app:layout_constraintEnd_toEndOf="parent"

@@ -9,6 +9,7 @@ package com.example.android.tabl.utils;
 /**
  * TODO: implement JSON parser
  * TODO: implement test data
+ * TODO: implement data caching for favourite items
  */
 
 public class TablNetUtils {

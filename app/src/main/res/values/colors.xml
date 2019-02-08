@@ -9,8 +9,10 @@
     <!-- light theme colours -->
     <color name="lightThemePrimary">#000000</color>
     <color name="lightThemeSecondary">#222222</color>
-    <color name="lightThemeAccent">#BB2B51</color>
+    <color name="colorPrimaryDark">#BB2B51</color>
+    <color name="colorPrimary">#F12C52</color>
     <color name="white">#FFF</color>
+    <color name="colorPrimaryAccent">#707070</color>
 
     <!-- dark theme colors -->
 </resources>
