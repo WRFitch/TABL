@@ -32,7 +32,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        app:layout_constraintHeight_percent="0.5"/>
+        app:layout_constraintHeight_percent="0.7"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/snapToLocationButton"
@@ -62,7 +62,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintHeight_percent="0.5">
+        app:layout_constraintHeight_percent="0.3">
 
         <!-- populate with composite views that are populated from servers -->
         <!-- may need its own wrapper class/XML -->

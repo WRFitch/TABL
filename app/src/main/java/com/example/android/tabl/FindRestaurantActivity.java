@@ -49,10 +49,8 @@ import java.util.List;
  */
 
 /**
- * TODO: get location permissions from user
  * TODO: implement snapToLocation() on floatingActionButton
- * TODO: implement list of restaurants, including UI and populate() method.
- * TODO: implement list highlighting & map utilities.
+ * TODO: implement map utilities.
  * TODO: implement additional search method.
  * TODO: implement passing restaurant data to MenuActivity
  * TODO: clean up this class - currently setting up for dependency hell
@@ -66,12 +64,18 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
     private boolean dialogIsShowing = false;
     private Restaurant selectedRestaurant;
 
+    private SupportMapFragment mapFragment;
     private GoogleMap mMap;
     private LocationManager mLocationManager;
     private Location mCurrentLocation;
     private final static String KEY_LOCATION = "location";
     private final float DEFAULT_ZOOM = 16f;
 
+    /*
+     * Define a request code to send to Google Play services This code is
+     * returned in Activity.onActivityResult
+     */
+    private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,10 +90,17 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
             mCurrentLocation = savedInstanceState.getParcelable(KEY_LOCATION);
         }
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
-
+        mapFragment = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map));
+        if (mapFragment != null) {
+            mapFragment.getMapAsync(new OnMapReadyCallback() {
+                @Override
+                public void onMapReady(GoogleMap map) {
+                    loadMap(map);
+                }
+            });
+        } else {
+            TablUtils.errorMsg(recyclerView, "Error - map fragment was null");
+        }
 
         FloatingActionButton fab = findViewById(R.id.snapToLocationButton);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -103,16 +114,15 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(this, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {
-                        selectedRestaurant = restaurantList.get(position);
-                        selectedRestaurant.getMenuTitles();
-                        //pass menuTitles to menuactivity.
+                        restaurantList.get(position).getMenuTitles();
+                        //pass menuTitles to menuactivity
                         //preload favourites menu
                         callMenuActivity(view.getContext());
                     }
 
                     @Override public void onLongItemClick(View view, int position) {
                         //perhaps use this to display restaurant info/add to favourites?
-                        TablUtils.functionNotImplemented(view);
+                        TablUtils.functionNotImplemented(view, "maybe add to favourites?");
                     }
                 })
         );
@@ -126,12 +136,29 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
         prepRestaurantData();
     }
 
+    private void prepRestaurantData(){
+        //current implementation uses test data!
+        Restaurant resta;
+        for(int i=0; i<5; i++){
+            resta = new Restaurant(FindRestaurantActivity.this);
+            restaurantList.add(resta);
+        }
+        rAdapter.notifyDataSetChanged();
+    }
+
     //check if the user has location services on when returning to the application
     @Override
     protected void onStart() {
         super.onStart();
         mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         buildAlertMessageNoGps();
+    }
+
+    protected void loadMap(GoogleMap googleMap){
+        mMap = googleMap;
+        if (mMap != null) {
+
+        }
     }
 
     @Override
@@ -191,15 +218,7 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
         //mMap.moveCamera(CameraUpdateFactory.newLatLng(getUserLocation()));
     }
 
-    private void prepRestaurantData(){
-        //current implementation uses test data!
-        Restaurant resta;
-        for(int i=0; i<5; i++){
-            resta = new Restaurant(FindRestaurantActivity.this);
-            restaurantList.add(resta);
-        }
-        rAdapter.notifyDataSetChanged();
-    }
+
 
     //call next activity. Make sure to pass parcelable restaurant data.
     private void callMenuActivity(Context c) {
@@ -276,8 +295,7 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
     }
 
     //required to extend LocationListener
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-    }
+    public void onStatusChanged(String provider, int status, Bundle extras) { }
 
     public void onProviderEnabled(String provider) {
         buildAlertMessageNoGps();
