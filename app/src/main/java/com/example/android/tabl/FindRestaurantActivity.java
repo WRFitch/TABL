@@ -24,12 +24,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.android.tabl.location_utils.GetCompleteAddress;
-import com.example.android.tabl.restaurant_recyclerview.RecyclerItemClickListener;
+import com.example.android.tabl.utils.RecyclerItemClickListener;
 import com.example.android.tabl.restaurant_recyclerview.Restaurant;
 import com.example.android.tabl.restaurant_recyclerview.RestaurantsAdapter;
 import com.example.android.tabl.utils.TablUtils;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
