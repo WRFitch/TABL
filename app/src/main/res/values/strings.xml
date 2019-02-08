@@ -19,4 +19,13 @@
     <string name="title_activity_restaurant_map">Map</string>
     <string name="dist_miles">miles</string>
     <string name="dist_km">km</string>
+
+    <!--Basket Page Strings -->
+    <string name="text_basket">Basket</string>
+    <string name="text_location">Location</string>
+    <string name="button_proceed_to_payment">Proceed To Payment</string>
+    <string name="button_add_tip">Add Tip</string>
+    <string name="button_select_a_table">Select A Table</string>
+
+
 </resources>
