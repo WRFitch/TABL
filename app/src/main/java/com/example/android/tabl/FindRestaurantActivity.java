@@ -7,20 +7,16 @@ import android.content.pm.PackageManager;
 import android.Manifest;
 import android.location.Address;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +27,7 @@ import com.example.android.tabl.location_utils.GetCompleteAddress;
 import com.example.android.tabl.restaurant_recyclerview.RecyclerItemClickListener;
 import com.example.android.tabl.restaurant_recyclerview.Restaurant;
 import com.example.android.tabl.restaurant_recyclerview.RestaurantsAdapter;
+import com.example.android.tabl.utils.TablUtils;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -61,32 +58,25 @@ import java.util.List;
  * TODO: fix everything below the "george break"
  */
 
-public class FindRestaurantActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class FindRestaurantActivity extends AppCompatActivity implements OnMapReadyCallback, LocationListener {
 
     private List<Restaurant> restaurantList= new ArrayList<>();
     private RecyclerView recyclerView;
     private RestaurantsAdapter rAdapter;
-    private FusedLocationProviderClient mFusedLocationClient;
     private GoogleMap mMap;
     private Restaurant selectedRestaurant;
     private LocationManager mLocationManager;
     private boolean dialogIsShowing = false;
-    private float DEFAULT_ZOOM = 16f;
+    private final float DEFAULT_ZOOM = 16f;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_restaurant);
 
-        mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        buildAlertMessageNoGps();
-
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         FloatingActionButton fab = findViewById(R.id.snapToLocationButton);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -97,7 +87,6 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
         });
 
         recyclerView = findViewById(R.id.find_restaurant_recyView);
-        //itemTouchListener taken from stackoverflow - needs testing, though it works beautifully
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(this, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {
@@ -121,15 +110,23 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
         prepRestaurantData();
     }
 
+    //check if the user has location services on when returning to the application
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        buildAlertMessageNoGps();
+    }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        //set up map object & perms
         mMap = googleMap;
-
-        if (checkLocationPermission()) {
+        if (!checkLocationPermission()) {
             getLocation();
         }
 
-        //THIS IS IN SYDNEY
+        //set up map camera based on user location
         LatLng userLocation = new LatLng(-34, 151);
 
         //get nearby restaurants and mark on map
@@ -142,10 +139,11 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
     @SuppressLint("MissingPermission")
     public void getLocation() {
         // get location using both network and gps providers, no need for permission check as that is done before the method is called
-        //mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 100, 1000, this);
-        //mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100, 1000, this);
+        mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 100, 1000, this);
+        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100, 1000, this);
     }
 
+    //returns true if we have location permission
     private Boolean checkLocationPermission() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED
@@ -157,13 +155,9 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
                             Manifest.permission.ACCESS_COARSE_LOCATION},
                     1);
         } else {
-            return true;
+            return false;
         }
-        return false;
-    }
-
-    private LatLng getUserLocation(){
-        return null;
+        return true;
     }
 
     //This method is bad and I should be ashamed.
@@ -191,7 +185,7 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
         rAdapter.notifyDataSetChanged();
     }
 
-    //call next activity. Make sure to pass parcelable restaurant package.
+    //call next activity. Make sure to pass parcelable restaurant data.
     private void callMenuActivity(Context c) {
         Intent intent = new Intent(c, MenuActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -200,7 +194,7 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
 
     //from here on out there is only george code.
 
-    //
+    //alert dialog to get gps coordinates
     private void buildAlertMessageNoGps() {
         AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
         final AlertDialog alertDialog =  builder1.create();
@@ -255,9 +249,9 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
                 .position(currentLatlng)
                 .title("Your Location:")
                 .snippet(currentAddress.get(0).getAddressLine(0)));
-        //mMap.setInfoWindowAdapter(new CustomInfoAdapter(FindRestaurantActivity.this));
+        //mMap.setInfoWindowAdapter(new CustomInfoAdapter(FindRestaurantActivity.this));//what is this for?
         //need map marker
-        //currentLocationInfo.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.map_marker));
+        currentLocationInfo.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.black_close_exit_button));
         currentLocationInfo.showInfoWindow();
     }
 
@@ -265,8 +259,8 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
         updateMarker(location);
     }
 
+    //required to extend LocationListener
     public void onStatusChanged(String provider, int status, Bundle extras) {
-
     }
 
     public void onProviderEnabled(String provider) {
@@ -276,6 +270,5 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
 
     public void onProviderDisabled(String provider) {
         buildAlertMessageNoGps();
-
     }
 }

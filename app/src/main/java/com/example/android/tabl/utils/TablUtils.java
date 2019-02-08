@@ -1,8 +1,10 @@
-package com.example.android.tabl;
+package com.example.android.tabl.utils;
 
 
 import android.support.design.widget.Snackbar;
 import android.view.View;
+
+import com.example.android.tabl.R;
 
 /**
  * A class of utilities to be used across this application.

@@ -1,4 +1,4 @@
-package com.example.android.tabl;
+package com.example.android.tabl.utils;
 
 /**
  * Collection of network utilities for TABL.
@@ -8,7 +8,7 @@ package com.example.android.tabl;
 
 /**
  * TODO: implement JSON parser
- * TODO:
+ * TODO: implement test data
  */
 
 public class TablNetUtils {

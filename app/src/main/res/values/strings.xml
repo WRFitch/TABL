@@ -22,4 +22,5 @@
     <string name="dialog_info_text">Do you want this app to use your location? It can still function without if you use the search function.</string>
     <string name="cancel_dialog">Cancel</string>
     <string name="dialog_confirm_gps">OK</string>
+    <string name="remember_warning">TEST WARNING</string>
 </resources>

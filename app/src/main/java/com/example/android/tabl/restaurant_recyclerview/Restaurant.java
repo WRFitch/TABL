@@ -38,6 +38,7 @@ public class Restaurant {
         this.distanceFromUser = res.getString(R.string.default_distance) + " "
                 + res.getString(R.string.dist_miles);
         this.id = res.getString(R.string.default_id);
+        this.flags = res.getStringArray(R.array.menu_titles);
     }
 
     public Restaurant(String name, String id, String address, String distanceFromUser,

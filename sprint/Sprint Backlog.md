@@ -1,5 +1,7 @@
 # Sprint Backlog
 
+this includes everything on Fix List.md
+
 ## Organisation
   - Complete delegation - further define group options
 
@@ -38,6 +40,7 @@
 ## Design
 - Complete User Feedback on design, and implement changes
 - Test prototypes for user experience once completed
+- Find & import map marker 
 
 ## Testing
 - Define plans for testing.

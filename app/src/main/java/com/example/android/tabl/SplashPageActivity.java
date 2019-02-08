@@ -12,6 +12,7 @@ package com.example.android.tabl;
 /**
  * TODO: Refactor to fit SplashScreen - change to image fragment?
  * TODO: implement swipe to remove
+ * TODO: refactor for efficiency
  */
 
 import android.content.Context;
@@ -32,6 +33,8 @@ public class SplashPageActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_page);
+
+        //preload data for the FindRestaurantActivity - download d
         preloadMenuData();
 
         //wait x seconds, then load. delete this once next activity is implemented.
