@@ -8,39 +8,65 @@
 
 
     <ImageView
+        android:id="@+id/blacklackground"
         android:layout_width="426dp"
         android:layout_height="150dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="588dp"
         android:scaleType="centerCrop"
         android:src="@drawable/bg_header"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="-3dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.516"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="136dp"
+        android:layout_height="85dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="600dp"
         android:text="Basket"
         android:textColor="@color/white"
         android:textSize="40sp"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="38dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="600dp"
         android:text="Location"
         android:textColor="@color/white"
         android:textSize="22sp"
         tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="100dp" />
+        tools:layout_editor_absoluteY="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/imageView"
         android:layout_width="47dp"
         android:layout_height="48dp"
-        app:srcCompat="@drawable/exit_button"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp" />
-
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="676dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/exit_button" />
 
 
     <Button
@@ -50,8 +76,12 @@
         android:background="@color/lightThemeAccent"
         android:text="Proceed To Payment "
         android:textColor="@color/white"
+        tools:layout_editor_absoluteY="640dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteY="641dp" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
 
     <Button
         android:id="@+id/addtipbutton"
@@ -60,7 +90,11 @@
         android:background="@drawable/border_top_bottom"
         android:text="Add Tip"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="592dp" />
+        tools:layout_editor_absoluteY="592dp"
+        app:layout_constraintBottom_toTopOf="@+id/CheckoutButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <Button
         android:id="@+id/selecttable"
@@ -69,14 +103,26 @@
         android:background="@drawable/border_top_bottom"
         android:text="Select A Table "
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="543dp" />
+        tools:layout_editor_absoluteY="543dp"
+        app:layout_constraintBottom_toTopOf="@+id/addtipbutton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/basket_recyclerview"
         android:layout_width="395dp"
         android:layout_height="350dp"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="185dp" />
+        android:scrollbars="vertical"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="144dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:itemCount="9"
+
+        />
 
 
 </android.support.constraint.ConstraintLayout>
