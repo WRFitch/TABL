@@ -17,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,20 +63,33 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
     private List<Restaurant> restaurantList= new ArrayList<>();
     private RecyclerView recyclerView;
     private RestaurantsAdapter rAdapter;
-    private GoogleMap mMap;
-    private Restaurant selectedRestaurant;
-    private LocationManager mLocationManager;
     private boolean dialogIsShowing = false;
+    private Restaurant selectedRestaurant;
+
+    private GoogleMap mMap;
+    private LocationManager mLocationManager;
+    private Location mCurrentLocation;
+    private final static String KEY_LOCATION = "location";
     private final float DEFAULT_ZOOM = 16f;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_restaurant);
 
+        if(TextUtils.isEmpty(getResources().getString(R.string.google_maps_key))){
+            throw new IllegalStateException("no gmaps api key!");
+        }
+
+        if (savedInstanceState != null && savedInstanceState.keySet().contains(KEY_LOCATION)) {
+            mCurrentLocation = savedInstanceState.getParcelable(KEY_LOCATION);
+        }
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
 
         FloatingActionButton fab = findViewById(R.id.snapToLocationButton);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -90,6 +104,9 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
                 new RecyclerItemClickListener(this, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {
                         selectedRestaurant = restaurantList.get(position);
+                        selectedRestaurant.getMenuTitles();
+                        //pass menuTitles to menuactivity.
+                        //preload favourites menu
                         callMenuActivity(view.getContext());
                     }
 
@@ -177,7 +194,7 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
     private void prepRestaurantData(){
         //current implementation uses test data!
         Restaurant resta;
-        for(int i=0; i<20; i++){
+        for(int i=0; i<5; i++){
             resta = new Restaurant(FindRestaurantActivity.this);
             restaurantList.add(resta);
         }

@@ -24,8 +24,13 @@ public class TablNetUtils {
     }
 
     //define what radius and current location
-    public static int[] getNearbyRestaurants(){
-        return null;
+    public static String[] getNearbyRestaurants(){
+        String[] returnVal = null;
+        return returnVal;
     }
 
+    //define what radius and current location
+    public static String[] getNearbyRestaurants(int radius){
+        return null;
+    }
 }

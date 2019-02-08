@@ -8,7 +8,7 @@ If you've got some free time, try to fix one of these.
   - App is having trouble selecting the correct dpi to display images
    
 - google maps isn't displaying on physical phone
-  - app currently doesn't ask for location permissions, might be to do with that.  
+  - map activity crashes maybe 1/3 of the time?   
   
 - RecyclerItemClickListener.java has not been fully tested
 

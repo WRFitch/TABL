@@ -25,8 +25,8 @@ import android.widget.ImageView;
 
 public class SplashPageActivity extends AppCompatActivity{
 
+    //private parcel (parcel of data)
     private final int WAIT_VALUE = 10000;
-    //private Class NEXT_CLASS = FindRestaurantActivity.class;
     private boolean firedNext = false;
 
     @Override
@@ -57,8 +57,6 @@ public class SplashPageActivity extends AppCompatActivity{
                 finish();
             }
         });
-
-
     }
 
     private void callFindRestaurantActivity(Context c){
@@ -73,21 +71,9 @@ public class SplashPageActivity extends AppCompatActivity{
         callFindRestaurantActivity(v.getContext());
     }
 
-    //preloads menu data in preparation for next method.
+    //preloads menu data in preparation for next method, parcels them to be passed over
     private static void preloadMenuData(){
-        /**
-         * requirements:
-         * list of restaurants from nearby
-         */
 
-    }
 
-    public static void waitXMillis(int ms){
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                return;
-            }
-        }, ms);
     }
 }

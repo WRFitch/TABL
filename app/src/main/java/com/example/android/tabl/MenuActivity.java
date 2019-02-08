@@ -26,21 +26,22 @@ public class MenuActivity extends AppCompatActivity {
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                     switch (item.getItemId()){
                         case R.id.nav_more:
-                            //open MoreActivity
+                            // open MoreActivity
                             Intent moreIntent = new Intent(getApplicationContext(),
                                     MoreActivity.class);
                             moreIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(moreIntent);
                             break;
                         case R.id.nav_location:
-                            //go back to previous activity
-                            //downloaded data should be cached automatically, making any
-                            //method here unnecessary
+                            // go back to previous activity
+                            // downloaded data should be cached automatically, making any
+                            // caching method here unnecessary
                             finish();
                             break;
                         case R.id.nav_basket:
+                            // open BasketActivity
                             Intent basketIntent = new Intent(getApplicationContext(),
-                                    MoreActivity.class);
+                                    BasketActivity.class);
                             basketIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(basketIntent);
                             break;
