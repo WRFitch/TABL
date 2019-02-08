@@ -4,24 +4,67 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".MenuActivity">
 
+    <TextView
+        android:id="@+id/resnametextView"
+        android:layout_width="wrap_content"
+        android:layout_height="57dp"
+        android:background="@drawable/bg_header"
+        android:text="Bella Italia"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="2dp" />
+
+    <TextView
+        android:id="@+id/adrsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="21dp"
+        android:background="@drawable/bg_header"
+        android:text="10 High Street, Uxbridge"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/resnametextView" />
+
+    <ImageButton
+        android:id="@+id/filterbtn"
+        android:layout_width="64dp"
+        android:layout_height="37dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/filter_icon"
+        tools:background="@drawable/bg_header" />
+
+    <ListView
+        android:id="@+id/menu"
+        style="@style/Widget.AppCompat.ListView.Menu"
+        android:layout_width="395dp"
+        android:layout_height="589dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adrsTextView" />
+
+    <android.support.design.widget.BottomNavigationView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-
-        <TextView
-            android:id="@+id/mytext"
-            android:layout_width="412dp"
-            android:layout_height="wrap_content"
-            android:text="Menu"
-            android:textAlignment="center"
-            android:textSize="70dp"
-
-            />
-    </LinearLayout>
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:itemBackground="@color/lightThemeAccent"
+        app:itemTextColor="@color/white"
+        app:itemIconTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/bottom_navigation" />
 
 
 </android.support.constraint.ConstraintLayout>
