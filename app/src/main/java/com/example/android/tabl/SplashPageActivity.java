@@ -12,9 +12,12 @@ package com.example.android.tabl;
 /**
  * TODO: Refactor to fit SplashScreen - change to image fragment?
  * TODO: implement swipe to remove
+ * TODO: refactor for efficiency
  */
 
+import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -22,38 +25,52 @@ import android.widget.ImageView;
 
 public class SplashPageActivity extends AppCompatActivity{
 
+    private final int WAIT_VALUE = 10000;
+    //private Class NEXT_CLASS = FindRestaurantActivity.class;
+    private boolean firedNext = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_page);
 
+        //preload data for the FindRestaurantActivity - download d
+        preloadMenuData();
+
+        //wait x seconds, then load. delete this once next activity is implemented.
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(!firedNext) {
+                    callFindRestaurantActivity(SplashPageActivity.this);
+                    finish();
+                }
+            }
+        }, WAIT_VALUE);
 
         ImageView logo = findViewById(R.id.SplashPageLogo);
         logo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                callFindRestaurantActivity(v);
+                firedNext = true;
+                callFindRestaurantActivity(v.getContext());
+                finish();
             }
         });
 
-        preloadMenuData();
-        //wait 3 seconds, then load. delete this once next activity is implemented.
-        TablUtils.waitXMillis(3000);
-        callFindRestaurantActivity(logo); //this feels wrong
+
     }
 
-    private void callFindRestaurantActivity(View v){
+    private void callFindRestaurantActivity(Context c){
         //call next activity
-        Intent intent = new Intent(v.getContext(),
-                FindRestaurantActivity.class);
+        Intent intent = new Intent(c, FindRestaurantActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
-        //finish();
     }
 
-    //swipe to remove
-    private void onSwipe() {
-        //remove (duh)
+    //swipe to remove method - just call callFindRestaurantActivity(v);
+    private void onSwipe(View v) {
+        callFindRestaurantActivity(v.getContext());
     }
 
     //preloads menu data in preparation for next method.
@@ -63,5 +80,14 @@ public class SplashPageActivity extends AppCompatActivity{
          * list of restaurants from nearby
          */
 
+    }
+
+    public static void waitXMillis(int ms){
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                return;
+            }
+        }, ms);
     }
 }

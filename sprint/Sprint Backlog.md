@@ -1,14 +1,16 @@
 # Sprint Backlog
 
+this includes everything on Fix List.md
+
 ## Organisation
   - Complete delegation - further define group options
 
 ## App
 - Complete Splash Screen 
-  - import hi-res image 
+  - implement swiping to remove 
+  - implement preload 
 
 - Complete Map activity
-  - implement recyclerview controller
   - Define camera controls including floating button
   - Distribute API key so anybody can prototype the program.
 
@@ -38,6 +40,8 @@
 ## Design
 - Complete User Feedback on design, and implement changes
 - Test prototypes for user experience once completed
+- Find & import map marker 
 
 ## Testing
-- Define plans for testing.
+- write Unit tests for each activity
+- write espresso tests for each UI 

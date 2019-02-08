@@ -1,9 +1,10 @@
-package com.example.android.tabl;
+package com.example.android.tabl.utils;
 
 
-import android.os.Handler;
 import android.support.design.widget.Snackbar;
 import android.view.View;
+
+import com.example.android.tabl.R;
 
 /**
  * A class of utilities to be used across this application.
@@ -21,22 +22,11 @@ public class TablUtils {
                 .show();
     }
 
-    //get data re restaurant from server
-    public static String[] getRestaurantData(){
-        String[] returnVal = {
-
-        };
-
-
-        return null;
+    public static void functionNotImplemented(View view, String msg){
+        //this code will be useful in future for basically anything
+        Snackbar.make(view, msg + view.getContext().getString(R.string.todo),
+                Snackbar.LENGTH_LONG).setAction(R.string.todo, null)
+                .show();
     }
 
-    public static void waitXMillis(int ms){
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                return;
-            }
-        }, ms);
-    }
 }

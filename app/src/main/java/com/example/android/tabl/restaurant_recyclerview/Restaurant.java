@@ -1,5 +1,9 @@
 package com.example.android.tabl.restaurant_recyclerview;
 
+import android.content.Context;
+import android.content.res.Resources;
+
+import com.example.android.tabl.R;
 import com.google.android.gms.maps.model.LatLng;
 
 /**
@@ -11,23 +15,35 @@ import com.google.android.gms.maps.model.LatLng;
 /**
  * TODO: lighten class - too many variables
  * TODO: define class requirements better - can this be used for network processing?
+ *
  */
 
 public class Restaurant {
+
     private String name;
     private String id;
     private String address;
     private String[] flags;
-    private LatLng location;//find best location datatype to use
-    private int distanceFromUser;
+    private LatLng location; //find best location datatype to use
+    private String distanceFromUser;
 
     public Restaurant(){
     }
 
-    public Restaurant(String name, String id, String address,
+    //unfinished default constructor
+    public Restaurant(Context c){
+        Resources res = c.getResources();
+        this.name = res.getString(R.string.default_restaurant);
+        this.address = res.getString(R.string.default_addr);
+        this.distanceFromUser = res.getString(R.string.default_distance) + " "
+                + res.getString(R.string.dist_miles);
+        this.id = res.getString(R.string.default_id);
+        this.flags = res.getStringArray(R.array.menu_titles);
+    }
+
+    public Restaurant(String name, String id, String address, String distanceFromUser,
                       String[] flags,
-                      LatLng location,
-                      int distanceFromUser){
+                      LatLng location){
         this.name = name;
         this.id = id;
         this.address = address;
@@ -76,11 +92,26 @@ public class Restaurant {
         this.address = address;
     }
 
-    public int getDistanceFromUser() {
+    public String getDistanceFromUser() {
         return distanceFromUser;
     }
 
-    public void setDistanceFromUser(int distanceFromUser) {
+    public void setDistanceFromUser(String distanceFromUser) {
         this.distanceFromUser = distanceFromUser;
+    }
+
+    //debug ver - do not add to final app!
+    public String[] getMenuTitles(){
+        String[] returnVal = {
+
+        };
+        return returnVal;
+    }
+
+    public String[] getMenuTitles(String restaurantId){
+        String[] returnVal = {
+
+        };
+        return returnVal;
     }
 }

@@ -10,7 +10,6 @@ import com.example.android.tabl.R;
 
 import java.util.List;
 
-
 public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.MyViewHolder>{
 
     private List<Restaurant> restaurantsList;
@@ -34,7 +33,6 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.find_restaurant_list_item, parent, false);
-
         return new MyViewHolder(itemView);
     }
 
@@ -50,4 +48,6 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
     public int getItemCount() {
         return restaurantsList.size();
     }
+
+
 }
