@@ -15,10 +15,19 @@
     <string name="var_undefined">UNDEFINED</string>
     <string name="var_unavailable">(unavailable)</string>
 
-    <!-- FindRestaurantActivity Strings -->
+    <!-- FindRestaurantActivity Activity Strings -->
     <string name="title_activity_restaurant_map">Map</string>
     <string name="dist_miles">miles</string>
     <string name="dist_km">km</string>
+
+    <!--Basket Page Strings -->
+    <string name="text_basket">Basket</string>
+    <string name="text_location">Location</string>
+    <string name="button_proceed_to_payment">Proceed To Payment</string>
+    <string name="button_add_tip">Add Tip</string>
+    <string name="button_select_a_table">Select A Table</string>
+
+
     <string name="dialog_info_text">Do you want this app to use your location? It can still function without if you use the search function.</string>
     <string name="cancel_dialog">Cancel</string>
     <string name="dialog_confirm_gps">OK</string>

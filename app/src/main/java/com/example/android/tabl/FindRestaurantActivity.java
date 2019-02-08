@@ -55,7 +55,8 @@ import java.util.List;
  * TODO: implement list of restaurants, including UI and populate() method.
  * TODO: implement list highlighting & map utilities.
  * TODO: implement additional search method.
- * TODO: fix everything below the "george break"
+ * TODO: implement passing restaurant data to MenuActivity
+ * TODO: clean up this class - currently setting up for dependency hell
  */
 
 public class FindRestaurantActivity extends AppCompatActivity implements OnMapReadyCallback, LocationListener {
