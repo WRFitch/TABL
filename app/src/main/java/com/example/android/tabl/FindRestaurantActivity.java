@@ -6,25 +6,22 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.Manifest;
 import android.location.Address;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AlertDialog;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
-import android.text.method.LinkMovementMethod;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.TextView;
 
+import com.example.android.tabl.location_utils.CustomInfoAdapter;
 import com.example.android.tabl.location_utils.GetCompleteAddress;
 import com.example.android.tabl.utils.RecyclerItemClickListener;
 import com.example.android.tabl.restaurant_recyclerview.Restaurant;
@@ -55,6 +52,8 @@ import java.util.List;
  * TODO: implement additional search method in appbar.
  * TODO: implement passing restaurant data to MenuActivity
  * TODO: clean up this class - currently setting up for dependency hell
+ * TODO: fix getLocation
+ * TODO:
  */
 
 public class FindRestaurantActivity extends AppCompatActivity implements OnMapReadyCallback, LocationListener {
@@ -73,6 +72,8 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
 
     private boolean dialogIsShowing = false;
     private Restaurant selectedRestaurant;
+    private Criteria criteria;
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
 
     /*
      * Define a request code to send to Google Play services This code is
@@ -158,14 +159,12 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
     protected void loadMap(GoogleMap googleMap){
         mMap = googleMap;
         if (checkLocationPermission()) {
-            getLocation();
+            //getLocation();
         }
 
-
-        LatLng sydneyTest = new LatLng(-34, 151);
+        LatLng sydneyTest = new LatLng(31, 31);
         mMap.addMarker(new MarkerOptions().position(sydneyTest).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydneyTest));
-        //getUserLocation(mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER));
     }
 
     @Override
@@ -180,9 +179,16 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
         mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100, 1000, this);
     }
 
-    public void getUserLocation(Location currentLocation){
-        LatLng currentLatLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, DEFAULT_ZOOM));
+    public Location getCurrentLocation(){
+        criteria = new Criteria();
+        return null;//mLocationManager.getLastKnownLocation(mLocationManager.getBestProvider(criteria, true));
+    }
+
+    @SuppressLint("MissingPermission")
+    public void getUserLocation(){
+        Location currentLocation = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        LatLng currentLatlng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatlng, DEFAULT_ZOOM));
     }
 
     //returns true if we have location permission. would be more robust if returned false.
@@ -202,8 +208,8 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
         return true;
     }
 
-    private void snapToCurrentLocation(View view){
-        TablUtils.functionNotImplemented(view);
+    private void snapToCurrentLocation(View v){
+        TablUtils.errorMsg(v, "not implemented");
     }
 
     public void updateMarker(Location currentLocation) {
