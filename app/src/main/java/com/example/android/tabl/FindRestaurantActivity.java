@@ -22,6 +22,7 @@ import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.android.tabl.location_utils.GetCompleteAddress;
@@ -50,8 +51,8 @@ import java.util.List;
 
 /**
  * TODO: implement snapToLocation() on floatingActionButton
- * TODO: implement map utilities.
- * TODO: implement additional search method.
+ * TODO: implement/update map utilities.
+ * TODO: implement additional search method in appbar.
  * TODO: implement passing restaurant data to MenuActivity
  * TODO: clean up this class - currently setting up for dependency hell
  */
@@ -61,8 +62,7 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
     private List<Restaurant> restaurantList= new ArrayList<>();
     private RecyclerView recyclerView;
     private RestaurantsAdapter rAdapter;
-    private boolean dialogIsShowing = false;
-    private Restaurant selectedRestaurant;
+    private FloatingActionButton fab;
 
     private SupportMapFragment mapFragment;
     private GoogleMap mMap;
@@ -70,6 +70,9 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
     private Location mCurrentLocation;
     private final static String KEY_LOCATION = "location";
     private final float DEFAULT_ZOOM = 16f;
+
+    private boolean dialogIsShowing = false;
+    private Restaurant selectedRestaurant;
 
     /*
      * Define a request code to send to Google Play services This code is
@@ -102,7 +105,7 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
             TablUtils.errorMsg(recyclerView, "Error - map fragment was null");
         }
 
-        FloatingActionButton fab = findViewById(R.id.snapToLocationButton);
+        fab = findViewById(R.id.snapToLocationButton);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -117,7 +120,7 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
                         restaurantList.get(position).getMenuTitles();
                         //pass menuTitles to menuactivity
                         //preload favourites menu
-                        callMenuActivity(view.getContext());
+                        callMenuActivity(getApplicationContext());
                     }
 
                     @Override public void onLongItemClick(View view, int position) {
@@ -137,7 +140,7 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
     }
 
     private void prepRestaurantData(){
-        //current implementation uses test data!
+        //current implementation uses test data! something like i->getCachedRestaurants
         Restaurant resta;
         for(int i=0; i<5; i++){
             resta = new Restaurant(FindRestaurantActivity.this);
@@ -203,19 +206,8 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
         return true;
     }
 
-    //This method is bad and I should be ashamed.
-    //consider implementing point focus if required
     private void snapToCurrentLocation(View view){
-        //CameraUpdate currentLocation = mMap.get;
-
-        /*
-        Location l = mFusedLocationClient.getLastLocation();
-        LatLng currentLocation = new LatLng(mFusedLocationClient.getLastLocation());
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 0));
-        */
-
         TablUtils.functionNotImplemented(view);
-        //mMap.moveCamera(CameraUpdateFactory.newLatLng(getUserLocation()));
     }
 
 
@@ -229,8 +221,9 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
 
     //from here on out there is only george code.
 
-    //alert dialog to get gps coordinates
+    //alert dialog to get gps coordinates. Might be removable?
     private void buildAlertMessageNoGps() {
+        /*
         AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
         final AlertDialog alertDialog =  builder1.create();
         LayoutInflater layoutInflater = LayoutInflater.from(this);
@@ -272,7 +265,7 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
             alertDialog.show();
             dialogIsShowing = true;
         }
-
+        */
     }
 
     public void updateMarker(Location currentLocation) {

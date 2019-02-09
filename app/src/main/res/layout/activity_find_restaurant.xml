@@ -19,6 +19,20 @@
     tools:showIn="@layout/activity_find_restaurant"
     tools:context=".FindRestaurantActivity">
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/snapToLocationButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:backgroundTint="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="@+id/map"
+        app:layout_constraintEnd_toEndOf="@+id/map"
+        app:srcCompat="@drawable/debug_location_icon" />
+
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
@@ -32,20 +46,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        app:layout_constraintHeight_percent="0.7"/>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/snapToLocationButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="16dp"
-        android:clickable="true"
-        android:focusable="true"
-        app:layout_constraintBottom_toBottomOf="@+id/map"
-        app:layout_constraintEnd_toEndOf="@+id/map"
-        app:srcCompat="@drawable/debug_location_icon" />
+        app:layout_constraintHeight_percent="0.75"/>
 
     <!-- update to adaptively change listview height (or don't) -->
     <android.support.v7.widget.RecyclerView
@@ -62,11 +63,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintHeight_percent="0.3">
-
-        <!-- populate with composite views that are populated from servers -->
-        <!-- may need its own wrapper class/XML -->
-
+        app:layout_constraintHeight_percent="0.25">
     </android.support.v7.widget.RecyclerView>
 
 </android.support.constraint.ConstraintLayout>

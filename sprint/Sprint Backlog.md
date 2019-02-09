@@ -12,7 +12,7 @@ this includes everything on Fix List.md
 
 - Complete Map activity
   - Define camera controls including floating button
-  - Distribute API key so anybody can prototype the program.
+  - add button that toggles between focus on maps or list
 
 - Complete Menu Activity
   - Implement custom view
