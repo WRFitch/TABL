@@ -131,6 +131,13 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
         prepRestaurantData();
     }
 
+    //call next activity. Make sure to pass parcelable restaurant data.
+    private void callMenuActivity(Context c) {
+        Intent intent = new Intent(c, MenuActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+    }
+
     private void prepRestaurantData(){
         //current implementation uses test data! something like i->getCachedRestaurants
         Restaurant resta;
@@ -146,22 +153,19 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
     protected void onStart() {
         super.onStart();
         mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        buildAlertMessageNoGps();
     }
 
     protected void loadMap(GoogleMap googleMap){
         mMap = googleMap;
-        if (!checkLocationPermission()) {
-            //getLocation();
+        if (checkLocationPermission()) {
+            getLocation();
         }
 
-        //set up map camera based on user location
-        LatLng userLocation = new LatLng(-34, 151);
 
-        //get nearby restaurants and mark on map
-        mMap.addMarker(new MarkerOptions().position(userLocation).title("Marker in Sydney"));
-
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(userLocation));
+        LatLng sydneyTest = new LatLng(-34, 151);
+        mMap.addMarker(new MarkerOptions().position(sydneyTest).title("Marker in Sydney"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydneyTest));
+        //getUserLocation(mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER));
     }
 
     @Override
@@ -172,16 +176,16 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
     @SuppressLint("MissingPermission")
     public void getLocation() {
         // get location using both network and gps providers, no need for permission check as that is done before the method is called
-        mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 100, 1000, this);
+        //mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 100, 1000, this);
         mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100, 1000, this);
     }
 
     public void getUserLocation(Location currentLocation){
-        LatLng currentLatlng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatlng, DEFAULT_ZOOM));
+        LatLng currentLatLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, DEFAULT_ZOOM));
     }
 
-    //returns true if we have location permission
+    //returns true if we have location permission. would be more robust if returned false.
     private Boolean checkLocationPermission() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED
@@ -202,90 +206,23 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
         TablUtils.functionNotImplemented(view);
     }
 
-
-
-    //call next activity. Make sure to pass parcelable restaurant data.
-    private void callMenuActivity(Context c) {
-        Intent intent = new Intent(c, MenuActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-    }
-
-    //alert dialog to get gps coordinates. Might be removable?
-    private void buildAlertMessageNoGps() {
-        /*
-        AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
-        final AlertDialog alertDialog =  builder1.create();
-        LayoutInflater layoutInflater = LayoutInflater.from(this);
-        View promptView = layoutInflater.inflate(R.layout.gps_confirmation_dialog, null);
-
-        alertDialog.setTitle("GPS permissions needed");
-        alertDialog.setCancelable(false);
-
-        final TextView confirmGpsMessage = (TextView) promptView.findViewById(R.id.gps_confirm_txt);
-        confirmGpsMessage.requestFocus();
-        confirmGpsMessage.setMovementMethod(LinkMovementMethod.getInstance());
-        Button confirmGpsButton = (Button)promptView.findViewById(R.id.confirm_gps_btn);
-        Button denyGpsButton = (Button) promptView.findViewById(R.id.deny_gps_btn);
-
-        confirmGpsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                alertDialog.dismiss();
-                dialogIsShowing = false;
-                Intent callGPSSettingIntent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                startActivity(callGPSSettingIntent);
-            }
-        });
-        denyGpsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                alertDialog.dismiss();
-                dialogIsShowing = false;
-                finish();
-            }
-        });
-
-        //prevent multiple alert boxes stacking on top of each other
-        if(dialogIsShowing)
-            return;
-        //only show the dialog if gps is not enabled
-        if (!mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            alertDialog.setView(promptView);
-            alertDialog.show();
-            dialogIsShowing = true;
-        }
-        */
-    }
-
     public void updateMarker(Location currentLocation) {
         LatLng currentLatlng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatlng, DEFAULT_ZOOM));
-        List<Address> currentAddress = new GetCompleteAddress(currentLocation, this).getAddress();
-
-        Marker currentLocationInfo = mMap.addMarker(new MarkerOptions()
-                .position(currentLatlng)
-                .title("Your Location:")
-                .snippet(currentAddress.get(0).getAddressLine(0)));
-        //mMap.setInfoWindowAdapter(new CustomInfoAdapter(FindRestaurantActivity.this));//what is this for?
-        //need map marker
-        currentLocationInfo.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.black_close_exit_button));
-        currentLocationInfo.showInfoWindow();
     }
 
     public void onLocationChanged(Location location) {
         updateMarker(location);
     }
 
-    //required to extend LocationListener
-    public void onStatusChanged(String provider, int status, Bundle extras) {}
+    public void onStatusChanged(String provider, int status, Bundle extras){}
 
     public void onProviderEnabled(String provider) {
-        buildAlertMessageNoGps();
+        if(checkLocationPermission())
         getLocation();
     }
 
     public void onProviderDisabled(String provider) {
-        buildAlertMessageNoGps();
+        checkLocationPermission();
     }
 }
