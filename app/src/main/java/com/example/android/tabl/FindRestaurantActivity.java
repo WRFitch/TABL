@@ -85,25 +85,17 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_restaurant);
 
-        if(TextUtils.isEmpty(getResources().getString(R.string.google_maps_key))){
-            throw new IllegalStateException("no gmaps api key!");
-        }
-
         if (savedInstanceState != null && savedInstanceState.keySet().contains(KEY_LOCATION)) {
             mCurrentLocation = savedInstanceState.getParcelable(KEY_LOCATION);
         }
 
         mapFragment = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map));
-        if (mapFragment != null) {
-            mapFragment.getMapAsync(new OnMapReadyCallback() {
-                @Override
-                public void onMapReady(GoogleMap map) {
-                    loadMap(map);
-                }
-            });
-        } else {
-            TablUtils.errorMsg(recyclerView, "Error - map fragment was null");
-        }
+        mapFragment.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(GoogleMap map) {
+                loadMap(map);
+            }
+        });
 
         fab = findViewById(R.id.snapToLocationButton);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -159,17 +151,8 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
 
     protected void loadMap(GoogleMap googleMap){
         mMap = googleMap;
-        if (mMap != null) {
-
-        }
-    }
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        //set up map object & perms
-        mMap = googleMap;
         if (!checkLocationPermission()) {
-            getLocation();
+            //getLocation();
         }
 
         //set up map camera based on user location
@@ -179,7 +162,11 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
         mMap.addMarker(new MarkerOptions().position(userLocation).title("Marker in Sydney"));
 
         mMap.moveCamera(CameraUpdateFactory.newLatLng(userLocation));
+    }
 
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+       loadMap(googleMap);
     }
 
     @SuppressLint("MissingPermission")
@@ -187,6 +174,11 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
         // get location using both network and gps providers, no need for permission check as that is done before the method is called
         mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 100, 1000, this);
         mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100, 1000, this);
+    }
+
+    public void getUserLocation(Location currentLocation){
+        LatLng currentLatlng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatlng, DEFAULT_ZOOM));
     }
 
     //returns true if we have location permission
@@ -218,8 +210,6 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
-
-    //from here on out there is only george code.
 
     //alert dialog to get gps coordinates. Might be removable?
     private void buildAlertMessageNoGps() {
@@ -288,7 +278,7 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
     }
 
     //required to extend LocationListener
-    public void onStatusChanged(String provider, int status, Bundle extras) { }
+    public void onStatusChanged(String provider, int status, Bundle extras) {}
 
     public void onProviderEnabled(String provider) {
         buildAlertMessageNoGps();
