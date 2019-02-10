@@ -36,7 +36,7 @@
         <activity android:name=".BasketActivity"
             android:label="Basket"/>
         <activity android:name=".CheckoutActivity"
-            android:label="Select Table"/>
+            android:label="Ongoing Order"/>
 
         <!-- utility views -->
         <activity android:name=".MoreActivity"
