@@ -1,43 +1,49 @@
 package com.example.android.tabl;
 
+import android.app.LauncherActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 
+import java.util.ArrayList;
+import java.util.List;
 public class SelectTableActivity extends AppCompatActivity {
 
-    listView listView;
+
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter adapter;
+
+    private List<LauncherActivity.ListItem> listItems;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_table);
 
-        listView=(ListView)findViewById(R.id.listView);
 
-        ArrayList<String> arrayList=new ArrayList<>();
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        arrayList.add("Table 1");
-        arrayList.add("Table 2");
-        arrayList.add("Table 3");
-        arrayList.add("Table 4");
-        arrayList.add("Table 5");
-        arrayList.add("Table 6");
-        arrayList.add("Table 7");
-        arrayList.add("Table 8");
-        arrayList.add("Table 9");
-        arrayList.add("Table 10");
-        arrayList.add("Table 11");
-        arrayList.add("Table 12");
+        listItems = new ArrayList<>();
 
+        for (int i = 0; i < 10; i++) ;{
+            ListItem listItem= new ListItem(
+                        "Heading"+ (i+1),
+                        "Lorem ipsum dummy text"
+            );
 
-        ArrayAdapter arrayAdapter=new ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayList);
+             listItems.add(listItem);
 
-        listView.setAdapter(arrayAdapter);
+             adapter = new Adapter(listItems, this);
 
-        listView.setOnItemClickListener(new AdapterView.setOnItemClickListner() {
+             recyclerView.setAdapter(adapter);
 
         }
-
     }
 }
