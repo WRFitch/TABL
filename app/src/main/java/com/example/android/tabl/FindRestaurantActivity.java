@@ -141,14 +141,11 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
 
     protected void loadMap(GoogleMap googleMap){
         mMap = googleMap;
-        if (!checkLocationPermission()) {
+        if (checkLocationPermission()) {
             getLocation();
         }
 
-        LatLng sydneyTest = new LatLng(31, 31);
-        mMap.addMarker(new MarkerOptions().position(sydneyTest).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydneyTest));
-        //mMap.moveCamera(Came);
+        getUserLocation();
     }
 
     @Override
@@ -161,11 +158,6 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
         // get location using both network and gps providers, no need for permission check as that is done before the method is called
         mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 100, this);
         mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 100, this);
-    }
-
-    public Location getCurrentLocation(){
-        //criteria = new Criteria();
-        return null;//mLocationManager.getLastKnownLocation(mLocationManager.getBestProvider(criteria, true));
     }
 
     @SuppressLint("MissingPermission")
