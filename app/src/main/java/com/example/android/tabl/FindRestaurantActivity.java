@@ -141,13 +141,14 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
 
     protected void loadMap(GoogleMap googleMap){
         mMap = googleMap;
-        if (checkLocationPermission()) {
-            //getLocatin();
+        if (!checkLocationPermission()) {
+            getLocation();
         }
 
         LatLng sydneyTest = new LatLng(31, 31);
         mMap.addMarker(new MarkerOptions().position(sydneyTest).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydneyTest));
+        //mMap.moveCamera(Came);
     }
 
     @Override
@@ -158,8 +159,8 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
     @SuppressLint("MissingPermission")
     public void getLocation() {
         // get location using both network and gps providers, no need for permission check as that is done before the method is called
-        mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 100, 1000, this);
-        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100, 1000, this);
+        mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 100, this);
+        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 100, this);
     }
 
     public Location getCurrentLocation(){
@@ -169,9 +170,10 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
 
     @SuppressLint("MissingPermission")
     public void getUserLocation(){
+        //edit this to prefer gps then use network if insufficient
         Location currentLocation = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        LatLng currentLatlng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatlng, DEFAULT_ZOOM));
+        LatLng currentLatLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, DEFAULT_ZOOM));
     }
 
     //returns true if we have location permission. would be more robust if returned false.
@@ -192,7 +194,8 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
     }
 
     private void snapToCurrentLocation(View v){
-        TablUtils.errorMsg(v, "not implemented");
+        TablUtils.errorMsg(v, "half-implemented");
+        getUserLocation();
     }
 
     public void updateMarker(Location currentLocation) {
