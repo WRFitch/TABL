@@ -4,59 +4,14 @@
 
 For each item on the TODO list, open a separate branch, implement the function, then merge when you're done. This should prevent any major merge conflicts and keep us delivering a testable app. The main branch of this repository should be the most polished version, any work in progress should be confined to its own branch until it is implemented and tested. See Contributing.md for details. 
 
-[UI prototype](https://xd.adobe.com/view/0069b308-7ea3-4e31-4792-87b468c2fb61-7658/)
+[UI prototype](https://xd.adobe.com/view/0c960684-092a-4486-4bf5-192b4e8bfabb-7aa7/)
 
 #### TODO (Android Application) 
+See sprint/Sprint2.md
 
-##### Priority
-- implement startpage 
-  - add functionality to floating action button
-  - add functionality to map view
-  - implement custom widget for menu items
-  - implement recyclerview
-  - implement functionality for menu widgets
-  - implement searchbar
-- refine design
-- research Firestore system 
-  - understand Firebase NoSQL through prototyping (check [this tutorial](https://www.youtube.com/watch?v=988UZFB0heA) for practice if required)
-  - replace firebase with relational model if necessary, and find appropriate hosting solution using university resources or outside help. 
-- update TODO
-=======
-##### Organisation
-- organise TODO
-  - Sprint backlog
-  - Sprint current issues
-
-##### Design
-- update UI design based on feedback (tip under qr button, detailed item view/click outside item, set item quantity, possible issues with "sliding" type ui & android activity stack)
-- add user flow to design doc 
-- update prototype to fit UI design, including importing assets
-- implement slider menu test - how will it work?
-- implement different button designs
-
-##### Frontend Development 
-- implement basic prerequisites
-  - AdapterView list items for Menus and Restaurants
-  - import UI data such as colors and resources
-- implement restaurant finder Activity 
-  - consider preloading menu data in "high-data mode" 
-  - custom TABL qr codes could be branded 
-- implement menu Activity 
-  - Implement slider menu design - slide along the row or use basic scroll wheel
-  - consider swiping right to add item to order
-  - consider swiping left to add to favourites 
-- implement item detail view activity 
-  - consider working with item detail as a composite view superimposed on current screen
-- implement basket activity 
-- implement payment activity 
-- implement options/settings activity 
-
-##### Backend Development 
-- define backend structure - Firebase seems most logical option 
-- learn how firebase works
-- import data into firebase & test functionality. 
-
-##### Testing 
-- write JUnit tests for logic 
-- write Espresso tests for UI 
-- test UI and functionality with users 
+#### Weekly Plan
+Monday - Meeting @ 11
+       - Work session after meeting
+Tuesday - App development session 10-1
+Thursday - App Development session 2-5
+Friday - CS2005 Design Lab

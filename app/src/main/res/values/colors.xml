@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!-- TODO
-    shorten theme name convention if possible
-    finalise custom themes
-    implement text colors
-    -->
+<!-- TODO: shorten theme name convention if possible
+     TODO: finalise custom themes
+     TODO: implement text colors
+ -->
 
 <resources>
     <!-- light theme colours -->
-    <color name="lightThemePrimary">#000000</color>
-    <color name="lightThemeSecondary">#222222</color>
-    <color name="lightThemeAccent">#BB2B51</color>
+    <color name="colorPrimary">#000000</color>
+    <color name="colorPrimaryDark">#222222</color>
+    <color name="colorAccentDark">#BB2B51</color>
+    <color name="colorAccent">#F12C52</color>
+    <color name="white">#FFF</color>
+    <color name="grey">#707070</color>
 
     <!-- dark theme colors -->
 </resources>
