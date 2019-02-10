@@ -42,6 +42,7 @@
         <activity android:name=".MoreActivity"
             android:label="More"/>
         <activity android:name=".PastOrdersActivity"
+            android:exported="true"
             android:label="Past Orders"/>
 
         <!-- if you're getting an error here, ask Will for the API key

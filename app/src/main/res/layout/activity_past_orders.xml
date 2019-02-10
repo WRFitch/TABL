@@ -41,59 +41,28 @@
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="38dp"
+        android:layout_height="26dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="612dp"
         android:text="This Week:"
         android:textColor="@color/colorPrimary"
         android:textSize="23sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.028"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="395dp"
-        android:layout_height="264dp"
-        android:layout_marginBottom="92dp"
-        android:scrollbars="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:itemCount="9"
-        tools:listitem="@layout/recycler_view_item" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="38dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="356dp"
-        android:text="Older:"
-        android:textColor="@color/colorPrimary"
-        android:textSize="23sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
-
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.132" />
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="395dp"
-        android:layout_height="177dp"
-        android:layout_marginBottom="432dp"
-        android:scrollbars="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:itemCount="9"
-        tools:listitem="@layout/recycler_view_item" />
+        android:layout_height="206dp"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="161dp" />
+
 
 </android.support.constraint.ConstraintLayout>
