@@ -97,7 +97,7 @@
         app:layout_constraintStart_toStartOf="parent"/>
 
     <Button
-        android:id="@+id/selecttable"
+        android:id="@+id/selectTable"
         android:layout_width="427dp"
         android:layout_height="wrap_content"
         android:background="@drawable/border_top_bottom"
