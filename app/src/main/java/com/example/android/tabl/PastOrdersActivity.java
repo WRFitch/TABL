@@ -14,5 +14,7 @@ public class PastOrdersActivity extends AppCompatActivity {
         this.getSupportActionBar().setTitle("Past Orders");
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         this.getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_close);
+
+        //
     }
 }
