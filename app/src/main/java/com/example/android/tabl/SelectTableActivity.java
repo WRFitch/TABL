@@ -10,6 +10,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 
+import com.example.android.tabl.table_recyclerview.TableItem;
+
 import java.util.ArrayList;
 import java.util.List;
 public class SelectTableActivity extends AppCompatActivity {
@@ -18,7 +20,7 @@ public class SelectTableActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
 
-    private List<LauncherActivity.ListItem> listItems;
+    private List<TableItem> listItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,17 +32,14 @@ public class SelectTableActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        listItems = new ArrayList<>();
+        listItems = new ArrayList<TableItem>();
 
-        for (int i = 0; i < 10; i++) ;{
-            ListItem listItem= new ListItem(
-                        "Heading"+ (i+1),
-                        "Lorem ipsum dummy text"
-            );
+        for (int testInt = 0; testInt < 10; testInt++) ;{
+            TableItem tableItem = new TableItem("Heading" + Integer.toString(testInt+1));
 
-             listItems.add(listItem);
+             listItems.add(tableItem);
 
-             adapter = new Adapter(listItems, this);
+             //adapter = new Adapter(listItems, this);
 
              recyclerView.setAdapter(adapter);
 
