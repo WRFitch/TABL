@@ -124,10 +124,8 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
 
     private void prepRestaurantData(){
         //current implementation uses test data! something like i->getCachedRestaurants
-        Restaurant resta;
         for(int i=0; i<5; i++){
-            resta = new Restaurant(FindRestaurantActivity.this);
-            restaurantList.add(resta);
+            restaurantList.add(new Restaurant(FindRestaurantActivity.this));
         }
         rAdapter.notifyDataSetChanged();
     }

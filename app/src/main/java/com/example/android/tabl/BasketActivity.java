@@ -26,6 +26,16 @@ public class BasketActivity extends AppCompatActivity {
             }
         });
 
+        selectTableButton = findViewById(R.id.selectTable);
+        selectTableButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), SelectTableActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+        });
+
         // selectTableButton will open SelectTableActivity
         selectTableButton = (Button) findViewById(R.id.selectTableButton);
         selectTableButton.setOnClickListener(new View.OnClickListener() {
