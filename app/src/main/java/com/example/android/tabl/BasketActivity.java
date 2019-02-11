@@ -8,13 +8,14 @@ import android.widget.Button;
 
 public class BasketActivity extends AppCompatActivity {
 
-    private Button checkoutButton;
+    private Button checkoutButton, selectTableButton, addTipButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_basket);
 
+        // checkoutbutton will proceed to checkoutActivity (ongoing order)
         checkoutButton = findViewById(R.id.CheckoutButton);
         checkoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -24,5 +25,7 @@ public class BasketActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
     }
 }
