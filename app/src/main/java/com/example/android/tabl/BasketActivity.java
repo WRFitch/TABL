@@ -15,7 +15,7 @@ public class BasketActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_basket);
 
-        // checkoutbutton will proceed to checkoutActivity (ongoing order)
+        // checkoutbutton will open checkoutActivity
         checkoutButton = findViewById(R.id.CheckoutButton);
         checkoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -26,7 +26,7 @@ public class BasketActivity extends AppCompatActivity {
             }
         });
 
-        // wefsfwe
+        // selectTableButton will open SelectTableActivity
         selectTableButton = (Button) findViewById(R.id.selectTableButton);
         selectTableButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -34,6 +34,16 @@ public class BasketActivity extends AppCompatActivity {
                 startActivity(new Intent(BasketActivity.this, SelectTableActivity.class));
             }
         });
+
+        // triggers a dialog box to appear to edit tip amount
+        addTipButton = (Button) findViewById(R.id.addTipButton);
+        addTipButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // code to open dialog box HERE
+            }
+        });
+
 
     }
 }
