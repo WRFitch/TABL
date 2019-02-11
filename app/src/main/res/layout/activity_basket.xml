@@ -82,7 +82,7 @@
 
 
     <Button
-        android:id="@+id/addtipbutton"
+        android:id="@+id/addTipButton"
         android:layout_width="412dp"
         android:layout_height="wrap_content"
         android:background="@drawable/border_top_bottom"
@@ -97,32 +97,31 @@
         app:layout_constraintStart_toStartOf="parent"/>
 
     <Button
-        android:id="@+id/selecttable"
+        android:id="@+id/selectTable"
         android:layout_width="427dp"
         android:layout_height="wrap_content"
         android:background="@drawable/border_top_bottom"
-        android:text="@string/button_select_a_table"
         android:clickable="true"
         android:focusable="true"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="543dp"
-        app:layout_constraintBottom_toTopOf="@+id/addtipbutton"
+        android:text="@string/button_select_a_table"
+        app:layout_constraintBottom_toTopOf="@+id/addTipButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/basket_recyclerview"
         android:layout_width="395dp"
         android:layout_height="350dp"
+        android:layout_marginTop="8dp"
         android:layout_marginBottom="224dp"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
 
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/blacklackground"
+        app:layout_constraintVertical_bias="1.0"
         tools:itemCount="9" />
 
 
