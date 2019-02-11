@@ -5,24 +5,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.Manifest;
-import android.location.Address;
-import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.example.android.tabl.location_utils.CustomInfoAdapter;
-import com.example.android.tabl.location_utils.GetCompleteAddress;
 import com.example.android.tabl.utils.RecyclerItemClickListener;
 import com.example.android.tabl.restaurant_recyclerview.Restaurant;
 import com.example.android.tabl.restaurant_recyclerview.RestaurantsAdapter;
@@ -31,9 +25,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
@@ -70,16 +62,7 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
     private final static String KEY_LOCATION = "location";
     private final float DEFAULT_ZOOM = 16f;
 
-    private boolean dialogIsShowing = false;
     private Restaurant selectedRestaurant;
-    private Criteria criteria;
-    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
-
-    /*
-     * Define a request code to send to Google Play services This code is
-     * returned in Activity.onActivityResult
-     */
-    private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -159,12 +142,10 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
     protected void loadMap(GoogleMap googleMap){
         mMap = googleMap;
         if (checkLocationPermission()) {
-            //getLocation();
+            getLocation();
         }
 
-        LatLng sydneyTest = new LatLng(31, 31);
-        mMap.addMarker(new MarkerOptions().position(sydneyTest).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydneyTest));
+        getUserLocation();
     }
 
     @Override
@@ -175,20 +156,16 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
     @SuppressLint("MissingPermission")
     public void getLocation() {
         // get location using both network and gps providers, no need for permission check as that is done before the method is called
-        //mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 100, 1000, this);
-        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100, 1000, this);
-    }
-
-    public Location getCurrentLocation(){
-        criteria = new Criteria();
-        return null;//mLocationManager.getLastKnownLocation(mLocationManager.getBestProvider(criteria, true));
+        mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 100, this);
+        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 100, this);
     }
 
     @SuppressLint("MissingPermission")
     public void getUserLocation(){
+        //edit this to prefer gps then use network if insufficient
         Location currentLocation = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        LatLng currentLatlng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatlng, DEFAULT_ZOOM));
+        LatLng currentLatLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, DEFAULT_ZOOM));
     }
 
     //returns true if we have location permission. would be more robust if returned false.
@@ -199,8 +176,8 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
                 != PackageManager.PERMISSION_GRANTED)
         {
             ActivityCompat.requestPermissions(this, new String[]
-                    {Manifest.permission.ACCESS_FINE_LOCATION,
-                            Manifest.permission.ACCESS_COARSE_LOCATION},
+                    { Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_COARSE_LOCATION },
                     1);
         } else {
             return false;
@@ -209,7 +186,8 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
     }
 
     private void snapToCurrentLocation(View v){
-        TablUtils.errorMsg(v, "not implemented");
+        TablUtils.errorMsg(v, "half-implemented");
+        getUserLocation();
     }
 
     public void updateMarker(Location currentLocation) {
