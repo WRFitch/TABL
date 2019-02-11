@@ -21,12 +21,30 @@ public class MoreActivity extends AppCompatActivity {
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         this.getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_close);
 
-        // selectTableButton will open SelectTableActivity
-        ongoingOrdersButton = (Button) findViewById(R.id.dsfssx);
+        // ongoingOrdersButton will open CheckoutActivity
+        ongoingOrdersButton = (Button) findViewById(R.id.ongoingOrdersButton);
         ongoingOrdersButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MoreActivity.this, CheckoutActivity.class));
+            }
+        });
+
+        // pastOrdersButton will open PastOrdersActivity
+        pastOrdersButton = (Button) findViewById(R.id.pastOrdersButton);
+        pastOrdersButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MoreActivity.this, PastOrdersActivity.class));
+            }
+        });
+
+        // helpButton will open ?
+        helpButton = (Button) findViewById(R.id.helpButton);
+        helpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // code that will open help page HERE
             }
         });
     }
