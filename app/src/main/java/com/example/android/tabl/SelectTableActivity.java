@@ -32,6 +32,11 @@ public class SelectTableActivity extends AppCompatActivity {
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         this.getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_close);
 
+        // top action bar text is renamed and a 'close' symbol is enabled
+        this.getSupportActionBar().setTitle("Select Table");
+        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        this.getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_close);
+
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
