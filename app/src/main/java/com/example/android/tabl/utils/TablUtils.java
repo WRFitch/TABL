@@ -29,4 +29,9 @@ public class TablUtils {
                 .show();
     }
 
+    public static void errorMsg(View view, String msg){
+        Snackbar.make(view, msg, Snackbar.LENGTH_LONG).show();
+    }
+
+    //parcel method
 }

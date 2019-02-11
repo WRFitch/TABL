@@ -9,6 +9,7 @@ package com.example.android.tabl.utils;
 /**
  * TODO: implement JSON parser
  * TODO: implement test data
+ * TODO: implement data caching for favourite items
  */
 
 public class TablNetUtils {
@@ -23,8 +24,13 @@ public class TablNetUtils {
     }
 
     //define what radius and current location
-    public static int[] getNearbyRestaurants(){
-        return null;
+    public static String[] getNearbyRestaurants(){
+        String[] returnVal = null;
+        return returnVal;
     }
 
+    //define what radius and current location
+    public static String[] getNearbyRestaurants(int radius){
+        return null;
+    }
 }

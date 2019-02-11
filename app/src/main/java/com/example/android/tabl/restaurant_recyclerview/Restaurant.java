@@ -24,21 +24,20 @@ public class Restaurant {
     private String id;
     private String address;
     private String[] flags;
+    private String[] menuIds;
     private LatLng location; //find best location datatype to use
-    private String distanceFromUser;
 
     public Restaurant(){
     }
 
-    //unfinished default constructor
+    //unfinished default constructor. Passing context is bad and I shouldn't do it.
     public Restaurant(Context c){
         Resources res = c.getResources();
         this.name = res.getString(R.string.default_restaurant);
         this.address = res.getString(R.string.default_addr);
-        this.distanceFromUser = res.getString(R.string.default_distance) + " "
-                + res.getString(R.string.dist_miles);
         this.id = res.getString(R.string.default_id);
         this.flags = res.getStringArray(R.array.menu_titles);
+        //this.menuIds = res.getStringArray(R.array.menu_ids);
     }
 
     public Restaurant(String name, String id, String address, String distanceFromUser,
@@ -49,7 +48,6 @@ public class Restaurant {
         this.address = address;
         this.flags = flags;
         this.location = location;
-        this.distanceFromUser = distanceFromUser;
     }
 
     public String getName() {
@@ -92,12 +90,9 @@ public class Restaurant {
         this.address = address;
     }
 
+    //calc restaurant distance from user
     public String getDistanceFromUser() {
-        return distanceFromUser;
-    }
-
-    public void setDistanceFromUser(String distanceFromUser) {
-        this.distanceFromUser = distanceFromUser;
+        return null;
     }
 
     //debug ver - do not add to final app!
@@ -113,5 +108,9 @@ public class Restaurant {
 
         };
         return returnVal;
+    }
+
+    public String[] getMenuIds(){
+        return this.menuIds;
     }
 }

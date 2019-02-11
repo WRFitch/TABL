@@ -1,4 +1,4 @@
-package com.example.android.tabl.restaurant_recyclerview;
+package com.example.android.tabl.utils;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

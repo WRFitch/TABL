@@ -1,5 +1,6 @@
 package com.example.android.tabl;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -23,24 +24,35 @@ public class MenuActivity extends AppCompatActivity {
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                    Fragment selectedFragment = null;
-
                     switch (item.getItemId()){
                         case R.id.nav_more:
-                            selectedFragment = new MoreFragment();
+                            // open MoreActivity
+                            Intent moreIntent = new Intent(getApplicationContext(),
+                                    MoreActivity.class);
+                            moreIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(moreIntent);
                             break;
                         case R.id.nav_location:
-                            selectedFragment = new LocationFragment();
+                            // go back to previous activity
+                            // downloaded data should be cached automatically, making any
+                            // caching method here unnecessary
+                            finish();
                             break;
                         case R.id.nav_basket:
-                            selectedFragment = new BasketFragment();
+                            // open BasketActivity
+                            Intent basketIntent = new Intent(getApplicationContext(),
+                                    BasketActivity.class);
+                            basketIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(basketIntent);
                             break;
                     }
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                            selectedFragment).commit();
-
                     return true;
 
                 }
             };
+
+    private void stashLocalData(){
+
+    }
+
 }

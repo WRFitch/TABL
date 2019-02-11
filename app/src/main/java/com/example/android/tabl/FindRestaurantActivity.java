@@ -5,38 +5,27 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.Manifest;
-import android.location.Address;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.method.LinkMovementMethod;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 
-import com.example.android.tabl.location_utils.GetCompleteAddress;
-import com.example.android.tabl.restaurant_recyclerview.RecyclerItemClickListener;
+import com.example.android.tabl.utils.RecyclerItemClickListener;
 import com.example.android.tabl.restaurant_recyclerview.Restaurant;
 import com.example.android.tabl.restaurant_recyclerview.RestaurantsAdapter;
 import com.example.android.tabl.utils.TablUtils;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
@@ -50,13 +39,13 @@ import java.util.List;
  */
 
 /**
- * TODO: get location permissions from user
  * TODO: implement snapToLocation() on floatingActionButton
- * TODO: implement list of restaurants, including UI and populate() method.
- * TODO: implement list highlighting & map utilities.
- * TODO: implement additional search method.
+ * TODO: implement/update map utilities.
+ * TODO: implement additional search method in appbar.
  * TODO: implement passing restaurant data to MenuActivity
  * TODO: clean up this class - currently setting up for dependency hell
+ * TODO: fix getLocation
+ * TODO:
  */
 
 public class FindRestaurantActivity extends AppCompatActivity implements OnMapReadyCallback, LocationListener {
@@ -64,22 +53,35 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
     private List<Restaurant> restaurantList= new ArrayList<>();
     private RecyclerView recyclerView;
     private RestaurantsAdapter rAdapter;
+    private FloatingActionButton fab;
+
+    private SupportMapFragment mapFragment;
     private GoogleMap mMap;
-    private Restaurant selectedRestaurant;
     private LocationManager mLocationManager;
-    private boolean dialogIsShowing = false;
+    private Location mCurrentLocation;
+    private final static String KEY_LOCATION = "location";
     private final float DEFAULT_ZOOM = 16f;
+
+    private Restaurant selectedRestaurant;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_restaurant);
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+        if (savedInstanceState != null && savedInstanceState.keySet().contains(KEY_LOCATION)) {
+            mCurrentLocation = savedInstanceState.getParcelable(KEY_LOCATION);
+        }
 
-        FloatingActionButton fab = findViewById(R.id.snapToLocationButton);
+        mapFragment = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map));
+        mapFragment.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(GoogleMap map) {
+                loadMap(map);
+            }
+        });
+
+        fab = findViewById(R.id.snapToLocationButton);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,13 +93,15 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(this, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {
-                        selectedRestaurant = restaurantList.get(position);
-                        callMenuActivity(view.getContext());
+                        restaurantList.get(position).getMenuTitles();
+                        //pass menuTitles to menuactivity
+                        //preload favourites menu
+                        callMenuActivity(getApplicationContext());
                     }
 
                     @Override public void onLongItemClick(View view, int position) {
                         //perhaps use this to display restaurant info/add to favourites?
-                        TablUtils.functionNotImplemented(view);
+                        TablUtils.functionNotImplemented(view, "maybe add to favourites?");
                     }
                 })
         );
@@ -111,81 +115,6 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
         prepRestaurantData();
     }
 
-    //check if the user has location services on when returning to the application
-    @Override
-    protected void onStart() {
-        super.onStart();
-        mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        buildAlertMessageNoGps();
-    }
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        //set up map object & perms
-        mMap = googleMap;
-        if (!checkLocationPermission()) {
-            getLocation();
-        }
-
-        //set up map camera based on user location
-        LatLng userLocation = new LatLng(-34, 151);
-
-        //get nearby restaurants and mark on map
-        mMap.addMarker(new MarkerOptions().position(userLocation).title("Marker in Sydney"));
-
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(userLocation));
-
-    }
-
-    @SuppressLint("MissingPermission")
-    public void getLocation() {
-        // get location using both network and gps providers, no need for permission check as that is done before the method is called
-        mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 100, 1000, this);
-        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100, 1000, this);
-    }
-
-    //returns true if we have location permission
-    private Boolean checkLocationPermission() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED)
-        {
-            ActivityCompat.requestPermissions(this, new String[]
-                    {Manifest.permission.ACCESS_FINE_LOCATION,
-                            Manifest.permission.ACCESS_COARSE_LOCATION},
-                    1);
-        } else {
-            return false;
-        }
-        return true;
-    }
-
-    //This method is bad and I should be ashamed.
-    //consider implementing point focus if required
-    private void snapToCurrentLocation(View view){
-        //CameraUpdate currentLocation = mMap.get;
-
-        /*
-        Location l = mFusedLocationClient.getLastLocation();
-        LatLng currentLocation = new LatLng(mFusedLocationClient.getLastLocation());
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 0));
-        */
-
-        TablUtils.functionNotImplemented(view);
-        //mMap.moveCamera(CameraUpdateFactory.newLatLng(getUserLocation()));
-    }
-
-    private void prepRestaurantData(){
-        //current implementation uses test data!
-        Restaurant resta;
-        for(int i=0; i<20; i++){
-            resta = new Restaurant(FindRestaurantActivity.this);
-            restaurantList.add(resta);
-        }
-        rAdapter.notifyDataSetChanged();
-    }
-
     //call next activity. Make sure to pass parcelable restaurant data.
     private void callMenuActivity(Context c) {
         Intent intent = new Intent(c, MenuActivity.class);
@@ -193,83 +122,91 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
         startActivity(intent);
     }
 
-    //from here on out there is only george code.
+    private void prepRestaurantData(){
+        //current implementation uses test data! something like i->getCachedRestaurants
+        Restaurant resta;
+        for(int i=0; i<5; i++){
+            resta = new Restaurant(FindRestaurantActivity.this);
+            restaurantList.add(resta);
+        }
+        rAdapter.notifyDataSetChanged();
+    }
 
-    //alert dialog to get gps coordinates
-    private void buildAlertMessageNoGps() {
-        AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
-        final AlertDialog alertDialog =  builder1.create();
-        LayoutInflater layoutInflater = LayoutInflater.from(this);
-        View promptView = layoutInflater.inflate(R.layout.gps_confirmation_dialog, null);
+    //check if the user has location services on when returning to the application
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+    }
 
-        alertDialog.setTitle("GPS permissions needed");
-        alertDialog.setCancelable(false);
-
-        final TextView confirmGpsMessage = (TextView) promptView.findViewById(R.id.gps_confirm_txt);
-        confirmGpsMessage.requestFocus();
-        confirmGpsMessage.setMovementMethod(LinkMovementMethod.getInstance());
-        Button confirmGpsButton = (Button)promptView.findViewById(R.id.confirm_gps_btn);
-        Button denyGpsButton = (Button) promptView.findViewById(R.id.deny_gps_btn);
-
-        confirmGpsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                alertDialog.dismiss();
-                dialogIsShowing = false;
-                Intent callGPSSettingIntent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                startActivity(callGPSSettingIntent);
-            }
-        });
-        denyGpsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                alertDialog.dismiss();
-                dialogIsShowing = false;
-                finish();
-            }
-        });
-
-        //prevent multiple alert boxes stacking on top of each other
-        if(dialogIsShowing)
-            return;
-        //only show the dialog if gps is not enabled
-        if (!mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            alertDialog.setView(promptView);
-            alertDialog.show();
-            dialogIsShowing = true;
+    protected void loadMap(GoogleMap googleMap){
+        mMap = googleMap;
+        if (checkLocationPermission()) {
+            getLocation();
         }
 
+        getUserLocation();
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+       loadMap(googleMap);
+    }
+
+    @SuppressLint("MissingPermission")
+    public void getLocation() {
+        // get location using both network and gps providers, no need for permission check as that is done before the method is called
+        mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 100, this);
+        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 100, this);
+    }
+
+    @SuppressLint("MissingPermission")
+    public void getUserLocation(){
+        //edit this to prefer gps then use network if insufficient
+        Location currentLocation = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        LatLng currentLatLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, DEFAULT_ZOOM));
+    }
+
+    //returns true if we have location permission. would be more robust if returned false.
+    private Boolean checkLocationPermission() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED)
+        {
+            ActivityCompat.requestPermissions(this, new String[]
+                    { Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_COARSE_LOCATION },
+                    1);
+        } else {
+            return false;
+        }
+        return true;
+    }
+
+    private void snapToCurrentLocation(View v){
+        TablUtils.errorMsg(v, "half-implemented");
+        getUserLocation();
     }
 
     public void updateMarker(Location currentLocation) {
         LatLng currentLatlng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatlng, DEFAULT_ZOOM));
-        List<Address> currentAddress = new GetCompleteAddress(currentLocation, this).getAddress();
-
-        Marker currentLocationInfo = mMap.addMarker(new MarkerOptions()
-                .position(currentLatlng)
-                .title("Your Location:")
-                .snippet(currentAddress.get(0).getAddressLine(0)));
-        //mMap.setInfoWindowAdapter(new CustomInfoAdapter(FindRestaurantActivity.this));//what is this for?
-        //need map marker
-        currentLocationInfo.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.black_close_exit_button));
-        currentLocationInfo.showInfoWindow();
     }
 
     public void onLocationChanged(Location location) {
         updateMarker(location);
     }
 
-    //required to extend LocationListener
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-    }
+    public void onStatusChanged(String provider, int status, Bundle extras){}
 
     public void onProviderEnabled(String provider) {
-        buildAlertMessageNoGps();
+        if(checkLocationPermission())
         getLocation();
     }
 
     public void onProviderDisabled(String provider) {
-        buildAlertMessageNoGps();
+        checkLocationPermission();
     }
 }
