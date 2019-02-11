@@ -1,26 +1,23 @@
 package com.example.android.tabl;
 
-import android.app.LauncherActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.Adapter;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 
-import com.example.android.tabl.table_recyclerview.TableItem;
+import com.example.android.tabl.table_recyclerview.Table;
+import com.example.android.tabl.table_recyclerview.TableAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
+
 public class SelectTableActivity extends AppCompatActivity {
 
 
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter adapter;
+    private TableAdapter tableAdapter;
 
-    private List<TableItem> listItems;
+    private List<Table> listItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,16 +39,16 @@ public class SelectTableActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        listItems = new ArrayList<TableItem>();
+        listItems = new ArrayList<Table>();
 
         for (int testInt = 0; testInt < 10; testInt++) ;{
-            TableItem tableItem = new TableItem("Heading" + Integer.toString(testInt+1));
+            Table tableItem = new Table("Heading" + Integer.toString(testInt+1));
 
              listItems.add(tableItem);
 
              //adapter = new Adapter(listItems, this);
 
-             recyclerView.setAdapter(adapter);
+             recyclerView.setAdapter(tableAdapter);
 
         }
     }
