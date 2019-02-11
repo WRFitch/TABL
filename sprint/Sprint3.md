@@ -15,9 +15,14 @@ Edrin:
 Monika:
 
 #### PRIORITIES: COMPLETE XML LAYOUT FILES AND IMPLEMENT BASIC JAVA FUNCTIONALITY
+
 #### STRETCH GOALS:
 - Implement basic java networking functions eg getting data from server - test using some other REST API. 
-- Implement basic server (this could probably be done in a day, given guaranteed hosting)
+- Implement basic server 
+  - sort hosting
+  - virtualisation solution - direct VM or docker? 
+  - setup VM 
+  - set up database on VM and application to send test data 
 
 ---
 
