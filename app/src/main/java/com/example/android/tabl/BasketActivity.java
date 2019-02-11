@@ -26,6 +26,14 @@ public class BasketActivity extends AppCompatActivity {
             }
         });
 
+        // wefsfwe
+        selectTableButton = (Button) findViewById(R.id.selectTableButton);
+        selectTableButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(BasketActivity.this, SelectTableActivity.class));
+            }
+        });
 
     }
 }
