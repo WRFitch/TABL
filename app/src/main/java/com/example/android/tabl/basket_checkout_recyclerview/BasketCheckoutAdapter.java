@@ -18,13 +18,13 @@ public class BasketCheckoutAdapter extends RecyclerView.Adapter<BasketCheckoutAd
     private List<BasketCheckout> basketCheckoutList;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView item_name, restaurant_address, restaurant_distance_from_user;
+        public TextView item_name, item_option, item_price;
 
         public MyViewHolder(View view) {
             super(view);
-            item_name = view.findViewById(R.id.restaurant_name);
-            restaurant_address = view.findViewById(R.id.restaurant_address);
-            restaurant_distance_from_user = view.findViewById(R.id.restaurant_distance_from_user);
+            item_name = view.findViewById(R.id.item_name);
+            item_option = view.findViewById(R.id.item_option);
+            item_price = view.findViewById(R.id.item_price);
         }
     }
 
@@ -43,8 +43,8 @@ public class BasketCheckoutAdapter extends RecyclerView.Adapter<BasketCheckoutAd
     public void onBindViewHolder(BasketCheckoutAdapter.MyViewHolder holder, int position) {
         BasketCheckout restaurant = basketCheckoutList.get(position);
         holder.item_name.setText(restaurant.getName());
-        holder.restaurant_address.setText(restaurant.getAddress());
-        holder.restaurant_distance_from_user.setText(restaurant.getDistanceFromUser());
+        holder.item_option.setText(restaurant.getOptions());
+        holder.item_price.setText(restaurant.getPrice());
     }
 
     @Override

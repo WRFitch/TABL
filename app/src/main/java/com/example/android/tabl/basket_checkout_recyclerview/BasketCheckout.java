@@ -68,4 +68,12 @@ public class BasketCheckout {
         return quantity;
     }
 
+    public String getOptions() {
+        return option;
+    }
+
+    public String setOptions(String id) {
+        return option;
+    }
+
 }
