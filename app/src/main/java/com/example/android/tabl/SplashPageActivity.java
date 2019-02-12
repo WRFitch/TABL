@@ -51,10 +51,6 @@ public class SplashPageActivity extends AppCompatActivity{
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if(!isNextReady){
-                    TablUtils.errorMsg(tv, "next activity not ready!");
-                    return;
-                }
                 if(!firedNext) {
                     callFindRestaurantActivity(SplashPageActivity.this);
                 }
@@ -65,10 +61,6 @@ public class SplashPageActivity extends AppCompatActivity{
         logo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!isNextReady){
-                    TablUtils.errorMsg(v, "next activity not ready!");
-                    return;
-                }
                 firedNext = true;
                 callFindRestaurantActivity(v.getContext());
 
@@ -90,7 +82,7 @@ public class SplashPageActivity extends AppCompatActivity{
 
     //preloads menu data in preparation for next method, parcels them to be passed over
     private void preloadFRAData(){
-        checkLocationPermission();
+        //checkLocationPermission();
     }
 
     //duplicate method, sue me
