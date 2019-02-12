@@ -19,7 +19,7 @@
     <string name="menuId">-1</string>
     <integer name="menuIntId">-1</integer>
 
-
+ <!-- Adit Monika made this for basket checkout recycler-->
     <string name="name_of_item">ITEM_NAME</string>
     <string name="default_options">OPTIONS</string>
     <string name="itemID">-1</string>

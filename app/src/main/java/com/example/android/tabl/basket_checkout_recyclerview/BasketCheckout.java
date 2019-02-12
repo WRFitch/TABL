@@ -8,8 +8,8 @@ import com.google.android.gms.maps.model.LatLng;
 
 public class BasketCheckout {
 
-    private String itemname;
-    private String itemid;
+    private String itemName;
+    private String itemId;
     private String price;
     private int quantity;
     private String option;
@@ -20,36 +20,36 @@ public class BasketCheckout {
     //unfinished default constructor. Passing context is bad and I shouldn't do it.
     public BasketCheckout(Context c) {
         Resources res = c.getResources();
-        this.itemname = res.getString(R.string.name_of_item);
-        this.price = res.getString(R.string.default_price);
-        this.itemid = res.getString(R.string.itemID);
+        this.itemName = res.getString(R.string.menu_item);
+        this.price = res.getString(R.string.menu_price);
+        this.itemId = res.getString(R.string.itemID);
         this.quantity = res.getInteger(R.integer.default_quantity);
         this.option = res.getString(R.string.default_options);
         //this.menuIds = res.getStringArray(R.array.menu_ids);
     }
 
     public BasketCheckout(String itemName, String itemId, String option, String price, int quantity) {
-        this.itemname = itemname;
-        this.itemid = itemid;
+        this.itemName = itemName;
+        this.itemId = itemId;
         this.price = price;
         this.quantity = quantity;
         this.option = option;
     }
 
     public String getName() {
-        return itemname;
+        return itemName;
     }
 
     public void setName(String itemName) {
-        this.itemname = itemname;
+        this.itemName = itemName;
     }
 
     public String getId() {
-        return itemid;
+        return itemId;
     }
 
-    public void setId(String id) {
-        this.itemid = id;
+    public void setId(String itemId) {
+        this.itemId = itemId;
     }
 
     public String getPrice() {
