@@ -42,16 +42,14 @@ public class SplashPageActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_page);
 
-        //preload data for the FindRestaurantActivity
         prepNextView();
-        preloadFRAData();
         tv = findViewById(R.id.SplashPageVersionName);
 
         //wait x seconds, then load. delete this once next activity is implemented.
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if(!firedNext) {
+                if((!firedNext) && isNextReady) {
                     callFindRestaurantActivity(SplashPageActivity.this);
                 }
             }
@@ -62,8 +60,7 @@ public class SplashPageActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 firedNext = true;
-                callFindRestaurantActivity(v.getContext());
-
+                if(isNextReady) callFindRestaurantActivity(v.getContext());
             }
         });
     }
@@ -85,25 +82,8 @@ public class SplashPageActivity extends AppCompatActivity{
         //checkLocationPermission();
     }
 
-    //duplicate method, sue me
-    private boolean checkLocationPermission(){
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED)
-        {
-            ActivityCompat.requestPermissions(this, new String[]
-                            { Manifest.permission.ACCESS_FINE_LOCATION,
-                                    Manifest.permission.ACCESS_COARSE_LOCATION },
-                    1);
-        } else {
-            return false;
-        }
-        return true;
-    }
-
     private void prepNextView(){
-        //checkLocationPermission();
+        TablUtils.checkLocationPerms(this, this);
         isNextReady = true;
     }
 }

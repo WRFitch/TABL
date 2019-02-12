@@ -31,6 +31,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.android.tabl.utils.TablUtils.requestLocationPerms;
+
 /**
  * First main screen of TABL. Allows user to select the restaurant they intend to order from using
  * either a map or search function.
@@ -58,7 +60,7 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
     private SupportMapFragment mapFragment;
     private GoogleMap mMap;
     private LocationManager mLocationManager;
-    private Location mCurrentLocation;
+    private Location currentLocation;
     private final static String KEY_LOCATION = "location";
     private final float DEFAULT_ZOOM = 16f;
 
@@ -74,7 +76,7 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
         setContentView(R.layout.activity_find_restaurant);
 
         if (savedInstanceState != null && savedInstanceState.keySet().contains(KEY_LOCATION)) {
-            mCurrentLocation = savedInstanceState.getParcelable(KEY_LOCATION);
+            currentLocation = savedInstanceState.getParcelable(KEY_LOCATION);
         }
 
         mapFragment = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map));
@@ -127,22 +129,13 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
         mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
     }
-
+    @SuppressLint("MissingPermission")
     protected void loadMap(GoogleMap googleMap){
+        TablUtils.checkLocationPerms(this, this);
         mMap = googleMap;
-        if(!checkLocationPermission()){
-            //find a good way to handle errors!
-            TablUtils.errorMsg(fab, "failed to get permissions!");
-            finish();//or call search function?
-        }
         getLocation();
-        mMap.getUiSettings().setMyLocationButtonEnabled(false);
+        mMap.getUiSettings().setMyLocationButtonEnabled(true);
         googleMap.setMyLocationEnabled(true);
-
-        LatLng userLocation = new LatLng(-34, 151);//getUserLocation();
-        mMap.addMarker(new MarkerOptions().position(userLocation).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(userLocation));
-
     }
 
     //how is this different from above?
@@ -153,35 +146,17 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
 
     @SuppressLint("MissingPermission")
     public void getLocation() {
-        // get location using both network and gps providers, no need for permission check as that is done before the method is called
-        mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 1000, this);
-        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1000, this);
+        TablUtils.checkLocationPerms(this, this);
+        mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 10000, 100, this);
+        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 10, this);
     }
 
     @SuppressLint("MissingPermission")
     public void getUserLocation(){
-        //edit this to prefer gps then use network if insufficient
         getLocation();
-        Location currentLocation = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        currentLocation = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         LatLng currentLatLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, DEFAULT_ZOOM));
-    }
-
-    //returns true if we have location permission. would be more robust if returned false.
-    private Boolean checkLocationPermission() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED)
-        {
-            ActivityCompat.requestPermissions(this, new String[]
-                            { Manifest.permission.ACCESS_FINE_LOCATION,
-                                    Manifest.permission.ACCESS_COARSE_LOCATION },
-                    1);
-        } else {
-            return false;
-        }
-        return true;
     }
 
     public void updateMarker(Location currentLocation) {
@@ -196,12 +171,12 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
     public void onStatusChanged(String provider, int status, Bundle extras){}
 
     public void onProviderEnabled(String provider) {
-        if(checkLocationPermission())
-            getLocation();
+        TablUtils.checkLocationPerms(this, this);
+        getLocation();
     }
 
     public void onProviderDisabled(String provider) {
-        checkLocationPermission();
+        TablUtils.checkLocationPerms(this, this);
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -213,6 +188,7 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
 
     private void showRestaurantsOnMap(){
         for(Restaurant r: restaurantList){
+            //currently crashes app - "null object reference"
             //mMap.addMarker(new MarkerOptions().position(r.getLocation()).title(r.getName()));
         }
     }
