@@ -3,14 +3,11 @@ package com.example.android.tabl;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.Manifest;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -26,12 +23,9 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.example.android.tabl.utils.TablUtils.requestLocationPerms;
 
 /**
  * First main screen of TABL. Allows user to select the restaurant they intend to order from using
@@ -64,12 +58,6 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
     private final static String KEY_LOCATION = "location";
     private final float DEFAULT_ZOOM = 16f;
 
-    /*
-     * Define a request code to send to Google Play services This code is
-     * returned in Activity.onActivityResult
-     */
-    private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,18 +68,13 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
         }
 
         mapFragment = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map));
-        mapFragment.getMapAsync(new OnMapReadyCallback() {
-            @Override // see below - dupe method
-            public void onMapReady(GoogleMap map) {
-                loadMap(map);
-            }
-        });
+        mapFragment.getMapAsync(this);
 
         fab = findViewById(R.id.snapToLocationButton);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                snapToCurrentLocation(view);
+                getUserLocation();
             }
         });
 
@@ -147,17 +130,21 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
     @SuppressLint("MissingPermission")
     public void getLocation() {
         TablUtils.checkLocationPerms(this, this);
-        mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 10000, 100, this);
-        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 10, this);
+        //these may be deprecated
+        //mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 10000, 100, this);
+        //mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 40, this);
     }
 
     @SuppressLint("MissingPermission")
     public void getUserLocation(){
         getLocation();
-        currentLocation = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        //currentLocation = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        currentLocation = mMap.getMyLocation();
         LatLng currentLatLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, DEFAULT_ZOOM));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLatLng));
     }
+
+
 
     public void updateMarker(Location currentLocation) {
         LatLng currentLatlng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
@@ -177,13 +164,6 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
 
     public void onProviderDisabled(String provider) {
         TablUtils.checkLocationPerms(this, this);
-    }
-
-    ///////////////////////////////////////////////////////////////////////////
-
-    private void snapToCurrentLocation(View v){
-        TablUtils.errorMsg(v, "half-implemented");
-        getUserLocation();
     }
 
     private void showRestaurantsOnMap(){
