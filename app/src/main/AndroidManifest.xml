@@ -51,7 +51,9 @@
             android:label="Basket" />
         <activity
             android:name=".CheckoutActivity"
-            android:label="Ongoing Order" /> <!-- utility views -->
+            android:label="Ongoing Order" />
+
+        <!-- utility views -->
         <activity
             android:name=".MoreActivity"
             android:label="More" />

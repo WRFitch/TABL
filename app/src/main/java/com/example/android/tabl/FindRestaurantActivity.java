@@ -213,7 +213,7 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
 
     private void showRestaurantsOnMap(){
         for(Restaurant r: restaurantList){
-            mMap.addMarker(new MarkerOptions().position(r.getLocation()).title(r.getName()));
+            //mMap.addMarker(new MarkerOptions().position(r.getLocation()).title(r.getName()));
         }
     }
 
