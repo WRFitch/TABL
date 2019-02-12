@@ -12,7 +12,6 @@ android:layout_height="match_parent">
     android:layout_height="80dp"
     android:background="@drawable/bg_header"
     android:text="X Select Table"
-    android:textAppearance="@style/TextAppearance.AppCompat.Display2"
     android:textColor="@color/white"
     android:textSize="30sp"
     app:layout_constraintStart_toStartOf="parent"

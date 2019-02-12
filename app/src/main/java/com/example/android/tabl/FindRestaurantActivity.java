@@ -143,7 +143,7 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
             getLocation();
         }
 
-        getUserLocation();
+        //getUserLocation();
     }
 
     @Override
