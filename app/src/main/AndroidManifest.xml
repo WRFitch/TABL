@@ -45,8 +45,7 @@
             android:exported="true"
             android:label="Past Orders"/>
 
-        <!-- if you're getting an error here, ask Will for the API key
-         -->
+        <!-- if you're getting an error here, ask someone for the API key -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />

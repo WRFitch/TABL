@@ -148,7 +148,7 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-       loadMap(googleMap);
+        loadMap(googleMap);
     }
 
     @SuppressLint("MissingPermission")
@@ -174,8 +174,8 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
                 != PackageManager.PERMISSION_GRANTED)
         {
             ActivityCompat.requestPermissions(this, new String[]
-                    { Manifest.permission.ACCESS_FINE_LOCATION,
-                            Manifest.permission.ACCESS_COARSE_LOCATION },
+                            { Manifest.permission.ACCESS_FINE_LOCATION,
+                                    Manifest.permission.ACCESS_COARSE_LOCATION },
                     1);
         } else {
             return false;
@@ -201,10 +201,17 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
 
     public void onProviderEnabled(String provider) {
         if(checkLocationPermission())
-        getLocation();
+            getLocation();
     }
 
     public void onProviderDisabled(String provider) {
         checkLocationPermission();
     }
+
+    private void showRestaurantsOnMap(){
+        for(Restaurant r: restaurantList){
+            mMap.addMarker(new MarkerOptions().position(r.getLocation()).title(r.getName()));
+        }
+    }
 }
+
