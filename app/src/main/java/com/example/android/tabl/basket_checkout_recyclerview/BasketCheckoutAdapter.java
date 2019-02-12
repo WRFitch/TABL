@@ -18,13 +18,14 @@ public class BasketCheckoutAdapter extends RecyclerView.Adapter<BasketCheckoutAd
     private List<BasketCheckout> basketCheckoutList;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView item_name, item_option, item_price;
+        public TextView item_name, item_option, item_price, item_quantity;
 
         public MyViewHolder(View view) {
             super(view);
             item_name = view.findViewById(R.id.menu_item_name);
             item_option = view.findViewById(R.id.checkout_item_options);
             item_price = view.findViewById(R.id.item_price);
+            item_quantity = view.findViewById(R.id.item_quantity);
         }
     }
 
@@ -45,6 +46,7 @@ public class BasketCheckoutAdapter extends RecyclerView.Adapter<BasketCheckoutAd
         holder.item_name.setText(food.getName());
         holder.item_option.setText(food.getOptions());
         holder.item_price.setText(food.getPrice());
+        holder.item_quantity.setText(food.getQuantity());
     }
 
     @Override
