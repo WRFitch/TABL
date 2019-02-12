@@ -43,7 +43,7 @@ import java.util.List;
  * TODO: implement/update map utilities.
  * TODO: implement additional search method in appbar.
  * TODO: implement passing restaurant data to MenuActivity
- * TODO: clean up this class - currently setting up for dependency hell
+ * TODO: clean up this class
  * TODO: fix getLocation
  * TODO:
  */
@@ -62,7 +62,11 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
     private final static String KEY_LOCATION = "location";
     private final float DEFAULT_ZOOM = 16f;
 
-    private Restaurant selectedRestaurant;
+    /*
+     * Define a request code to send to Google Play services This code is
+     * returned in Activity.onActivityResult
+     */
+    private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +79,7 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
 
         mapFragment = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map));
         mapFragment.getMapAsync(new OnMapReadyCallback() {
-            @Override
+            @Override // see below - dupe method
             public void onMapReady(GoogleMap map) {
                 loadMap(map);
             }
@@ -113,21 +117,7 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(rAdapter);
         prepRestaurantData();
-    }
-
-    //call next activity. Make sure to pass parcelable restaurant data.
-    private void callMenuActivity(Context c) {
-        Intent intent = new Intent(c, MenuActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-    }
-
-    private void prepRestaurantData(){
-        //current implementation uses test data! something like i->getCachedRestaurants
-        for(int i=0; i<5; i++){
-            restaurantList.add(new Restaurant(FindRestaurantActivity.this));
-        }
-        rAdapter.notifyDataSetChanged();
+        showRestaurantsOnMap();
     }
 
     //check if the user has location services on when returning to the application
@@ -135,17 +125,27 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
     protected void onStart() {
         super.onStart();
         mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+
     }
 
     protected void loadMap(GoogleMap googleMap){
         mMap = googleMap;
-        if (checkLocationPermission()) {
-            getLocation();
+        if(!checkLocationPermission()){
+            //find a good way to handle errors!
+            TablUtils.errorMsg(fab, "failed to get permissions!");
+            finish();//or call search function?
         }
+        getLocation();
+        mMap.getUiSettings().setMyLocationButtonEnabled(false);
+        googleMap.setMyLocationEnabled(true);
 
-        //getUserLocation();
+        LatLng userLocation = new LatLng(-34, 151);//getUserLocation();
+        mMap.addMarker(new MarkerOptions().position(userLocation).title("Marker in Sydney"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(userLocation));
+
     }
 
+    //how is this different from above?
     @Override
     public void onMapReady(GoogleMap googleMap) {
         loadMap(googleMap);
@@ -154,13 +154,14 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
     @SuppressLint("MissingPermission")
     public void getLocation() {
         // get location using both network and gps providers, no need for permission check as that is done before the method is called
-        mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 100, this);
-        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 100, this);
+        mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 1000, this);
+        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1000, this);
     }
 
     @SuppressLint("MissingPermission")
     public void getUserLocation(){
         //edit this to prefer gps then use network if insufficient
+        getLocation();
         Location currentLocation = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         LatLng currentLatLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, DEFAULT_ZOOM));
@@ -183,11 +184,6 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
         return true;
     }
 
-    private void snapToCurrentLocation(View v){
-        TablUtils.errorMsg(v, "half-implemented");
-        getUserLocation();
-    }
-
     public void updateMarker(Location currentLocation) {
         LatLng currentLatlng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatlng, DEFAULT_ZOOM));
@@ -208,10 +204,32 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
         checkLocationPermission();
     }
 
+    ///////////////////////////////////////////////////////////////////////////
+
+    private void snapToCurrentLocation(View v){
+        TablUtils.errorMsg(v, "half-implemented");
+        getUserLocation();
+    }
+
     private void showRestaurantsOnMap(){
         for(Restaurant r: restaurantList){
             mMap.addMarker(new MarkerOptions().position(r.getLocation()).title(r.getName()));
         }
+    }
+
+    private void prepRestaurantData(){
+        //current implementation uses test data! something like i->getCachedRestaurants
+        for(int i=0; i<5; i++){
+            restaurantList.add(new Restaurant(FindRestaurantActivity.this));
+        }
+        rAdapter.notifyDataSetChanged();
+    }
+
+    //call next activity. Make sure to pass parcelable restaurant data.
+    private void callMenuActivity(Context c) {
+        Intent intent = new Intent(c, MenuActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 }
 

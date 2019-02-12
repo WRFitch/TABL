@@ -3,6 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.android.tabl">
 
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but you must specify either coarse or fine
+         location permissions for the 'MyLocation' functionality.
+    -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -16,40 +21,44 @@
         android:theme="@style/AppTheme.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
 
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+
         <!-- starting activity -->
         <activity
             android:name=".SplashPageActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <!-- main app flow -->
-        <activity android:name=".FindRestaurantActivity"
-            android:label="Select Restaurant"/>
+        <activity
+            android:name=".FindRestaurantActivity"
+            android:label="Select Restaurant" />
         <activity android:name=".MenuActivity" />
-        <activity android:name=".SelectTableActivity"
-            android:label="Select Table"/>
-        <activity android:name=".BasketActivity"
-            android:label="Basket"/>
-        <activity android:name=".CheckoutActivity"
-            android:label="Ongoing Order"/>
-
-        <!-- utility views -->
-        <activity android:name=".MoreActivity"
-            android:label="More"/>
-        <activity android:name=".PastOrdersActivity"
+        <activity
+            android:name=".SelectTableActivity"
+            android:label="Select Table" />
+        <activity
+            android:name=".BasketActivity"
+            android:label="Basket" />
+        <activity
+            android:name=".CheckoutActivity"
+            android:label="Ongoing Order" /> <!-- utility views -->
+        <activity
+            android:name=".MoreActivity"
+            android:label="More" />
+        <activity
+            android:name=".PastOrdersActivity"
             android:exported="true"
-            android:label="Past Orders"/>
-
-        <!-- if you're getting an error here, ask someone for the API key -->
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
-
+            android:label="Past Orders" />
     </application>
 
 </manifest>
