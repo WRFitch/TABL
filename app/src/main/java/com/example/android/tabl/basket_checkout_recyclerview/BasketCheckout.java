@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.res.Resources;
 
 import com.example.android.tabl.R;
-import com.google.android.gms.maps.model.LatLng;
 
 public class BasketCheckout {
 
@@ -12,7 +11,7 @@ public class BasketCheckout {
     private String itemId;
     private String price;
     private int quantity;
-    private String option;
+    private String options;
 
     public BasketCheckout() {
     }
@@ -24,16 +23,16 @@ public class BasketCheckout {
         this.price = res.getString(R.string.menu_price);
         this.itemId = res.getString(R.string.itemID);
         this.quantity = res.getInteger(R.integer.default_quantity);
-        this.option = res.getString(R.string.default_options);
+        this.options = res.getString(R.string.default_options);
         //this.menuIds = res.getStringArray(R.array.menu_ids);
     }
 
-    public BasketCheckout(String itemName, String itemId, String option, String price, int quantity) {
+    public BasketCheckout(String itemName, String itemId, String options, String price, int quantity) {
         this.itemName = itemName;
         this.itemId = itemId;
         this.price = price;
         this.quantity = quantity;
-        this.option = option;
+        this.options = options;
     }
 
     public String getName() {
@@ -64,16 +63,16 @@ public class BasketCheckout {
         return quantity;
     }
 
-    public int setQuantity(String id) {
-        return quantity;
+    public void setQuantity(int quantity) {
+        this.quantity=quantity;
     }
 
     public String getOptions() {
-        return option;
+        return this.options;
     }
 
-    public String setOptions(String id) {
-        return option;
+    public void setOptions(String options) {
+        this.options = options;
     }
 
 }

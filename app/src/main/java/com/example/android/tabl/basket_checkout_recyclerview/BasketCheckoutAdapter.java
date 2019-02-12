@@ -22,8 +22,8 @@ public class BasketCheckoutAdapter extends RecyclerView.Adapter<BasketCheckoutAd
 
         public MyViewHolder(View view) {
             super(view);
-            item_name = view.findViewById(R.id.item_name);
-            item_option = view.findViewById(R.id.item_option);
+            item_name = view.findViewById(R.id.menu_item_name);
+            item_option = view.findViewById(R.id.checkout_item_options);
             item_price = view.findViewById(R.id.item_price);
         }
     }
