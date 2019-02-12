@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.example.android.tabl.R;
 import com.example.android.tabl.basket_checkout_recyclerview.BasketCheckout;
 import com.example.android.tabl.basket_checkout_recyclerview.BasketCheckoutAdapter;
-import com.example.android.tabl.restaurant_recyclerview.RestaurantsAdapter;
+import com.example.android.tabl.basket_checkout_recyclerview.BasketCheckoutAdapter;
 
 import java.util.List;
 
@@ -41,10 +41,10 @@ public class BasketCheckoutAdapter extends RecyclerView.Adapter<BasketCheckoutAd
 
     @Override
     public void onBindViewHolder(BasketCheckoutAdapter.MyViewHolder holder, int position) {
-        BasketCheckout restaurant = basketCheckoutList.get(position);
-        holder.item_name.setText(restaurant.getName());
-        holder.item_option.setText(restaurant.getOptions());
-        holder.item_price.setText(restaurant.getPrice());
+        BasketCheckout food = basketCheckoutList.get(position);
+        holder.item_name.setText(food.getName());
+        holder.item_option.setText(food.getOptions());
+        holder.item_price.setText(food.getPrice());
     }
 
     @Override
