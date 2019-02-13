@@ -30,12 +30,12 @@ public class BasketActivity extends AppCompatActivity {
         selectTableButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), SelectTableActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                Intent intent = new Intent(BasketActivity.this, SelectTableActivity.class);
                 startActivity(intent);
             }
         });
 
+        /*
         // selectTableButton will open SelectTableActivity
         selectTableButton = (Button) findViewById(R.id.selectTableButton);
         selectTableButton.setOnClickListener(new View.OnClickListener() {
@@ -43,7 +43,7 @@ public class BasketActivity extends AppCompatActivity {
             public void onClick(View v) {
                 startActivity(new Intent(BasketActivity.this, SelectTableActivity.class));
             }
-        });
+        });*/
 
         // triggers a dialog box to appear to edit tip amount
         addTipButton = (Button) findViewById(R.id.addTipButton);
