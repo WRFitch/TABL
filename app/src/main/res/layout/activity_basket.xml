@@ -67,23 +67,21 @@
 
     <Button
         android:id="@+id/CheckoutButton"
-        android:layout_width="436dp"
+        android:layout_width="match_parent"
         android:layout_height="91dp"
         android:background="@color/colorAccentDark"
-        android:text="@string/button_proceed_to_payment"
-        android:textColor="@color/white"
         android:clickable="true"
         android:focusable="true"
-        tools:layout_editor_absoluteY="640dp"
+        android:text="@string/button_proceed_to_payment"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
 
     <Button
         android:id="@+id/addTipButton"
-        android:layout_width="412dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/border_top_bottom"
         android:text="@string/button_add_tip"
@@ -97,7 +95,7 @@
         app:layout_constraintStart_toStartOf="parent"/>
 
     <Button
-        android:id="@+id/selectTable"
+        android:id="@+id/selectTableButton"
         android:layout_width="427dp"
         android:layout_height="wrap_content"
         android:background="@drawable/border_top_bottom"
@@ -118,6 +116,7 @@
         android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
 
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/blacklackground"

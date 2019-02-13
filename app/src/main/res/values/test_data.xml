@@ -19,6 +19,13 @@
     <string name="menuId">-1</string>
     <integer name="menuIntId">-1</integer>
 
+ <!-- Adit Monika made this for basket checkout recycler-->
+    <string name="name_of_item">ITEM_NAME</string>
+    <string name="itemID">-1</string>
+    <string name="default_price">ITEM PRICE</string>
+    <integer name="default_quantity">-1</integer>
+    <string name="default_options">OPTIONS</string>
+
     <!-- resources for menu view -->
     <string-array name="menu_titles">
         <item>Featured</item>

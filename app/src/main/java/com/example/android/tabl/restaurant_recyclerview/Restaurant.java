@@ -37,6 +37,7 @@ public class Restaurant {
         this.address = res.getString(R.string.default_addr);
         this.id = res.getString(R.string.default_id);
         this.flags = res.getStringArray(R.array.menu_titles);
+        this.location = new LatLng(30, 30);
         //this.menuIds = res.getStringArray(R.array.menu_ids);
     }
 

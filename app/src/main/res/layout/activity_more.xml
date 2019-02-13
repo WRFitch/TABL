@@ -31,7 +31,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/OngoingOrders"
+        android:id="@+id/ongoingOrdersButton"
         android:layout_width="0dp"
         android:layout_height="66dp"
         android:layout_marginStart="8dp"
@@ -50,7 +50,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/pastOrders"
+        android:id="@+id/pastOrdersButton"
         android:layout_width="0dp"
         android:layout_height="65dp"
         android:layout_marginStart="8dp"
@@ -66,10 +66,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.212"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/OngoingOrders" />
+        app:layout_constraintTop_toBottomOf="@+id/ongoingOrdersButton" />
 
     <Button
-        android:id="@+id/Help"
+        android:id="@+id/helpButton"
         android:layout_width="0dp"
         android:layout_height="66dp"
         android:layout_marginStart="8dp"
@@ -85,6 +85,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.191"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pastOrders" />
+        app:layout_constraintTop_toBottomOf="@+id/pastOrdersButton" />
 
 </android.support.constraint.ConstraintLayout>
