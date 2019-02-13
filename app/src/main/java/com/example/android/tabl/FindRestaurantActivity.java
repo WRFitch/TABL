@@ -13,6 +13,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 
 import com.example.android.tabl.utils.RecyclerItemClickListener;
 import com.example.android.tabl.restaurant_recyclerview.Restaurant;
@@ -35,13 +36,9 @@ import java.util.List;
  */
 
 /**
- * TODO: implement snapToLocation() on floatingActionButton
- * TODO: implement/update map utilities.
  * TODO: implement additional search method in appbar.
  * TODO: implement passing restaurant data to MenuActivity
- * TODO: clean up this class
- * TODO: fix updateLocation
- * TODO:
+ * TODO: implement swiping restaurantList up & down
  */
 
 public class FindRestaurantActivity extends AppCompatActivity implements OnMapReadyCallback, LocationListener {
@@ -50,6 +47,7 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
     private RecyclerView recyclerView;
     private RestaurantsAdapter rAdapter;
     private FloatingActionButton fab;
+    private Button swipeUpRestaurantList;
 
     private SupportMapFragment mapFragment;
     private GoogleMap mMap;
@@ -67,7 +65,6 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
         if (savedInstanceState != null && savedInstanceState.keySet().contains(KEY_LOCATION)) {
             currentLocation = savedInstanceState.getParcelable(KEY_LOCATION);
         }
-
         mapFragment = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map));
         mapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
@@ -110,6 +107,8 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
         prepRestaurantData();
 
         showRestaurantsOnMap();
+
+        //swipeUpRestaurantList = findViewById(R.id.swipeUpRestaurantListButton);
     }
 
     //check if the user has location services on when returning to the application
@@ -194,6 +193,18 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
             restaurantList.add(new Restaurant(FindRestaurantActivity.this));
         }
         rAdapter.notifyDataSetChanged();
+    }
+
+    private void toggleSwipeRestaurantList(){
+
+    }
+
+    private void swipeRestaurantListUp(){
+
+    }
+
+    private void swipeRestaurantListDown(){
+
     }
 
     //call next activity. Make sure to pass parcelable restaurant data.
