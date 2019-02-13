@@ -43,6 +43,7 @@ public class SelectTableActivity extends AppCompatActivity {
                     @Override public void onItemClick(View view, int position) {
                         tableList.get(position);
                         //go back to basket/checkout view, passing table data
+                        finish();//TODO: update to above comment
                     }
                     @Override public void onLongItemClick(View view, int position) {
                     }
@@ -61,13 +62,13 @@ public class SelectTableActivity extends AppCompatActivity {
     public void prepTableData(){
         int numOfTables = getNumOfTables();
         for(int i = 1; i <= numOfTables; i++){
-            tableList.add(new Table((TABLE_TITLE+i)));
+            tableList.add(new Table(TABLE_TITLE+i));
         }
         tableAdapter.notifyDataSetChanged();
     }
 
     //TEST DATA
     public int getNumOfTables(){
-        return 10;
+        return 30;
     }
 }
