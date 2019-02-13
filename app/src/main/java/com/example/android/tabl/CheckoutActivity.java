@@ -2,13 +2,18 @@ package com.example.android.tabl;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.widget.Button;
 import android.content.Intent;
 import android.view.View;
 
+import com.example.android.tabl.restaurant_recyclerview.RestaurantsAdapter;
+
 
 public class CheckoutActivity extends AppCompatActivity {
 
+    private RecyclerView recyclerView;
+    private RestaurantsAdapter rAdapter;
     private Button cancelOrderButton, HelpWithOrderButton, addTipButton;
     @Override
 
@@ -26,8 +31,9 @@ public class CheckoutActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-// NEED TO MAKE HELP ACTIVITY AND CLASS SO I CAN LINK THIS BUTTON TO IT, LINKED IT TO 'MORE' PAGE FOR NOW
+/**
+         * TODO: NEED TO MAKE HELP ACTIVITY AND CLASS SO I CAN LINK THIS BUTTON TO IT, LINKED IT TO 'MORE' PAGE FOR NOW
+ */
         HelpWithOrderButton = findViewById(R.id.HelpWithOrderButton);
         HelpWithOrderButton.setOnClickListener(new View.OnClickListener() {
         @Override
@@ -37,9 +43,6 @@ public class CheckoutActivity extends AppCompatActivity {
             startActivity(intent);
         }
     });
-
-
-
 }
 }
 
