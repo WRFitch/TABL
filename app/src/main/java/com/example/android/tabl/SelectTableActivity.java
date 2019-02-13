@@ -49,6 +49,9 @@ public class SelectTableActivity extends AppCompatActivity {
                 })
         );
 
+        tableList.add(new Table("test"));
+        tableList.add(new Table("test"));
+
         tableAdapter = new TableAdapter(tableList);
         RecyclerView.LayoutManager tLayoutManager = new LinearLayoutManager(
                 getApplicationContext());
@@ -61,7 +64,7 @@ public class SelectTableActivity extends AppCompatActivity {
     public void prepTableData(){
         int numOfTables = getNumOfTables();
         for(int i = 1; i <= numOfTables; i++){
-            tableList.add(new Table((TABLE_TITLE+i)));
+            tableList.add(new Table(TABLE_TITLE+i));
         }
         tableAdapter.notifyDataSetChanged();
     }

@@ -30,7 +30,7 @@ public class TableAdapter extends RecyclerView.Adapter<TableAdapter.MyViewHolder
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
        View v= LayoutInflater.from(parent.getContext())
-               .inflate(R.layout.activity_select_table, parent, false);
+               .inflate(R.layout.select_table_list_item, parent, false);
        return new MyViewHolder(v);
     }
 
