@@ -37,6 +37,7 @@ public class TableAdapter extends RecyclerView.Adapter<TableAdapter.MyViewHolder
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Table table = tableList.get(position);
+        holder.table_name.setText(table.getTitle());
     }
 
     @Override

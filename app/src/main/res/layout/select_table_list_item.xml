@@ -13,11 +13,7 @@
     android:background="?android:attr/selectableItemBackground"
     android:clickable="true"
     android:focusable="true"
-    android:orientation="vertical"
-    android:paddingBottom="@dimen/row_padding_vertical"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/row_padding_vertical">
+    android:orientation="vertical">
 
 
     <TextView
@@ -26,7 +22,7 @@
         android:layout_height="wrap_content"
         android:padding="8dp"
         android:text="test"
-        android:textColor="@color/colorAccentDark"
+        android:textAppearance="@android:style/TextAppearance.Medium"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

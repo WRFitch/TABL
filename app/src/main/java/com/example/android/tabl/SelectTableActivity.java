@@ -43,14 +43,12 @@ public class SelectTableActivity extends AppCompatActivity {
                     @Override public void onItemClick(View view, int position) {
                         tableList.get(position);
                         //go back to basket/checkout view, passing table data
+                        finish();//TODO: update to above comment
                     }
                     @Override public void onLongItemClick(View view, int position) {
                     }
                 })
         );
-
-        tableList.add(new Table("test"));
-        tableList.add(new Table("test"));
 
         tableAdapter = new TableAdapter(tableList);
         RecyclerView.LayoutManager tLayoutManager = new LinearLayoutManager(
@@ -71,6 +69,6 @@ public class SelectTableActivity extends AppCompatActivity {
 
     //TEST DATA
     public int getNumOfTables(){
-        return 10;
+        return 30;
     }
 }
