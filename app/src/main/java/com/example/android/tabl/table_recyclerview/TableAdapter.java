@@ -23,6 +23,10 @@ public class TableAdapter extends RecyclerView.Adapter<TableAdapter.MyViewHolder
         }
     }
 
+    public TableAdapter(List<Table> tablesList){
+        this.tableList = tablesList;
+    }
+
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
        View v= LayoutInflater.from(parent.getContext())

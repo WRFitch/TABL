@@ -16,11 +16,10 @@ import java.util.List;
 
 public class SelectTableActivity extends AppCompatActivity {
 
-
     private RecyclerView recyclerView;
     private TableAdapter tableAdapter;
 
-    private List<Table> tableList;
+    private List<Table> tableList = new ArrayList<>();
     private final String TABLE_TITLE = "Table ";
 
     @Override
@@ -29,6 +28,7 @@ public class SelectTableActivity extends AppCompatActivity {
         setContentView(R.layout.activity_select_table);
 
         // top action bar text is renamed and a 'close' symbol is enabled
+
         /*
         this.getSupportActionBar().setTitle("Select Table");
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -38,7 +38,8 @@ public class SelectTableActivity extends AppCompatActivity {
         tableList = new ArrayList<>();
         recyclerView = findViewById(R.id.table_recycler_view);
         recyclerView.addOnItemTouchListener(
-                new RecyclerItemClickListener(this,recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+                new RecyclerItemClickListener(this,recyclerView,
+                        new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {
                         tableList.get(position);
                         //go back to basket/checkout view, passing table data
@@ -48,7 +49,7 @@ public class SelectTableActivity extends AppCompatActivity {
                 })
         );
 
-        tableAdapter = new TableAdapter();
+        tableAdapter = new TableAdapter(tableList);
         RecyclerView.LayoutManager tLayoutManager = new LinearLayoutManager(
                 getApplicationContext());
         recyclerView.setLayoutManager(tLayoutManager);
@@ -59,9 +60,10 @@ public class SelectTableActivity extends AppCompatActivity {
 
     public void prepTableData(){
         int numOfTables = getNumOfTables();
-        for(int i = 0; i < numOfTables; i++){
-            tableList.add(new Table(TABLE_TITLE));
+        for(int i = 1; i <= numOfTables; i++){
+            tableList.add(new Table((TABLE_TITLE+i)));
         }
+        tableAdapter.notifyDataSetChanged();
     }
 
     //TEST DATA
