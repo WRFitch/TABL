@@ -6,15 +6,16 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.Button;
 import android.content.Intent;
 import android.view.View;
+import com.example.android.tabl.basket_checkout_recyclerview.BasketCheckoutAdapter;
 
-import com.example.android.tabl.restaurant_recyclerview.RestaurantsAdapter;
-
+/**
+ * TODO: NEED TO MAKE HELP ACTIVITY AND CLASS SO I CAN LINK THIS BUTTON TO IT, LINKED IT TO 'MORE' PAGE FOR NOW
+ */
 
 public class CheckoutActivity extends AppCompatActivity {
 
-    private RecyclerView recyclerView;
-    private RestaurantsAdapter rAdapter;
     private Button cancelOrderButton, HelpWithOrderButton, addTipButton;
+
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,19 +32,16 @@ public class CheckoutActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-/**
-         * TODO: NEED TO MAKE HELP ACTIVITY AND CLASS SO I CAN LINK THIS BUTTON TO IT, LINKED IT TO 'MORE' PAGE FOR NOW
- */
+
         HelpWithOrderButton = findViewById(R.id.HelpWithOrderButton);
         HelpWithOrderButton.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            Intent intent = new Intent(getApplicationContext(), MoreActivity.class); //HERE^
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-        }
-    });
-}
-}
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), MoreActivity.class); //HERE^
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
 
-
+        });
+    }
+}
