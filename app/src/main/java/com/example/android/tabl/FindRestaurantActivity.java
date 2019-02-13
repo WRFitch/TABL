@@ -43,7 +43,7 @@ import java.util.List;
 
 public class FindRestaurantActivity extends AppCompatActivity implements OnMapReadyCallback, LocationListener {
 
-    private List<Restaurant> restaurantList= new ArrayList<>();
+    private List<Restaurant> restaurantList = new ArrayList<>();
     private RecyclerView recyclerView;
     private RestaurantsAdapter rAdapter;
     private FloatingActionButton fab;
@@ -81,16 +81,18 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
             }
         });
 
+        //this.getSupportActionBar().setTitle("Select Restaurant");
+
         recyclerView = findViewById(R.id.find_restaurant_recyView);
         recyclerView.addOnItemTouchListener(
-                new RecyclerItemClickListener(this, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+                new RecyclerItemClickListener(this, recyclerView,
+                        new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {
                         restaurantList.get(position).getMenuTitles();
                         //pass menuTitles to menuactivity
                         //preload favourites menu
                         callMenuActivity(getApplicationContext());
                     }
-
                     @Override public void onLongItemClick(View view, int position) {
                         //perhaps use this to display restaurant info/add to favourites?
                         TablUtils.functionNotImplemented(view, "maybe add to favourites?");
@@ -129,7 +131,7 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
         TablUtils.checkLocationPerms(this, this);
         mMap = googleMap;
         googleMap.setMyLocationEnabled(true);
-        mMap.getUiSettings().setMyLocationButtonEnabled(true);
+        mMap.getUiSettings().setMyLocationButtonEnabled(false);
         updateLocation();
         currentLocation = mLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
         updateCameraNoAnimation(currentLocation);
@@ -210,7 +212,6 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
     //call next activity. Make sure to pass parcelable restaurant data.
     private void callMenuActivity(Context c) {
         Intent intent = new Intent(c, MenuActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
 }
