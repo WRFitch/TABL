@@ -43,6 +43,7 @@
 
     <TextView
 
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="38dp"
         android:layout_marginStart="8dp"
@@ -60,6 +61,7 @@
 
     <TextView
 
+        android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="38dp"
         android:layout_marginStart="8dp"
@@ -107,6 +109,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="395dp"
         android:layout_height="198dp"
         android:layout_marginBottom="136dp"
