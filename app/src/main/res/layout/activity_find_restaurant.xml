@@ -69,4 +69,14 @@
         app:layout_constraintHeight_percent="0.25">
     </android.support.v7.widget.RecyclerView>
 
+    <ImageButton
+        android:id="@+id/swipeUpRestaurantListButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_keyboard_arrow_up_grey_24dp" />
+
+
 </android.support.constraint.ConstraintLayout>

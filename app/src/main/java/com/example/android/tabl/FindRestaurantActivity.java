@@ -14,6 +14,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.example.android.tabl.utils.RecyclerItemClickListener;
 import com.example.android.tabl.restaurant_recyclerview.Restaurant;
@@ -47,7 +48,8 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
     private RecyclerView recyclerView;
     private RestaurantsAdapter rAdapter;
     private FloatingActionButton fab;
-    private Button swipeUpRestaurantList;
+    private ImageButton swipeUpRestaurantList;
+    private boolean isSwipeButtonDown = true;
 
     private SupportMapFragment mapFragment;
     private GoogleMap mMap;
@@ -110,7 +112,13 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
 
         showRestaurantsOnMap();
 
-        //swipeUpRestaurantList = findViewById(R.id.swipeUpRestaurantListButton);
+        swipeUpRestaurantList = findViewById(R.id.swipeUpRestaurantListButton);
+        swipeUpRestaurantList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toggleSwipeRestaurantList();
+            }
+        });
     }
 
     //check if the user has location services on when returning to the application
@@ -118,7 +126,6 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
     protected void onStart() {
         super.onStart();
         mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-
     }
 
     @Override
@@ -198,7 +205,11 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
     }
 
     private void toggleSwipeRestaurantList(){
-
+        if(isSwipeButtonDown){
+            swipeRestaurantListUp();
+        }else{
+            swipeRestaurantListDown();
+        }
     }
 
     private void swipeRestaurantListUp(){
