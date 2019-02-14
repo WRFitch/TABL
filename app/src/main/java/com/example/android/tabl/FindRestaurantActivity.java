@@ -260,16 +260,19 @@ public class FindRestaurantActivity extends AppCompatActivity
         isSwipeButtonDown = !isSwipeButtonDown;
     }
 
+    //these could use some animations to make the icon change less drastic
     private void swipeRestaurantListUp() {
-        animation = ObjectAnimator.ofFloat(swipeUpRestaurantList, "translationY", -1000f);
+        animation = ObjectAnimator.ofFloat(swipeUpRestaurantList, "translationY", -1f);
         animation.setDuration(600);
         animation.start();
+        swipeUpRestaurantList.setBackgroundResource(R.drawable.ic_keyboard_arrow_down_grey_24dp);
     }
 
     private void swipeRestaurantListDown() {
-        animation = ObjectAnimator.ofFloat(swipeUpRestaurantList, "translationY", 800f);
+        animation = ObjectAnimator.ofFloat(swipeUpRestaurantList, "translationY", 1f);
         animation.setDuration(600);
         animation.start();
+        swipeUpRestaurantList.setBackgroundResource(R.drawable.ic_keyboard_arrow_up_grey_24dp);
     }
 
     //call next activity. Make sure to pass parcelable restaurant data.
