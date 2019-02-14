@@ -15,12 +15,9 @@ package com.example.android.tabl;
  * TODO: refactor for efficiency
  */
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Handler;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -42,8 +39,7 @@ public class SplashPageActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_page);
 
-        prepNextView();
-        tv = findViewById(R.id.SplashPageVersionName);
+        prepNextActivity();
 
         //wait x seconds, then load. delete this once next activity is implemented.
         new Handler().postDelayed(new Runnable() {
@@ -66,7 +62,6 @@ public class SplashPageActivity extends AppCompatActivity{
     }
 
     private void callFindRestaurantActivity(Context c){
-        //call next activity
         Intent intent = new Intent(c, FindRestaurantActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
@@ -79,10 +74,11 @@ public class SplashPageActivity extends AppCompatActivity{
 
     //preloads menu data in preparation for next method, parcels them to be passed over
     private void preloadFRAData(){
-        //checkLocationPermission();
+        //new FRA might be shaky
+        //TablUtils.checkLocationPerms(this.getApplicationContext(), new FindRestaurantActivity());
     }
 
-    private void prepNextView(){
+    private void prepNextActivity(){
         TablUtils.checkLocationPerms(this, this);
         isNextReady = true;
     }

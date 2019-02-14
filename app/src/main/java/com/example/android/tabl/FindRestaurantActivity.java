@@ -74,6 +74,7 @@ public class FindRestaurantActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_restaurant);
 
+        checkGPSTurnedOn();
 
         if (savedInstanceState != null && savedInstanceState.keySet().contains(KEY_LOCATION)) {
             currentLocation = savedInstanceState.getParcelable(KEY_LOCATION);
@@ -206,6 +207,29 @@ public class FindRestaurantActivity extends AppCompatActivity
         TablUtils.checkLocationPerms(this, this);
     }
 
+    private void checkGPSTurnedOn(){
+        boolean isOn = false;
+        if(!isOn){
+            AlertDialog.Builder builder = new AlertDialog.Builder(FindRestaurantActivity.this);
+
+            builder.setMessage(R.string.gps_dialog_info_text)
+                    .setTitle(R.string.gps_dialog_title);
+            builder.setPositiveButton(R.string.turn_on_gps, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    // User clicked OK button
+                }
+            });
+            builder.setNegativeButton(R.string.use_search_not_gps, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    callSearchRestaurantActivity(getApplicationContext());
+                    //callSearchRestaurantActivity(FindRestaurantActivity.this);
+                }
+            });
+
+            AlertDialog dialog = builder.create();
+        }
+    }
+
     private void showRestaurantsOnMap() {
         for (Restaurant r : restaurantList) {
             //currently crashes app - "null object reference"
@@ -245,6 +269,11 @@ public class FindRestaurantActivity extends AppCompatActivity
     //call next activity. Make sure to pass parcelable restaurant data.
     private void callMenuActivity(Context c) {
         Intent intent = new Intent(c, MenuActivity.class);
+        startActivity(intent);
+    }
+
+    private void callSearchRestaurantActivity(Context c){
+        Intent intent = new Intent(c, SearchRestaurantActivity.class);
         startActivity(intent);
     }
 }
