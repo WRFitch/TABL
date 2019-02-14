@@ -2,14 +2,9 @@ package com.example.android.tabl;
 
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
-import android.app.Dialog;
-import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -21,7 +16,6 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.example.android.tabl.utils.RecyclerItemClickListener;
@@ -73,12 +67,13 @@ public class FindRestaurantActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_restaurant);
-
+        mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         checkGPSTurnedOn();
-
         if (savedInstanceState != null && savedInstanceState.keySet().contains(KEY_LOCATION)) {
             currentLocation = savedInstanceState.getParcelable(KEY_LOCATION);
         }
+
+        checkGPSTurnedOn();
         mapFragment = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map));
         mapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
@@ -142,6 +137,7 @@ public class FindRestaurantActivity extends AppCompatActivity
     protected void onStart() {
         super.onStart();
         mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        checkGPSTurnedOn();
     }
 
     @Override
@@ -151,6 +147,7 @@ public class FindRestaurantActivity extends AppCompatActivity
 
     @SuppressLint("MissingPermission")
     protected void loadMap(GoogleMap googleMap) {
+        checkGPSTurnedOn();
         TablUtils.checkLocationPerms(this, this);
         mMap = googleMap;
         googleMap.setMyLocationEnabled(true);
@@ -208,15 +205,15 @@ public class FindRestaurantActivity extends AppCompatActivity
     }
 
     private void checkGPSTurnedOn(){
-        boolean isOn = false;
-        if(!isOn){
+        if( !mLocationManager.isProviderEnabled( LocationManager.GPS_PROVIDER ) ||
+            !mLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)){
             AlertDialog.Builder builder = new AlertDialog.Builder(FindRestaurantActivity.this);
 
             builder.setMessage(R.string.gps_dialog_info_text)
                     .setTitle(R.string.gps_dialog_title);
             builder.setPositiveButton(R.string.turn_on_gps, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
-                    // User clicked OK button
+                    requestTurnOnGPS();
                 }
             });
             builder.setNegativeButton(R.string.use_search_not_gps, new DialogInterface.OnClickListener() {
@@ -225,9 +222,15 @@ public class FindRestaurantActivity extends AppCompatActivity
                     //callSearchRestaurantActivity(FindRestaurantActivity.this);
                 }
             });
-
+            builder.show();
             AlertDialog dialog = builder.create();
         }
+    }
+
+    private void requestTurnOnGPS(){
+        Intent gpsOptionsIntent = new Intent(
+                android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+        startActivity(gpsOptionsIntent);
     }
 
     private void showRestaurantsOnMap() {
