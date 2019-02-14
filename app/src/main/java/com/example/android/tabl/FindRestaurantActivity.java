@@ -2,6 +2,7 @@ package com.example.android.tabl;
 
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -68,12 +69,12 @@ public class FindRestaurantActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_restaurant);
         mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        checkGPSTurnedOn();
+        //checkGPSTurnedOn();
+
         if (savedInstanceState != null && savedInstanceState.keySet().contains(KEY_LOCATION)) {
             currentLocation = savedInstanceState.getParcelable(KEY_LOCATION);
         }
 
-        checkGPSTurnedOn();
         mapFragment = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map));
         mapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
@@ -137,7 +138,6 @@ public class FindRestaurantActivity extends AppCompatActivity
     protected void onStart() {
         super.onStart();
         mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        checkGPSTurnedOn();
     }
 
     @Override
@@ -147,19 +147,21 @@ public class FindRestaurantActivity extends AppCompatActivity
 
     @SuppressLint("MissingPermission")
     protected void loadMap(GoogleMap googleMap) {
-        checkGPSTurnedOn();
         TablUtils.checkLocationPerms(this, this);
         mMap = googleMap;
         googleMap.setMyLocationEnabled(true);
         mMap.getUiSettings().setMyLocationButtonEnabled(false);
         updateLocation();
         currentLocation = mLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-        updateCameraNoAnimation(currentLocation);
+        if(currentLocation!=null)
+            updateCameraNoAnimation(currentLocation);
+
     }
 
     @SuppressLint("MissingPermission")
     public void updateLocation() {
         TablUtils.checkLocationPerms(this, this);
+        checkGPSTurnedOn();
         mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 10000, 100, this);
         mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 20, this);
     }
@@ -179,7 +181,7 @@ public class FindRestaurantActivity extends AppCompatActivity
 
     @SuppressLint("MissingPermission")
     public void updateCameraWithAnimation() {
-        //updateLocation();
+        updateLocation();
         currentLocation = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         currentLocation = mMap.getMyLocation();
         LatLng currentLatLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
@@ -214,6 +216,7 @@ public class FindRestaurantActivity extends AppCompatActivity
             builder.setPositiveButton(R.string.turn_on_gps, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
                     requestTurnOnGPS();
+                    getParent().recreate();
                 }
             });
             builder.setNegativeButton(R.string.use_search_not_gps, new DialogInterface.OnClickListener() {
