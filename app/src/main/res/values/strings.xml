@@ -19,7 +19,9 @@
     <string name="title_activity_restaurant_map">Map</string>
     <string name="dist_miles">miles</string>
     <string name="dist_km">km</string>
-    <string name="dialog_info_text">Do you want this app to use your location? It can still function without if you use the search function.</string>
+    <string name="gps_dialog_info_text">Do you want this app to use your location? It can still function using search, but it\'ll be less accurate.</string>
+    <string name="turn_on_gps">Turn on GPS</string>
+    <string name="use_search_not_gps">Use Search Instead</string>
 
     <!--Basket Page Strings -->
     <string name="text_basket">Basket</string>

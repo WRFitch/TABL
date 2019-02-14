@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.android.tabl">
-
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -20,13 +19,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".SearchRestaurantActivity"></activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
-
-
-        <!-- starting activity -->
+            android:value="@string/google_maps_key" /> <!-- starting activity -->
         <activity
             android:name=".SplashPageActivity"
             android:screenOrientation="portrait"
@@ -36,9 +33,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- main app flow -->
+        </activity> <!-- main app flow -->
         <activity
             android:name=".FindRestaurantActivity"
             android:label="Select Restaurant" />
@@ -51,9 +46,7 @@
             android:label="Basket" />
         <activity
             android:name=".CheckoutActivity"
-            android:label="Ongoing Order" />
-
-        <!-- utility views -->
+            android:label="Ongoing Order" /> <!-- utility views -->
         <activity
             android:name=".MoreActivity"
             android:label="More" />

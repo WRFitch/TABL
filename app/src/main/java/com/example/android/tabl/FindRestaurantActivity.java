@@ -1,13 +1,21 @@
 package com.example.android.tabl;
 
+import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -42,7 +50,8 @@ import java.util.List;
  * TODO: implement swiping restaurantList up & down
  */
 
-public class FindRestaurantActivity extends AppCompatActivity implements OnMapReadyCallback, LocationListener {
+public class FindRestaurantActivity extends AppCompatActivity
+        implements OnMapReadyCallback, LocationListener{
 
     private List<Restaurant> restaurantList = new ArrayList<>();
     private RecyclerView recyclerView;
@@ -50,6 +59,7 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
     private FloatingActionButton fab;
     private ImageButton swipeUpRestaurantList;
     private boolean isSwipeButtonDown = true;
+    private ObjectAnimator animation;
 
     private SupportMapFragment mapFragment;
     private GoogleMap mMap;
@@ -63,6 +73,7 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_restaurant);
+
 
         if (savedInstanceState != null && savedInstanceState.keySet().contains(KEY_LOCATION)) {
             currentLocation = savedInstanceState.getParcelable(KEY_LOCATION);
@@ -89,17 +100,20 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(this, recyclerView,
                         new RecyclerItemClickListener.OnItemClickListener() {
-                    @Override public void onItemClick(View view, int position) {
-                        restaurantList.get(position).getMenuTitles();
-                        //pass menuTitles to menuactivity
-                        //preload favourites menu
-                        callMenuActivity(getApplicationContext());
-                    }
-                    @Override public void onLongItemClick(View view, int position) {
-                        //perhaps use this to display restaurant info/add to favourites?
-                        TablUtils.functionNotImplemented(view, "maybe add to favourites?");
-                    }
-                })
+                            @Override
+                            public void onItemClick(View view, int position) {
+                                restaurantList.get(position).getMenuTitles();
+                                //pass menuTitles to menuactivity
+                                //preload favourites menu
+                                callMenuActivity(getApplicationContext());
+                            }
+
+                            @Override
+                            public void onLongItemClick(View view, int position) {
+                                //perhaps use this to display restaurant info/add to favourites?
+                                TablUtils.functionNotImplemented(view, "maybe add to favourites?");
+                            }
+                        })
         );
 
         rAdapter = new RestaurantsAdapter(restaurantList);
@@ -122,7 +136,8 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
     }
 
     //check if the user has location services on when returning to the application
-    @Override @SuppressLint("MissingPermission")
+    @Override
+    @SuppressLint("MissingPermission")
     protected void onStart() {
         super.onStart();
         mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
@@ -134,7 +149,7 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
     }
 
     @SuppressLint("MissingPermission")
-    protected void loadMap(GoogleMap googleMap){
+    protected void loadMap(GoogleMap googleMap) {
         TablUtils.checkLocationPerms(this, this);
         mMap = googleMap;
         googleMap.setMyLocationEnabled(true);
@@ -152,7 +167,7 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
     }
 
     @SuppressLint("MissingPermission")
-    public void getUserLocationNoAnimation(){
+    public void getUserLocationNoAnimation() {
         updateLocation();
         currentLocation = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         currentLocation = mMap.getMyLocation();
@@ -165,8 +180,8 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
     }
 
     @SuppressLint("MissingPermission")
-    public void updateCameraWithAnimation(){
-        updateLocation();
+    public void updateCameraWithAnimation() {
+        //updateLocation();
         currentLocation = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         currentLocation = mMap.getMyLocation();
         LatLng currentLatLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
@@ -174,10 +189,12 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
     }
 
     public void onLocationChanged(Location location) {
-        //updateCameraNoAnimation(location);
+        updateLocation();
     }
 
-    public void onStatusChanged(String provider, int status, Bundle extras){}
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+        updateLocation();
+    }
 
     public void onProviderEnabled(String provider) {
         TablUtils.checkLocationPerms(this, this);
@@ -189,35 +206,40 @@ public class FindRestaurantActivity extends AppCompatActivity implements OnMapRe
         TablUtils.checkLocationPerms(this, this);
     }
 
-    private void showRestaurantsOnMap(){
-        for(Restaurant r: restaurantList){
+    private void showRestaurantsOnMap() {
+        for (Restaurant r : restaurantList) {
             //currently crashes app - "null object reference"
             //mMap.addMarker(new MarkerOptions().position(r.updateLocation()).title(r.getName()));
         }
     }
 
-    private void prepRestaurantData(){
+    private void prepRestaurantData() {
         //current implementation uses test data! something like i->getCachedRestaurants
-        for(int i=0; i<5; i++){
+        for (int i = 0; i < 5; i++) {
             restaurantList.add(new Restaurant(FindRestaurantActivity.this));
         }
         rAdapter.notifyDataSetChanged();
     }
 
-    private void toggleSwipeRestaurantList(){
-        if(isSwipeButtonDown){
+    private void toggleSwipeRestaurantList() {
+        if (isSwipeButtonDown) {
             swipeRestaurantListUp();
-        }else{
+        } else {
             swipeRestaurantListDown();
         }
+        isSwipeButtonDown = !isSwipeButtonDown;
     }
 
-    private void swipeRestaurantListUp(){
-
+    private void swipeRestaurantListUp() {
+        animation = ObjectAnimator.ofFloat(swipeUpRestaurantList, "translationY", -1000f);
+        animation.setDuration(600);
+        animation.start();
     }
 
-    private void swipeRestaurantListDown(){
-
+    private void swipeRestaurantListDown() {
+        animation = ObjectAnimator.ofFloat(swipeUpRestaurantList, "translationY", 800f);
+        animation.setDuration(600);
+        animation.start();
     }
 
     //call next activity. Make sure to pass parcelable restaurant data.

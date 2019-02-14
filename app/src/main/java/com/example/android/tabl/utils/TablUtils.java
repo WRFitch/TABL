@@ -54,6 +54,9 @@ public class TablUtils {
                 1);
     }
 
+    public static void requestTurnOnGPS(){
+
+    }
 
     //parcel method
 }
