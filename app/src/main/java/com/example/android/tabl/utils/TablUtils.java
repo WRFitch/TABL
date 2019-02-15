@@ -38,7 +38,7 @@ public class TablUtils {
         Snackbar.make(view, msg, Snackbar.LENGTH_LONG).show();
     }
 
-    public static void checkAndRequestLocationPerms(Context c, Activity a){
+    public static void getLocationPerms(Context c, Activity a){
         if (ActivityCompat.checkSelfPermission(c, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(c, Manifest.permission.ACCESS_COARSE_LOCATION)

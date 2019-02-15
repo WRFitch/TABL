@@ -72,6 +72,7 @@ public class FindRestaurantActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_restaurant);
         mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        checkGPSTurnedOn();
 
         if (savedInstanceState != null && savedInstanceState.keySet().contains(KEY_LOCATION)) {
             currentLocation = savedInstanceState.getParcelable(KEY_LOCATION);
@@ -141,6 +142,7 @@ public class FindRestaurantActivity extends AppCompatActivity
     @SuppressLint("MissingPermission")
     protected void onStart() {
         super.onStart();
+        TablUtils.getLocationPerms(this, this);
         mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
     }
 
@@ -156,7 +158,7 @@ public class FindRestaurantActivity extends AppCompatActivity
 
     @SuppressLint("MissingPermission")
     protected void loadMap(GoogleMap googleMap) {
-        TablUtils.checkAndRequestLocationPerms(this, this);
+        TablUtils.getLocationPerms(this, this);
         mMap = googleMap;
         googleMap.setMyLocationEnabled(true);
         mMap.getUiSettings().setMyLocationButtonEnabled(false);
@@ -169,7 +171,7 @@ public class FindRestaurantActivity extends AppCompatActivity
 
     @SuppressLint("MissingPermission")
     public void updateLocation() {
-        TablUtils.checkAndRequestLocationPerms(this, this);
+        TablUtils.getLocationPerms(this, this);
         checkGPSTurnedOn();
         mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 10000, 100, this);
         mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 20, this);
@@ -206,17 +208,17 @@ public class FindRestaurantActivity extends AppCompatActivity
     }
 
     public void onProviderEnabled(String provider) {
-        TablUtils.checkAndRequestLocationPerms(this, this);
+        TablUtils.getLocationPerms(this, this);
         updateLocation();
         updateCameraNoAnimation(currentLocation);
     }
 
     public void onProviderDisabled(String provider) {
-        TablUtils.checkAndRequestLocationPerms(this, this);
+        TablUtils.getLocationPerms(this, this);
     }
 
     private void checkGPSTurnedOn(){
-        if( !mLocationManager.isProviderEnabled( LocationManager.GPS_PROVIDER ) ||
+        if( !mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
             !mLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)){
             AlertDialog.Builder builder = new AlertDialog.Builder(FindRestaurantActivity.this);
 
