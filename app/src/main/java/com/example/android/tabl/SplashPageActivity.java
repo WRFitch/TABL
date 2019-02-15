@@ -45,7 +45,7 @@ public class SplashPageActivity extends AppCompatActivity{
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if((!firedNext) && isNextReady) {
+                if((!firedNext) && TablUtils.checkLocationPerms(getApplicationContext())) {
                     callFindRestaurantActivity(SplashPageActivity.this);
                 }
             }
@@ -56,7 +56,8 @@ public class SplashPageActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 firedNext = true;
-                if(isNextReady) callFindRestaurantActivity(v.getContext());
+                if(TablUtils.checkLocationPerms(getApplicationContext()))
+                    callFindRestaurantActivity(v.getContext());
             }
         });
     }
@@ -75,11 +76,10 @@ public class SplashPageActivity extends AppCompatActivity{
     //preloads menu data in preparation for next method, parcels them to be passed over
     private void preloadFRAData(){
         //new FRA might be shaky
-        //TablUtils.checkLocationPerms(this.getApplicationContext(), new FindRestaurantActivity());
+        //TablUtils.checkAndRequestLocationPerms(this.getApplicationContext(), new FindRestaurantActivity());
     }
 
     private void prepNextActivity(){
-        TablUtils.checkLocationPerms(this, this);
-        isNextReady = true;
+
     }
 }

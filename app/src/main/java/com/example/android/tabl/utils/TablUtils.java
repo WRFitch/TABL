@@ -38,13 +38,23 @@ public class TablUtils {
         Snackbar.make(view, msg, Snackbar.LENGTH_LONG).show();
     }
 
-    public static void checkLocationPerms(Context c, Activity a){
+    public static void checkAndRequestLocationPerms(Context c, Activity a){
         if (ActivityCompat.checkSelfPermission(c, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(c, Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
             requestLocationPerms(a);
         }
+    }
+
+    public static boolean checkLocationPerms(Context c){
+        if (ActivityCompat.checkSelfPermission(c, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(c, Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            return false;
+        }
+        return true;
     }
 
     public static void requestLocationPerms(Activity a){

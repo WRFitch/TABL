@@ -2,7 +2,6 @@ package com.example.android.tabl;
 
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
-import android.app.ActionBar;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -59,7 +58,6 @@ public class FindRestaurantActivity extends AppCompatActivity
     private boolean isSwipeButtonDown = true;
     private ObjectAnimator animation;
     private Toolbar toolbar;
-    private ActionBar toolbar2;
 
     private SupportMapFragment mapFragment;
     private GoogleMap mMap;
@@ -95,6 +93,8 @@ public class FindRestaurantActivity extends AppCompatActivity
             }
         });
 
+        toolbar = findViewById(R.id.FRAtoolbar);
+        setSupportActionBar(toolbar);
         //this.getSupportActionBar().setTitle("Select Restaurant");
 
         recyclerView = findViewById(R.id.find_restaurant_recyView);
@@ -156,7 +156,7 @@ public class FindRestaurantActivity extends AppCompatActivity
 
     @SuppressLint("MissingPermission")
     protected void loadMap(GoogleMap googleMap) {
-        TablUtils.checkLocationPerms(this, this);
+        TablUtils.checkAndRequestLocationPerms(this, this);
         mMap = googleMap;
         googleMap.setMyLocationEnabled(true);
         mMap.getUiSettings().setMyLocationButtonEnabled(false);
@@ -169,7 +169,7 @@ public class FindRestaurantActivity extends AppCompatActivity
 
     @SuppressLint("MissingPermission")
     public void updateLocation() {
-        TablUtils.checkLocationPerms(this, this);
+        TablUtils.checkAndRequestLocationPerms(this, this);
         checkGPSTurnedOn();
         mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 10000, 100, this);
         mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 20, this);
@@ -206,13 +206,13 @@ public class FindRestaurantActivity extends AppCompatActivity
     }
 
     public void onProviderEnabled(String provider) {
-        TablUtils.checkLocationPerms(this, this);
+        TablUtils.checkAndRequestLocationPerms(this, this);
         updateLocation();
         updateCameraNoAnimation(currentLocation);
     }
 
     public void onProviderDisabled(String provider) {
-        TablUtils.checkLocationPerms(this, this);
+        TablUtils.checkAndRequestLocationPerms(this, this);
     }
 
     private void checkGPSTurnedOn(){

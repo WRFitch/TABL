@@ -19,7 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
-        <fragment android:name=".SearchRestaurantFragment"/>
+
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -46,7 +46,9 @@
             android:label="Basket" />
         <activity
             android:name=".CheckoutActivity"
-            android:label="Ongoing Order" /> <!-- utility views -->
+            android:label="Ongoing Order" />
+
+        <!-- utility views -->
         <activity
             android:name=".MoreActivity"
             android:label="More" />
@@ -54,6 +56,9 @@
             android:name=".PastOrdersActivity"
             android:exported="true"
             android:label="Past Orders" />
+        <activity
+            android:name=".SearchRestaurantFragment"
+            android:label="Search"/>
     </application>
 
 </manifest>
