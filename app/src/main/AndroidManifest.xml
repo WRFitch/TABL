@@ -19,7 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".SearchRestaurantActivity"></activity>
+        <fragment android:name=".SearchRestaurantFragment"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

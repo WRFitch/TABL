@@ -43,7 +43,8 @@ public class SelectTableActivity extends AppCompatActivity {
                     @Override public void onItemClick(View view, int position) {
                         tableList.get(position);
                         //go back to basket/checkout view, passing table data
-                        finish();//TODO: update to above comment
+                        //TODO: update to above comment
+                        finish();
                     }
                     @Override public void onLongItemClick(View view, int position) {
                     }

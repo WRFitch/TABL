@@ -2,7 +2,7 @@ package com.example.android.tabl;
 
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
-import android.app.Activity;
+import android.app.ActionBar;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -40,9 +41,11 @@ import java.util.List;
  */
 
 /**
+ * TODO: implement status bar or toolbar or whatever it's called
  * TODO: implement additional search method in appbar.
  * TODO: implement passing restaurant data to MenuActivity
  * TODO: implement swiping restaurantList up & down
+ * TODO: implement onPause method to stop the GPS draining someone's battery
  */
 
 public class FindRestaurantActivity extends AppCompatActivity
@@ -55,6 +58,8 @@ public class FindRestaurantActivity extends AppCompatActivity
     private ImageButton swipeUpRestaurantList;
     private boolean isSwipeButtonDown = true;
     private ObjectAnimator animation;
+    private Toolbar toolbar;
+    private ActionBar toolbar2;
 
     private SupportMapFragment mapFragment;
     private GoogleMap mMap;
@@ -69,7 +74,6 @@ public class FindRestaurantActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_restaurant);
         mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        //checkGPSTurnedOn();
 
         if (savedInstanceState != null && savedInstanceState.keySet().contains(KEY_LOCATION)) {
             currentLocation = savedInstanceState.getParcelable(KEY_LOCATION);
@@ -138,6 +142,11 @@ public class FindRestaurantActivity extends AppCompatActivity
     protected void onStart() {
         super.onStart();
         mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
     }
 
     @Override
@@ -282,7 +291,7 @@ public class FindRestaurantActivity extends AppCompatActivity
     }
 
     private void callSearchRestaurantActivity(Context c){
-        Intent intent = new Intent(c, SearchRestaurantActivity.class);
+        Intent intent = new Intent(c, SearchRestaurantFragment.class);
         startActivity(intent);
     }
 }

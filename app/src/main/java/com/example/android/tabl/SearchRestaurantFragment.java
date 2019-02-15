@@ -3,7 +3,7 @@ package com.example.android.tabl;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class SearchRestaurantActivity extends AppCompatActivity {
+public class SearchRestaurantFragment extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
