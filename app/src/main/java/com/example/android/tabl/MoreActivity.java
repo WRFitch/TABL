@@ -17,9 +17,8 @@ public class MoreActivity extends AppCompatActivity {
         setContentView(R.layout.activity_more);
 
         // top action bar text is renamed and a 'close' symbol is enabled
-        this.getSupportActionBar().setTitle("More");
-        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        this.getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_close);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_close);
 
         // ongoingOrdersButton will open CheckoutActivity
         ongoingOrdersButton = (Button) findViewById(R.id.ongoingOrdersButton);

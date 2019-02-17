@@ -15,6 +15,9 @@ public class BasketActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_basket);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_close);
+
         // checkoutbutton will open checkoutActivity
         checkoutButton = findViewById(R.id.CheckoutButton);
         checkoutButton.setOnClickListener(new View.OnClickListener() {
@@ -35,7 +38,7 @@ public class BasketActivity extends AppCompatActivity {
             }
         });
 
-        /*
+
         // selectTableButton will open SelectTableActivity
         selectTableButton = (Button) findViewById(R.id.selectTableButton);
         selectTableButton.setOnClickListener(new View.OnClickListener() {
@@ -43,7 +46,7 @@ public class BasketActivity extends AppCompatActivity {
             public void onClick(View v) {
                 startActivity(new Intent(BasketActivity.this, SelectTableActivity.class));
             }
-        });*/
+        });
 
         // triggers a dialog box to appear to edit tip amount
         addTipButton = (Button) findViewById(R.id.addTipButton);

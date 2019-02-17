@@ -260,7 +260,7 @@ public class FindRestaurantActivity extends AppCompatActivity
     }
 
     private void callSearchRestaurantActivity(Context c){
-        Intent intent = new Intent(c, SearchRestaurantFragment.class);
+        Intent intent = new Intent(c, SearchRestaurantActivity.class);
         startActivity(intent);
     }
 

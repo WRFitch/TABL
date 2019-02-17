@@ -1,7 +1,6 @@
 package com.example.android.tabl;
 
 import android.content.Context;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -17,7 +16,7 @@ import com.example.android.tabl.utils.TablUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchRestaurantFragment extends FragmentActivity {
+public class SearchRestaurantActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private List<Restaurant> restaurantList = new ArrayList<>();
@@ -27,6 +26,9 @@ public class SearchRestaurantFragment extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_search_restaurant);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_close);
 
         recyclerView = findViewById(R.id.find_restaurant_recyView);
         recyclerView.addOnItemTouchListener(
@@ -64,7 +66,7 @@ public class SearchRestaurantFragment extends FragmentActivity {
     private void prepRestaurantData() {
         //current implementation uses test data! something like i->getCachedRestaurants
         for (int i = 0; i < 5; i++) {
-            restaurantList.add(new Restaurant(SearchRestaurantFragment.this));
+            restaurantList.add(new Restaurant(SearchRestaurantActivity.this));
         }
         rAdapter.notifyDataSetChanged();
     }

@@ -9,16 +9,6 @@
     tools:showIn="@layout/activity_select_table"
     tools:context=".SelectTableActivity"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
-<!--
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/select_table_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        style="@style/HeaderBar"
-        android:theme="@style/ThemeOverlay.AppCompat"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        />-->
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/table_recycler_view"
@@ -34,7 +24,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintHeight_percent="0.80"/>
+        app:layout_constraintHeight_percent="1"/>
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
