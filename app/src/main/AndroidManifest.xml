@@ -39,7 +39,12 @@
         <!-- main app flow -->
         <activity
             android:name=".FindRestaurantActivity"
-            android:label="Select Restaurant" />
+            android:label="Select Restaurant" >
+            <!-- pointer to search resources-->
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
         <activity
             android:name=".MenuActivity"
             android:label="Menu"
@@ -92,7 +97,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MenuActivity"
                 />
-        </activity>/>
+        </activity>
         <activity
             android:name=".PastOrdersActivity"
             android:exported="true"
@@ -113,6 +118,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".FindRestaurantActivity"
                 />
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".HelpActivity"
