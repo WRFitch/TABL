@@ -1,6 +1,5 @@
 package com.example.android.tabl;
 
-import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -15,7 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -121,6 +120,12 @@ public class FindRestaurantActivity extends AppCompatActivity
         prepRestaurantData();
 
         showRestaurantsOnMap();
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.find_restaurant_activity_menu, menu);
+        return true;
     }
 
     //check if the user has location services on when returning to the application
