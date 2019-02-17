@@ -54,7 +54,7 @@
         <activity
             android:name=".SelectTableActivity"
             android:label="Select Table"
-            android:parentActivityName=".FindRestaurantActivity" >
+            android:parentActivityName=".BasketActivity" >
             <!-- backwards compatibility for api levels <21 -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -105,7 +105,7 @@
                 />
         </activity>
         <activity
-            android:name=".SearchRestaurantFragment"
+            android:name=".SearchRestaurantActivity"
             android:label="Search"
             android:parentActivityName=".FindRestaurantActivity" >
             <!-- backwards compatibility for api levels <21 -->
