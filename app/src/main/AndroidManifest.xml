@@ -17,7 +17,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme.NoActionBar"
+        android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
 
         <meta-data
@@ -34,14 +34,33 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- main app flow -->
+        </activity>
+
+        <!-- main app flow -->
         <activity
             android:name=".FindRestaurantActivity"
             android:label="Select Restaurant" />
-        <activity android:name=".MenuActivity" />
+        <activity
+            android:name=".MenuActivity"
+            android:label="Menu"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".FindRestaurantActivity" >
+            <!-- backwards compatibility for api levels <21 -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".FindRestaurantActivity"
+            />
+        </activity>
         <activity
             android:name=".SelectTableActivity"
-            android:label="Select Table" />
+            android:label="Select Table"
+            android:parentActivityName=".FindRestaurantActivity" >
+            <!-- backwards compatibility for api levels <21 -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".FindRestaurantActivity"
+                />
+        </activity>
         <activity
             android:name=".BasketActivity"
             android:label="Basket" />

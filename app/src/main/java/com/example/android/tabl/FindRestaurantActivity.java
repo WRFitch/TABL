@@ -16,8 +16,8 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageButton;
 
 import com.example.android.tabl.utils.RecyclerItemClickListener;
 import com.example.android.tabl.restaurant_recyclerview.Restaurant;
@@ -45,6 +45,7 @@ import java.util.List;
  * TODO: implement passing restaurant data to MenuActivity
  * TODO: implement swiping restaurantList up & down
  * TODO: implement onPause method to stop the GPS draining someone's battery
+ * TODO: implement onDestroy() and other important map methods
  */
 
 public class FindRestaurantActivity extends AppCompatActivity
@@ -54,10 +55,6 @@ public class FindRestaurantActivity extends AppCompatActivity
     private RecyclerView recyclerView;
     private RestaurantsAdapter rAdapter;
     private FloatingActionButton fab;
-    private ImageButton swipeUpRestaurantList;
-    private boolean isSwipeButtonDown = true;
-    private ObjectAnimator animation;
-    private Toolbar toolbar;
 
     private SupportMapFragment mapFragment;
     private GoogleMap mMap;
@@ -78,6 +75,8 @@ public class FindRestaurantActivity extends AppCompatActivity
             currentLocation = savedInstanceState.getParcelable(KEY_LOCATION);
         }
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         mapFragment = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map));
         mapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
@@ -94,9 +93,6 @@ public class FindRestaurantActivity extends AppCompatActivity
             }
         });
 
-        toolbar = findViewById(R.id.FRAtoolbar);
-        setSupportActionBar(toolbar);
-        //this.getSupportActionBar().setTitle("Select Restaurant");
 
         recyclerView = findViewById(R.id.find_restaurant_recyView);
         recyclerView.addOnItemTouchListener(
@@ -127,16 +123,6 @@ public class FindRestaurantActivity extends AppCompatActivity
         prepRestaurantData();
 
         showRestaurantsOnMap();
-
-        /*
-        swipeUpRestaurantList = findViewById(R.id.swipeUpRestaurantListButton);
-        swipeUpRestaurantList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                toggleSwipeRestaurantList();
-            }
-        });
-        */
     }
 
     //check if the user has location services on when returning to the application
@@ -264,33 +250,6 @@ public class FindRestaurantActivity extends AppCompatActivity
         rAdapter.notifyDataSetChanged();
     }
 
-    //unimplemented feature - do it if there's time
-    /*
-    private void toggleSwipeRestaurantList() {
-        if (isSwipeButtonDown) {
-            swipeRestaurantListUp();
-        } else {
-            swipeRestaurantListDown();
-        }
-        isSwipeButtonDown = !isSwipeButtonDown;
-    }
-
-    //these could use some animations to make the icon change less drastic
-    private void swipeRestaurantListUp() {
-        animation = ObjectAnimator.ofFloat(swipeUpRestaurantList, "translationY", -1f);
-        animation.setDuration(600);
-        animation.start();
-        swipeUpRestaurantList.setBackgroundResource(R.drawable.ic_keyboard_arrow_down_grey_24dp);
-    }
-
-    private void swipeRestaurantListDown() {
-        animation = ObjectAnimator.ofFloat(swipeUpRestaurantList, "translationY", 1f);
-        animation.setDuration(600);
-        animation.start();
-        swipeUpRestaurantList.setBackgroundResource(R.drawable.ic_keyboard_arrow_up_grey_24dp);
-    }
-    */
-
     //call next activity. Make sure to pass parcelable restaurant data.
     private void callMenuActivity(Context c) {
         Intent intent = new Intent(c, MenuActivity.class);
@@ -300,5 +259,24 @@ public class FindRestaurantActivity extends AppCompatActivity
     private void callSearchRestaurantActivity(Context c){
         Intent intent = new Intent(c, SearchRestaurantFragment.class);
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.fra_search:
+                // User chose the "Settings" item, show the app settings UI...
+                callSearchRestaurantActivity(getApplicationContext());
+                return true;
+
+            case get
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                TablUtils.errorMsg(fab, "action not recognised!");
+                return super.onOptionsItemSelected(item);
+
+        }
     }
 }

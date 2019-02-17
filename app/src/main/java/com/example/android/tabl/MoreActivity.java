@@ -52,7 +52,7 @@ public class MoreActivity extends AppCompatActivity {
     }
 
     public void openHelp(){
-        Intent intent = new Intent(this, Help.class);
+        Intent intent = new Intent(this, HelpActivity.class);
         startActivity(intent);
     }
 }
