@@ -34,5 +34,19 @@
     <string name="cancel_dialog">Cancel</string>
     <string name="dialog_confirm_gps">OK</string>
     <string name="remember_warning">TEST WARNING</string>
+
+    <!--Help Page Strings -->
     <string name="help">Help</string>
+
+    <!--Checkout Page Strings -->
+    <string name="help_with_order">Help With Order</string>
+    <string name="cancel_order">Cancel Order</string>
+    <string name="total">Total:</string>
+    <string name="order_details">Order Details:</string>
+
+    <!--More Page Strings -->
+    <string name="dark_mode">Dark Mode</string>
+    <string name="ongoing_order">Ongoing Order</string>
+    <string name="past_orders">Past Orders</string>
+    <string name="Help">Help</string>
 </resources>

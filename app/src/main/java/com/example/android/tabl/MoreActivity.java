@@ -9,7 +9,7 @@ import android.widget.Button;
 
 public class MoreActivity extends AppCompatActivity {
 
-    Button ongoingOrdersButton, pastOrdersButton, helpButton;
+   private Button ongoingOrdersButton, pastOrdersButton, helpButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,13 +39,20 @@ public class MoreActivity extends AppCompatActivity {
             }
         });
 
-        // helpButton will open ?
+        // helpButton will open Help Page
         helpButton = (Button) findViewById(R.id.helpButton);
         helpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                openHelp();
+
                 // code that will open help page HERE
             }
         });
+    }
+
+    public void openHelp(){
+        Intent intent = new Intent(this, Help.class);
+        startActivity(intent);
     }
 }
