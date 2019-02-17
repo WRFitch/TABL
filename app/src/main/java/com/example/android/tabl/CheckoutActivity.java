@@ -34,6 +34,9 @@ public class CheckoutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_close);
+
         checkoutList = new ArrayList<>();
         recyclerView = findViewById(R.id.checkoutRecyclerView);
         recyclerView.addOnItemTouchListener(
@@ -72,7 +75,7 @@ public class CheckoutActivity extends AppCompatActivity {
         HelpWithOrderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), MoreActivity.class); //HERE^
+                Intent intent = new Intent(getApplicationContext(), HelpActivity.class); //HERE^
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
