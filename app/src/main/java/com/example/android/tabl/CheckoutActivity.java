@@ -50,31 +50,21 @@ public class CheckoutActivity extends AppCompatActivity {
                         })
         );
 
-        basketCheckoutAdapter = new BasketCheckoutAdapter(checkoutList);
-        RecyclerView.LayoutManager tLayoutManager = new LinearLayoutManager(
-                getApplicationContext());
-        recyclerView.setLayoutManager(tLayoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(basketCheckoutAdapter);
-        prepTableData();
-    }
-
-    public void prepTableData(){
-        int numOfTables = getNumOfTables();
-        for(int i = 1; i <= numOfTables; i++){
-            checkoutList.add(new BasketCheckout(TABLE_TITLE+i));
-        }
-        basketCheckoutAdapter.notifyDataSetChanged();
-
-
+        //keeping clicklisteners in methods other than onCreate() means they'll be destroyed as soon
+        //as that method is completed
         // Cancel Order button will open BasketActivity
         cancelOrderButton = findViewById(R.id.CancelOrderButton);
         cancelOrderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //technically this is opening another instance of basketActivity - might be more useful
+                //to make it finish this activity using finish()
+                /*
                 Intent intent = new Intent(getApplicationContext(), BasketActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
+                */
+                finish();
             }
         });
 
@@ -88,11 +78,26 @@ public class CheckoutActivity extends AppCompatActivity {
             }
         });
 
+        basketCheckoutAdapter = new BasketCheckoutAdapter(checkoutList);
+        RecyclerView.LayoutManager tLayoutManager = new LinearLayoutManager(
+                getApplicationContext());
+        recyclerView.setLayoutManager(tLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(basketCheckoutAdapter);
+        prepListData();
+    }
 
+    public void prepListData(){
+        int numOfTables = getNumOfCheckoutItems();
+        for(int i = 1; i <= numOfTables; i++){
+            checkoutList.add(new BasketCheckout(getApplicationContext()));
+        }
+        basketCheckoutAdapter.notifyDataSetChanged();
+    }
 
-
-
-}
+    private int getNumOfCheckoutItems(){
+        return checkoutList.size();
+    }
 }
 
 
