@@ -28,7 +28,6 @@ import com.example.android.tabl.utils.TablUtils;
 
 public class SplashPageActivity extends AppCompatActivity{
 
-    //private parcel (parcel of data)
     private final int WAIT_VALUE = 3000;
     private boolean firedNext = false;
     private boolean isNextReady = false;

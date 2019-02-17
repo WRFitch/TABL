@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class Help extends AppCompatActivity {
+public class HelpActivity extends AppCompatActivity {
 
     private ExpandableListView listView;
     private ExpandableListAdapter listAdapter;

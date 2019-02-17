@@ -128,6 +128,7 @@ public class FindRestaurantActivity extends AppCompatActivity
 
         showRestaurantsOnMap();
 
+        /*
         swipeUpRestaurantList = findViewById(R.id.swipeUpRestaurantListButton);
         swipeUpRestaurantList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,6 +136,7 @@ public class FindRestaurantActivity extends AppCompatActivity
                 toggleSwipeRestaurantList();
             }
         });
+        */
     }
 
     //check if the user has location services on when returning to the application
@@ -262,6 +264,8 @@ public class FindRestaurantActivity extends AppCompatActivity
         rAdapter.notifyDataSetChanged();
     }
 
+    //unimplemented feature - do it if there's time
+    /*
     private void toggleSwipeRestaurantList() {
         if (isSwipeButtonDown) {
             swipeRestaurantListUp();
@@ -285,6 +289,7 @@ public class FindRestaurantActivity extends AppCompatActivity
         animation.start();
         swipeUpRestaurantList.setBackgroundResource(R.drawable.ic_keyboard_arrow_up_grey_24dp);
     }
+    */
 
     //call next activity. Make sure to pass parcelable restaurant data.
     private void callMenuActivity(Context c) {
