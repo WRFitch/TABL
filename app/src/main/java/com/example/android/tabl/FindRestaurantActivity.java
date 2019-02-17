@@ -75,8 +75,6 @@ public class FindRestaurantActivity extends AppCompatActivity
             currentLocation = savedInstanceState.getParcelable(KEY_LOCATION);
         }
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         mapFragment = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map));
         mapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
@@ -268,8 +266,6 @@ public class FindRestaurantActivity extends AppCompatActivity
                 // User chose the "Settings" item, show the app settings UI...
                 callSearchRestaurantActivity(getApplicationContext());
                 return true;
-
-            case get
 
             default:
                 // If we got here, the user's action was not recognized.

@@ -58,30 +58,72 @@
             <!-- backwards compatibility for api levels <21 -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".FindRestaurantActivity"
+                android:value=".BasketActivity"
                 />
         </activity>
         <activity
             android:name=".BasketActivity"
-            android:label="Basket" />
+            android:label="Basket"
+            android:parentActivityName=".MenuActivity" >
+            <!-- backwards compatibility for api levels <21 -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MenuActivity"
+                />
+        </activity>
         <activity
             android:name=".CheckoutActivity"
-            android:label="Ongoing Order" />
+            android:label="Ongoing Order"
+            android:parentActivityName=".BasketActivity" >
+            <!-- backwards compatibility for api levels <21 -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".BasketActivity"
+                />
+        </activity>
 
         <!-- utility views -->
         <activity
             android:name=".MoreActivity"
-            android:label="More" />
+            android:label="More"
+            android:parentActivityName=".MenuActivity" >
+            <!-- backwards compatibility for api levels <21 -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MenuActivity"
+                />
+        </activity>/>
         <activity
             android:name=".PastOrdersActivity"
             android:exported="true"
-            android:label="Past Orders" />
+            android:label="Past Orders"
+            android:parentActivityName=".MoreActivity" >
+            <!-- backwards compatibility for api levels <21 -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MoreActivity"
+                />
+        </activity>
         <activity
             android:name=".SearchRestaurantFragment"
-            android:label="Search"/>
+            android:label="Search"
+            android:parentActivityName=".FindRestaurantActivity" >
+            <!-- backwards compatibility for api levels <21 -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".FindRestaurantActivity"
+                />
+        </activity>
         <activity
             android:name=".HelpActivity"
-            android:label="Help"/>
+            android:label="Help"
+            android:parentActivityName=".MoreActivity" >
+            <!-- backwards compatibility for api levels <21 -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MoreActivity"
+                />
+        </activity>
     </application>
 
 </manifest>
