@@ -17,7 +17,7 @@ public class HelpExpandableListAdapter extends BaseExpandableListAdapter {
 
     private Context context;
     private List<String> listDataHeader;
-    private HashMap<String,List<String>> listHashMap;
+    private HashMap<String, List<String>> listHashMap;
 
     public HelpExpandableListAdapter(Context context, List<String> listDataHeader, HashMap<String, List<String>> listHashMap) {
         this.context = context;
@@ -83,7 +83,7 @@ public class HelpExpandableListAdapter extends BaseExpandableListAdapter {
             view = inflater.inflate(R.layout.help_list,null);
         }
 
-        TextView txtListChild =  (TextView)view.findViewById(R.id.lblListItem);
+        TextView txtListChild = (TextView) view.findViewById(R.id.lblListItem);
         txtListChild.setText(childText);
         return view;
     }
