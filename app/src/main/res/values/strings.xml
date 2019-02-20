@@ -21,6 +21,22 @@
     <string name="dist_km">km</string>
     <string name="dialog_info_text">Do you want this app to use your location? It can still function without if you use the search function.</string>
 
+    <!-- Menu List -->
+    <string-array name="Menu_List">
+
+        <item>Spaghetti Bolognese</item>
+        <item>Cabonara Lite</item>
+        <item>Cheesy Italian Tortellini</item>
+        <item>Basil Chicken and Olives</item>
+        <item>Garlic Baguette and Olives</item>
+
+    </string-array>
+
+
+
+
+
+
     <!--Basket Page Strings -->
     <string name="text_basket">Basket</string>
     <string name="text_location">Location</string>
