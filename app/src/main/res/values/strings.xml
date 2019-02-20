@@ -8,18 +8,22 @@
 <resources>
     <!-- System Strings -->
     <string name="app_name">TABL</string>
-    <string name="version_name">Version 0.1.2</string>
+    <string name="version_name">Version 0.2.3</string>
 
     <!-- Util Strings -->
     <string name="todo">Function not implemented</string>
     <string name="var_undefined">UNDEFINED</string>
     <string name="var_unavailable">(unavailable)</string>
 
-    <!-- FindRestaurantActivity Activity Strings -->
+    <!-- FindRestaurantActivity Strings -->
     <string name="title_activity_restaurant_map">Map</string>
     <string name="dist_miles">miles</string>
     <string name="dist_km">km</string>
-    <string name="dialog_info_text">Do you want this app to use your location? It can still function without if you use the search function.</string>
+    <string name="gps_dialog_title">Turn on GPS</string>
+    <string name="gps_dialog_info_text">Do you want this app to use your location? It can still function using search, but it\'ll be less accurate. \nYou must enable network and GPS search for this service to function.</string>
+    <string name="turn_on_gps">Turn on GPS</string>
+    <string name="use_search_not_gps">Use Search Instead</string>
+    <string name="search">Search(…, &#8230;)</string>
 
     <!-- Menu List -->
     <string-array name="Menu_List">
@@ -47,4 +51,21 @@
     <string name="cancel_dialog">Cancel</string>
     <string name="dialog_confirm_gps">OK</string>
     <string name="remember_warning">TEST WARNING</string>
+
+    <!--Help Page Strings -->
+    <string name="help">Help</string>
+
+    <!--Checkout Page Strings -->
+    <string name="help_with_order">Help With Order</string>
+    <string name="cancel_order">Cancel Order</string>
+    <string name="total">Total:</string>
+    <string name="order_details">Order Details:</string>
+
+    <!--More Page Strings -->
+    <string name="dark_mode">Dark Mode</string>
+    <string name="ongoing_order">Ongoing Order</string>
+    <string name="past_orders">Past Orders</string>
+    <string name="Help">Help</string>
+    <string name="group_18">Group 18</string>
+    <string name="More">More</string>
 </resources>

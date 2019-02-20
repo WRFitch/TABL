@@ -7,23 +7,68 @@
     android:background="@color/white"
     tools:context="MoreActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="34dp"
+    <ImageView
+        android:id="@+id/blacklackground"
+        android:layout_width="426dp"
+        android:layout_height="150dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="588dp"
+        tools:ignore="ContentDescription"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg_header"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.516"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <ImageButton
+        android:id="@+id/imageButton2"
+        android:layout_width="47dp"
+        android:layout_height="51dp"
         android:layout_marginTop="20dp"
-        android:text="Dark Mode"
+        android:src="@drawable/exit_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/More"
+        android:layout_width="75dp"
+        android:layout_height="57dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="576dp"
+        android:text="@string/More"
+        android:textColor="@color/white"
+        android:textSize="29sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.121"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <TextView
+        android:layout_width="114dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="87dp"
+        android:text="@string/dark_mode"
         android:textColor="@color/colorPrimary"
-        android:textSize="20sp"
+        android:textSize="23sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Switch
         android:id="@+id/switchDarkMode"
-        android:layout_width="49dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="51dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="76dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:text=""
@@ -31,60 +76,92 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/OngoingOrders"
-        android:layout_width="0dp"
+        android:id="@+id/ongoingOrdersButton"
+        android:layout_width="421dp"
         android:layout_height="66dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="128dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:background="@drawable/border_top_bottom"
-        android:text="Ongoing Order"
+        android:background="@drawable/border_top"
+        android:gravity="left|center_vertical"
+        android:text="@string/ongoing_order"
         android:textAllCaps="false"
         android:textColor="@color/colorPrimary"
-        android:textSize="20sp"
+        android:textSize="23sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.307"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/pastOrders"
-        android:layout_width="0dp"
+        android:id="@+id/pastOrdersButton"
+        android:layout_width="434dp"
         android:layout_height="65dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:background="@drawable/border_top_bottom"
-        android:text="Past Orders"
+        android:gravity="left|center_vertical"
+        android:text="@string/past_orders"
         android:textAllCaps="false"
         android:textColor="@color/colorPrimary"
-        android:textSize="20sp"
+        android:textSize="23sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.212"
+        app:layout_constraintHorizontal_bias="0.205"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/OngoingOrders" />
+        app:layout_constraintTop_toBottomOf="@+id/ongoingOrdersButton" />
 
     <Button
-        android:id="@+id/Help"
-        android:layout_width="0dp"
+        android:id="@+id/helpButton"
+        android:layout_width="462dp"
         android:layout_height="66dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:background="@drawable/border_top_bottom"
-        android:text="Help"
+        android:gravity="left|center_vertical"
+        android:text="@string/Help"
         android:textAllCaps="false"
         android:textColor="@color/colorPrimary"
-        android:textSize="20sp"
+        android:textSize="23sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.191"
+        app:layout_constraintHorizontal_bias="0.119"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pastOrders" />
+        app:layout_constraintTop_toBottomOf="@+id/pastOrdersButton" />
+
+    <TextView
+        android:id="@+id/VersionName"
+        android:layout_width="wrap_content"
+        android:layout_height="17dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/version_name"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/Group18"
+        android:layout_width="wrap_content"
+        android:layout_height="17dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="40dp"
+        android:text="@string/group_18"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
