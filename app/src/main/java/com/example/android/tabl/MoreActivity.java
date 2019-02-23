@@ -5,11 +5,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Switch;
 
 
 public class MoreActivity extends AppCompatActivity {
 
    private Button ongoingOrdersButton, pastOrdersButton, helpButton;
+   private Switch switchDarkMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +45,15 @@ public class MoreActivity extends AppCompatActivity {
         helpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openHelp();
-
                 // code that will open help page HERE
+                openHelp();
             }
         });
+
+        // DARK MODE SWITCH
+        switchDarkMode = (Switch) findViewById(R.id.switchDarkMode);
+        switchDarkMode.setChecked(false);
+        // action code here
     }
 
     public void openHelp(){
