@@ -25,6 +25,22 @@
     <string name="use_search_not_gps">Use Search Instead</string>
     <string name="search">Search(…, &#8230;)</string>
 
+    <!-- Menu List -->
+    <string-array name="Menu_List">
+
+        <item>Spaghetti Bolognese</item>
+        <item>Cabonara Lite</item>
+        <item>Cheesy Italian Tortellini</item>
+        <item>Basil Chicken and Olives</item>
+        <item>Garlic Baguette and Olives</item>
+
+    </string-array>
+
+
+
+
+
+
     <!--Basket Page Strings -->
     <string name="text_basket">Basket</string>
     <string name="text_location">Location</string>

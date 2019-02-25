@@ -49,6 +49,7 @@ public class CheckoutActivity extends AppCompatActivity {
                                 finish();
                             }
                             @Override public void onLongItemClick(View view, int position) {
+                                //open dialog box to change item
                             }
                         })
         );
