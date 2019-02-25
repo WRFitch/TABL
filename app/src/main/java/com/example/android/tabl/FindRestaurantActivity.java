@@ -84,6 +84,7 @@ public class FindRestaurantActivity extends AppCompatActivity
             }
         });
 
+
         fab = findViewById(R.id.snapToLocationButton);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,7 +92,6 @@ public class FindRestaurantActivity extends AppCompatActivity
                 updateCameraWithAnimation();
             }
         });
-
 
         recyclerView = findViewById(R.id.find_restaurant_recyView);
         recyclerView.addOnItemTouchListener(
@@ -104,7 +104,6 @@ public class FindRestaurantActivity extends AppCompatActivity
                                 //preload favourites menu
                                 callMenuActivity(getApplicationContext());
                             }
-
                             @Override
                             public void onLongItemClick(View view, int position) {
                                 //perhaps use this to display restaurant info/add to favourites?
@@ -278,9 +277,9 @@ public class FindRestaurantActivity extends AppCompatActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            /*
+
             case R.id.fra_search:
-                return true;*/
+                return true;
 
             default:
                 //TablUtils.errorMsg(fab, "action not recognised!");

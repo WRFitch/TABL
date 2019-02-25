@@ -10,9 +10,9 @@ import com.example.android.tabl.R;
 
 import java.util.List;
 
-public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MyViewHolder>{
+public class FoodItemAdapter extends RecyclerView.Adapter<FoodItemAdapter.MyViewHolder>{
 
-    private List<MenuItem> menuItemList;
+    private List<FoodItem> foodItemList;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView menu_item_name, menu_item_price,
@@ -26,8 +26,8 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MyView
         }
     }
 
-    public MenuItemAdapter(List<MenuItem> menuItemList){
-        this.menuItemList = menuItemList;
+    public FoodItemAdapter(List<FoodItem> foodItemList){
+        this.foodItemList = foodItemList;
     }
 
     @Override
@@ -39,15 +39,15 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MyView
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        MenuItem menuItem = menuItemList.get(position);
-        holder.menu_item_name.setText(menuItem.getName());
-        holder.menu_item_price.setText(Double.toString(menuItem.getPrice()));
-        holder.menu_item_description.setText(menuItem.getDescription());
+        FoodItem foodItem = foodItemList.get(position);
+        holder.menu_item_name.setText(foodItem.getName());
+        holder.menu_item_price.setText(Double.toString(foodItem.getPrice()));
+        holder.menu_item_description.setText(foodItem.getDescription());
     }
 
     @Override
     public int getItemCount() {
-        return menuItemList.size();
+        return foodItemList.size();
     }
 
 
