@@ -28,8 +28,6 @@ import com.example.android.tabl.utils.TablUtils;
 
 public class SplashPageActivity extends AppCompatActivity{
 
-    private final int WAIT_VALUE = 3000;
-    private boolean firedNext = false;
     private boolean isNextReady = false;
     private TextView tv;
 
@@ -40,23 +38,16 @@ public class SplashPageActivity extends AppCompatActivity{
 
         prepNextActivity();
 
-        //wait x seconds, then load. delete this once next activity is implemented.
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if((!firedNext) && isNextReady) {
-                    callFindRestaurantActivity(SplashPageActivity.this);
-                }
-            }
-        }, WAIT_VALUE);
-
         ImageView logo = findViewById(R.id.SplashPageLogo);
         logo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                firedNext = true;
-                if(isNextReady)
+                if(isNextReady){
                     callFindRestaurantActivity(v.getContext());
+                    finish();
+                } else {
+                    TablUtils.errorMsg(v, "still loading!");
+                }
             }
         });
     }
@@ -78,8 +69,10 @@ public class SplashPageActivity extends AppCompatActivity{
         isNextReady = true;
     }
 
+    //rewrite for efficiency
     private void prepNextActivity(){
-        //TablUtils.getLocationPerms(this.getApplicationContext(), new FindRestaurantActivity());
+        TablUtils.getLocationPerms(this, this);
+        //isNextReady = TablUtils.checkLocationPerms(this); //android's parallelisation can get out.
         isNextReady = true;
     }
 }

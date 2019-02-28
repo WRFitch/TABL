@@ -39,10 +39,7 @@ public class TablUtils {
     }
 
     public static void getLocationPerms(Context c, Activity a){
-        if (ActivityCompat.checkSelfPermission(c, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(c, Manifest.permission.ACCESS_COARSE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
+        if (!checkLocationPerms(c)) {
             requestLocationPerms(a);
         }
     }
