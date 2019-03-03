@@ -8,13 +8,17 @@ If you've got some free time, try to fix one of these.
   - App is having trouble selecting the correct dpi to display images
    
 - clean up findRestaurantActivity
-  
-- RecyclerItemClickListener.java has not been fully tested
 
-- status bar is hanging over all xml layouts
+- MenuActivity recyclerView isn't displaying correctly
+
+- MoreActivity often crashes
+
+- 
 
 ###Project Architecture
 - At some point we're going to need to refactor the methods that get the default data 
   - this can probably be left until a better solution is found during sprint 4
 
 - fix up resource directories
+
+- add local data caching

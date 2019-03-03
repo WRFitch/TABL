@@ -7,11 +7,6 @@ For each item on the TODO list, open a separate branch, implement the function, 
 [UI prototype](https://xd.adobe.com/view/0c960684-092a-4486-4bf5-192b4e8bfabb-7aa7/)
 
 #### TODO (Android Application) 
-See sprint/Sprint2.md
+See sprint/Sprint4.md
 
 #### Weekly Plan
-Monday - Meeting @ 11
-       - Work session after meeting
-Tuesday - App development session 10-1
-Thursday - App Development session 2-5
-Friday - CS2005 Design Lab
