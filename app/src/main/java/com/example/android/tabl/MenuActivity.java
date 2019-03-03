@@ -9,10 +9,13 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.View;
+import android.widget.HorizontalScrollView;
 
 import com.example.android.tabl.menu_recyclerview.FoodItem;
 import com.example.android.tabl.menu_recyclerview.FoodItemAdapter;
+import com.example.android.tabl.submenu_recyclerview.SubMenuAdapter;
 import com.example.android.tabl.utils.RecyclerItemClickListener;
 import com.example.android.tabl.utils.TablUtils;
 
@@ -64,6 +67,18 @@ public class MenuActivity extends AppCompatActivity {
         }
         fAdapter.notifyDataSetChanged();
     }
+
+    private List<SubMenu> subMenusList = new ArrayList<>();
+    private HorizontalScrollView horizontalSV;
+    private SubMenuAdapter smAdapter;
+
+
+    
+
+
+
+
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
