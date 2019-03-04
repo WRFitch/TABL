@@ -31,6 +31,7 @@ public class MoreActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MoreActivity.this, CheckoutActivity.class));
+                    openCheckoutPage();
             }
         });
 
@@ -70,6 +71,11 @@ public class MoreActivity extends AppCompatActivity {
 
     public void openHelp(){
         Intent intent = new Intent(this, HelpActivity.class);
+        startActivity(intent);
+    }
+
+    public void openCheckoutPage(){
+        Intent intent = new Intent(this, CheckoutActivity.class);
         startActivity(intent);
     }
 }
