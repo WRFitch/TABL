@@ -5,17 +5,17 @@ Start: 4th March
 End: 24th March
 
 
-Iman: Horizontal recyclerview, Dietary filter dialog
+**Iman**: Horizontal recyclerview, Dietary filter dialog
 
-Will: database hosting, Spring Application, MySQL test DB 
+**Will**: database hosting, Spring Application, MySQL test DB 
 
-Edrin: fix image bug, refine frontend 
+**Edrin**: fix image bug, refine frontend 
 
-Adit: adjust/remove item dialog, Add tip dialog
+**Adit**: adjust/remove item dialog, Add tip dialog
 
-Monika: Test database design, Parcelable data flow
+**Monika**: Test database design, Parcelable data flow
 
-Simran: Business plan, Test database design, Parcelable data flow
+**Simran**: Business plan, Test database design, Parcelable data flow
 
 
 IF WE CAN'T DO THE HORIZONTAL RECYCLERVIEW:
