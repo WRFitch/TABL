@@ -4,17 +4,28 @@ Start: 4th March
 
 End: 24th March
 
+Iman: Horizontal recyclerview, Dietary filter dialog
+Will: database hosting, Spring Application, MySQL test DB 
+Edrin: fix image bug, refine frontend 
+Adit: adjust/remove item dialog, Add tip dialog
+Monika: Test database design, Parcelable data flow
+Simran: Business plan, Test database design, Parcelable data flow
+
+IF WE CAN'T DO THE HORIZONTAL RECYCLERVIEW:
+Edrin: Submenu page design
+Iman: Submenu Implementation
+
 #### PRIORITIES: COMPLETE JAVA FUNCTIONALITY INCLUDING DATA FLOW
 
 - Implement server:
-  - hosting
+  - hosting 
   - database 
-  - application
+  - application 
 - Implement Android data flow:
   - rework data into parcelable classes
   - define exactly how data is recieved from the server, and how it is processed
 - Rework frontend to match design exactly
-- Dailog boxes (4 total):
+- Dialog boxes (4 total):
   - Dietary filter Dialog (on Menu Activity)
   - Adjust item Dialog (on Menu Activity)
   - Adjust/remove item Dialog (on Basket Activity)
