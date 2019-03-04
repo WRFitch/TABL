@@ -7,39 +7,33 @@ import com.example.android.tabl.R;
 import com.google.android.gms.maps.model.LatLng;
 
 /**
- * Restaurant object for FindRestaurantActivity
+ * Menu object for MenuActivity RecyclerView
  *
  * @WRFitch
  */
 
-/**
- * TODO: lighten class - too many variables
- * TODO: define class requirements better - can this be used for network processing?
- *
- */
-
-public class MenuItem {
+public class FoodItem {
 
     private String name;
     private double price;
     private String description;
     private String[] tags;
 
-    public MenuItem(){
+    public FoodItem(){
         this.name = "test_title";
         this.price = -1.5;
-        this.description = "definitely food";
+        this.description = "test description";
         this.tags = new String[] {"vegan", "vegetarian", "gluten_free", "halal"};
     }
 
     //unfinished default constructor. Passing context is bad and I shouldn't do it.
-    public MenuItem(Context c){
+    public FoodItem(Context c){
         Resources res = c.getResources();
         this.name = res.getString(R.string.default_restaurant);
 
     }
 
-    public MenuItem(String name, double price, String description, String[] tags){
+    public FoodItem(String name, double price, String description, String[] tags){
         this.name = name;
         this.price = price;
         this.description = description;

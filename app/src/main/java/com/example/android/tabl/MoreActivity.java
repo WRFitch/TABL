@@ -5,7 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.Switch;
+
+import com.example.android.tabl.utils.TablUtils;
 
 
 public class MoreActivity extends AppCompatActivity {
@@ -53,7 +56,16 @@ public class MoreActivity extends AppCompatActivity {
         // DARK MODE SWITCH
         switchDarkMode = (Switch) findViewById(R.id.switchDarkMode);
         switchDarkMode.setChecked(false);
-        // action code here
+        switchDarkMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                //changing themes programmatically is really hard
+                if(isChecked){
+                    TablUtils.errorMsg(buttonView, "I AM THE NIGHT");
+                }else{
+                    TablUtils.errorMsg(buttonView, "I am no longer the night");
+                }
+            }
+        });
     }
 
     public void openHelp(){

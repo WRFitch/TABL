@@ -5,9 +5,11 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.example.android.tabl.R;
 
@@ -39,10 +41,7 @@ public class TablUtils {
     }
 
     public static void getLocationPerms(Context c, Activity a){
-        if (ActivityCompat.checkSelfPermission(c, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(c, Manifest.permission.ACCESS_COARSE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
+        if (!checkLocationPerms(c)) {
             requestLocationPerms(a);
         }
     }
@@ -64,9 +63,5 @@ public class TablUtils {
                 1);
     }
 
-    public static void requestTurnOnGPS(){
 
-    }
-
-    //parcel method
 }
