@@ -28,6 +28,10 @@ public class MenuActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private FoodItemAdapter fAdapter;
 
+    private List<SubMenu> subMenusList = new ArrayList<>();
+    private HorizontalScrollView horizontalSV;
+    private SubMenuAdapter smAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +61,14 @@ public class MenuActivity extends AppCompatActivity {
         recyclerView.setAdapter(fAdapter);
         prepMenuData();
 
+        horizontalSV = findViewById(R.id.submenu_recycler_view);
+        horizontalSV.addOnItemTouchListener(
+                new RecyclerItemClickListener(this,)
+
+
+
+        );
+
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
     }
@@ -67,14 +79,6 @@ public class MenuActivity extends AppCompatActivity {
         }
         fAdapter.notifyDataSetChanged();
     }
-
-    private List<SubMenu> subMenusList = new ArrayList<>();
-    private HorizontalScrollView horizontalSV;
-    private SubMenuAdapter smAdapter;
-
-
-    
-
 
 
 
