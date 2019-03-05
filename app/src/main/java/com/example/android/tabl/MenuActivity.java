@@ -9,13 +9,12 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
-import android.view.SubMenu;
 import android.view.View;
-import android.widget.HorizontalScrollView;
 
 import com.example.android.tabl.menu_recyclerview.FoodItem;
 import com.example.android.tabl.menu_recyclerview.FoodItemAdapter;
 import com.example.android.tabl.submenu_recyclerview.SubMenuAdapter;
+import com.example.android.tabl.submenu_recyclerview.SubMenu;
 import com.example.android.tabl.utils.RecyclerItemClickListener;
 import com.example.android.tabl.utils.TablUtils;
 
@@ -25,11 +24,9 @@ import java.util.List;
 public class MenuActivity extends AppCompatActivity {
 
     private List<FoodItem> foodItemsList = new ArrayList<>();
+    private List<SubMenu> subMenusList = new ArrayList<>();
     private RecyclerView recyclerView;
     private FoodItemAdapter fAdapter;
-
-    private List<SubMenu> subMenusList = new ArrayList<>();
-    private HorizontalScrollView horizontalSV;
     private SubMenuAdapter smAdapter;
 
     @Override
@@ -45,6 +42,7 @@ public class MenuActivity extends AppCompatActivity {
                             public void onItemClick(View view, int position) {
                                 //open item dialog
                             }
+
                             @Override
                             public void onLongItemClick(View view, int position) {
                                 //perhaps use this to display item info/add to favourites?
@@ -61,17 +59,42 @@ public class MenuActivity extends AppCompatActivity {
         recyclerView.setAdapter(fAdapter);
         prepMenuData();
 
-        horizontalSV = findViewById(R.id.submenu_recycler_view);
-        horizontalSV.addOnItemTouchListener(
-                new RecyclerItemClickListener(this,)
-
-
-
-        );
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
+
+
+        recyclerView = findViewById(R.id.submenu_recycler_view);
+        recyclerView.addOnItemTouchListener(
+                new RecyclerItemClickListener(this, recyclerView,
+                        new RecyclerItemClickListener.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(View view, int position) {
+                                //open item dialog
+                            }
+
+                            @Override
+                            public void onLongItemClick(View view, int position) {
+                                //perhaps use this to display item info/add to favourites?
+                            }
+                        })
+        );
+
+        smAdapter = new SubMenuAdapter(subMenusList);
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(smAdapter);
+        prepsubMenuData();
     }
+
+    private void prepsubMenuData() {
+        for (int i = 0; i < 20; i++) {
+            subMenusList.add(new SubMenu());
+        }
+        smAdapter.notifyDataSetChanged();
+    }
+
+
 
     private void prepMenuData(){
         for(int i = 0; i < 20; i++){
@@ -79,10 +102,6 @@ public class MenuActivity extends AppCompatActivity {
         }
         fAdapter.notifyDataSetChanged();
     }
-
-
-
-
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {

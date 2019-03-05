@@ -26,16 +26,12 @@ public class SubMenuAdapter extends RecyclerView.Adapter<SubMenuAdapter.MyViewHo
         }
     }
 
-    public SubMenuAdapter(List<SubMenu> subMenuList){
-        this.subMenuList = subMenuList;
-    }
+    public SubMenuAdapter(List<SubMenu> subMenuList){ this.subMenuList = subMenuList;}
 
     @Override
     public MyViewHolder onCreateViewHolder( ViewGroup parent, int viewType) {
 
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.submenu_list,parent,false);
-
-
         return new MyViewHolder(itemView);
 
     }
@@ -44,8 +40,6 @@ public class SubMenuAdapter extends RecyclerView.Adapter<SubMenuAdapter.MyViewHo
 
         SubMenu subMenu = subMenuList.get(position);
         holder.submenu_item_name.setText(subMenu.getName());
-
-
 
     }
 
