@@ -1,5 +1,6 @@
 package com.example.android.tabl;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -31,7 +32,11 @@ public class MenuActivity extends AppCompatActivity {
     private RecyclerView subMenuRecyclerView;
     private FoodItemAdapter fAdapter;
     private SubMenuAdapter smAdapter;
-    private ImageButton filterbutton;
+    private ImageButton filterButton;
+    private String[] listItems;
+    private boolean[] checkedItems;
+    private ArrayList<Integer> mUserItems = new ArrayList<>();
+
 
 
     @Override
@@ -39,6 +44,62 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
+        filterButton = (ImageButton)findViewById(R.id.filterbtn);
+
+        listItems = getResources().getStringArray(R.array.Filter_menu);
+        checkedItems = new boolean[listItems.length];
+
+        filterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(MenuActivity.this);
+                mBuilder.setTitle(R.string.dialog_title);
+                mBuilder.setMultiChoiceItems(listItems, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int position, boolean isChecked) {
+
+                        if (isChecked){
+                            if (! mUserItems.contains(position)){
+                                mUserItems.add(position);
+                            }
+                        }
+                        else if (mUserItems.contains(position)){
+                            mUserItems.remove(position);
+                        }
+
+                    }
+                });
+
+                mBuilder.setCancelable(false);
+                mBuilder.setPositiveButton(R.string.ok_label, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int which) {
+
+                    //where we filter out the menu based on user selection
+                    }
+                });
+
+                mBuilder.setNegativeButton(R.string.dismiss_label, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+
+                mBuilder.setNeutralButton(R.string.clear_all_label, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int which) {
+                       for (int i = 0; i < checkedItems.length; i++){
+                           checkedItems[i] = false;
+                           mUserItems.clear();
+                       }
+                    }
+                });
+
+                AlertDialog mDialog = mBuilder.create();
+                mDialog.show();
+            }
+        });
 
         recyclerView = findViewById(R.id.menu_recycler_view);
         recyclerView.addOnItemTouchListener(
@@ -147,19 +208,7 @@ public class MenuActivity extends AppCompatActivity {
 
     }
 
-    public void onButtonClickListener(){
 
-        filterbutton = (ImageButton)findViewById(R.id.filterbtn);
-        filterbutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                //AlertDialog.Builder filter_builder = new AlertDialog.Builder(this,);
-                //filter_builder.setMessage("Filter Menu");
-            }
-        });
-
-    }
 
     private int[] image_id = {R.drawable.halal_sign, R.drawable.gluten_free_symbol,R.drawable.vegan_symbol};
 
