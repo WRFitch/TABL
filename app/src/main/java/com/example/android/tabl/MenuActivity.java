@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -27,6 +28,7 @@ public class MenuActivity extends AppCompatActivity {
     private List<FoodItem> foodItemsList = new ArrayList<>();
     private List<SubMenu> subMenusList = new ArrayList<>();
     private RecyclerView recyclerView;
+    private RecyclerView subMenuRecyclerView;
     private FoodItemAdapter fAdapter;
     private SubMenuAdapter smAdapter;
     private ImageButton filterbutton;
@@ -68,9 +70,9 @@ public class MenuActivity extends AppCompatActivity {
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
 
-        recyclerView = findViewById(R.id.submenu_recycler_view);
-        recyclerView.addOnItemTouchListener(
-                new RecyclerItemClickListener(this, recyclerView,
+        subMenuRecyclerView = findViewById(R.id.submenu_recycler_view);
+        subMenuRecyclerView.addOnItemTouchListener(
+                new RecyclerItemClickListener(this, subMenuRecyclerView,
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int position) {
@@ -85,9 +87,11 @@ public class MenuActivity extends AppCompatActivity {
         );
 
         smAdapter = new SubMenuAdapter(subMenusList);
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(smAdapter);
+        RecyclerView.LayoutManager sMenuLayoutManager = new LinearLayoutManager(
+                getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
+        subMenuRecyclerView.setLayoutManager(sMenuLayoutManager);
+        subMenuRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        subMenuRecyclerView.setAdapter(smAdapter);
         prepsubMenuData();
 
     }
@@ -143,7 +147,17 @@ public class MenuActivity extends AppCompatActivity {
 
     }
 
-    public void onButtonClickListener() {
+    public void onButtonClickListener(){
+
+        filterbutton = (ImageButton)findViewById(R.id.filterbtn);
+        filterbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //AlertDialog.Builder filter_builder = new AlertDialog.Builder(this,);
+                //filter_builder.setMessage("Filter Menu");
+            }
+        });
 
     }
 

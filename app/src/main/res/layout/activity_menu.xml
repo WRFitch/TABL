@@ -43,6 +43,17 @@
         tools:background="@drawable/bg_header"
         android:contentDescription="TODO" />
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/submenu_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="horizontal"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adrsTextView">
+
+    </android.support.v7.widget.RecyclerView>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/menu_recycler_view"
@@ -53,7 +64,7 @@
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/adrsTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/submenu_recycler_view" />
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_navigation"
@@ -65,16 +76,5 @@
         app:itemTextColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/bottom_navigation" />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/submenu_recycler_view"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:scrollbars="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/adrsTextView">
-
-    </android.support.v7.widget.RecyclerView>
 
 </android.support.constraint.ConstraintLayout>

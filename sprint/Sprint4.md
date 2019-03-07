@@ -7,13 +7,13 @@ End: 24th March
 
 **Iman**: Horizontal recyclerview, Dietary filter dialog
 
-**Will**: database hosting, Spring Application, MySQL test DB 
+**Will**: database hosting, Spring Application, MySQL test DB, 
 
 **Edrin**: fix image bug, refine frontend 
 
 **Adit**: adjust/remove item dialog, Add tip dialog
 
-**Monika**: Test database design, Parcelable data flow
+**Monika**: Test database design, Parcelable data flow, 
 
 **Simran**: Business plan, Test database design, Parcelable data flow
 
@@ -40,6 +40,10 @@ Iman: Submenu Implementation
   - Adjust item Dialog (on Menu Activity)
   - Adjust/remove item Dialog (on Basket Activity)
   - Add tip Dialog (on Basket Activity)
+- implement android HTTP library 
+  - Volley or RetroFit?
+    - find out if caching is included in either of these
+  - if no caching in volley or retrofit, a library for this will be needed. 
 
 #### How the Database works:
 - Will be hosted on 'Microsoft Azure Cloud Platform' (has most of the commands for setting up stack)
