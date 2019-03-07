@@ -88,7 +88,7 @@ public class MenuActivity extends AppCompatActivity {
 
         smAdapter = new SubMenuAdapter(subMenusList);
         RecyclerView.LayoutManager sMenuLayoutManager = new LinearLayoutManager(
-                getApplicationContext());
+                getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
         subMenuRecyclerView.setLayoutManager(sMenuLayoutManager);
         subMenuRecyclerView.setItemAnimator(new DefaultItemAnimator());
         subMenuRecyclerView.setAdapter(smAdapter);
