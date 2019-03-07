@@ -4,17 +4,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 
 import com.example.android.tabl.menu_recyclerview.FoodItem;
 import com.example.android.tabl.menu_recyclerview.FoodItemAdapter;
-import com.example.android.tabl.submenu_recyclerview.SubMenuAdapter;
 import com.example.android.tabl.submenu_recyclerview.SubMenu;
+import com.example.android.tabl.submenu_recyclerview.SubMenuAdapter;
 import com.example.android.tabl.utils.RecyclerItemClickListener;
 import com.example.android.tabl.utils.TablUtils;
 
@@ -28,11 +30,14 @@ public class MenuActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private FoodItemAdapter fAdapter;
     private SubMenuAdapter smAdapter;
+    private ImageButton filterbutton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+
 
         recyclerView = findViewById(R.id.menu_recycler_view);
         recyclerView.addOnItemTouchListener(
@@ -85,7 +90,9 @@ public class MenuActivity extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(smAdapter);
         prepsubMenuData();
+
     }
+
 
     private void prepsubMenuData() {
         for (int i = 0; i < 20; i++) {
@@ -93,7 +100,6 @@ public class MenuActivity extends AppCompatActivity {
         }
         smAdapter.notifyDataSetChanged();
     }
-
 
 
     private void prepMenuData(){
@@ -138,7 +144,20 @@ public class MenuActivity extends AppCompatActivity {
 
     }
 
-    private int[] image_id = {R.drawable.halal_sign, R.drawable.gluten_free_symbol,R.drawable.vegan_symbol};
+    public void onButtonClickListener(){
 
+        filterbutton = (ImageButton)findViewById(R.id.filterbtn);
+        filterbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                AlertDialog.Builder filter_builder = new AlertDialog.Builder(this,);
+                filter_builder.setMessage("Filter Menu")
+            }
+        });
+
+    }
+
+    private int[] image_id = {R.drawable.halal_sign, R.drawable.gluten_free_symbol,R.drawable.vegan_symbol};
 
 }
