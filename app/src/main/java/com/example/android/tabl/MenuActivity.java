@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -144,17 +143,7 @@ public class MenuActivity extends AppCompatActivity {
 
     }
 
-    public void onButtonClickListener(){
-
-        filterbutton = (ImageButton)findViewById(R.id.filterbtn);
-        filterbutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                AlertDialog.Builder filter_builder = new AlertDialog.Builder(this,);
-                filter_builder.setMessage("Filter Menu")
-            }
-        });
+    public void onButtonClickListener() {
 
     }
 
