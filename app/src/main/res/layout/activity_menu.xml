@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -13,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="57dp"
         android:background="@drawable/bg_header"
-        android:text="Bella Italia"
+        android:text="@string/bella_italia"
         android:textAppearance="@style/TextAppearance.AppCompat.Display2"
         android:textColor="@color/white"
         android:textStyle="bold"
@@ -26,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="21dp"
         android:background="@drawable/bg_header"
-        android:text="10 High Street, Uxbridge"
+        android:text="@string/_10_high_street_uxbridge"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
@@ -41,19 +40,31 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/filter_icon"
-        tools:background="@drawable/bg_header" />
+        tools:background="@drawable/bg_header"
+        android:contentDescription="TODO" />
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/submenu_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="49dp"
+        android:orientation="horizontal"
+        android:scrollbars="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adrsTextView">
 
+    </android.support.v7.widget.RecyclerView>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/menu_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="8dp"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/adrsTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/submenu_recycler_view" />
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_navigation"

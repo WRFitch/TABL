@@ -36,8 +36,25 @@
 
     </string-array>
 
+    <!--submenu List -->
+    <string-array name="SubMenu_List">
 
+        <item>Offers</item>
+        <item>Starters</item>
+        <item>Mains</item>
+        <item>Desserts</item>
+        <item>Drinks</item>
+        <item>Sides</item>
 
+    </string-array>
+
+    <!-- Filter List -->
+    <string-array name="Filter_menu">
+        <item>Halal</item>
+        <item>Vegetarian</item>
+        <item>Vegan</item>
+        <item>Gluten Free</item>
+    </string-array>
 
 
 
@@ -68,4 +85,10 @@
     <string name="Help">Help</string>
     <string name="group_18">Group 18</string>
     <string name="More">More</string>
+    <string name="bella_italia">Bella Italia</string>
+    <string name="_10_high_street_uxbridge">10 High Street, Uxbridge</string>
+    <string name="dialog_title">Filters</string>
+    <string name="ok_label">OK</string>
+    <string name="dismiss_label">Dismiss</string>
+    <string name="clear_all_label">Clear all</string>
 </resources>

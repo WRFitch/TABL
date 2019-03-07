@@ -18,7 +18,7 @@
     <string name="default_distance">-1</string>
     <string name="menuId">-1</string>
     <integer name="menuIntId">-1</integer>
-
+    
  <!-- Adit Monika made this for basket checkout recycler-->
     <string name="name_of_item">ITEM_NAME</string>
     <string name="itemID">-1</string>
@@ -26,6 +26,17 @@
     <integer name="default_quantity">-1</integer>
     <string name="default_options">OPTIONS</string>
 
+    <!-- SubMenu Test Data-->
+
+    <string-array name="submenu_titles">
+        <item>Featured</item>
+        <item>Starters</item>
+        <item>Mains</item>
+        <item>Drinks</item>
+        <item>Desserts</item>
+    </string-array>
+    <string name="submenu_item">submenu_item_title</string>
+    
     <!-- resources for menu view -->
     <string-array name="menu_titles">
         <item>Featured</item>
