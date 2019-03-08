@@ -41,7 +41,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/filter_icon"
         tools:background="@drawable/bg_header"
-        android:contentDescription="TODO" />
+        android:contentDescription="@string/fb" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/submenu_recycler_view"

@@ -118,6 +118,7 @@ public class MenuActivity extends AppCompatActivity {
                         })
         );
 
+
         fAdapter = new FoodItemAdapter(foodItemsList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(
                 getApplicationContext());
