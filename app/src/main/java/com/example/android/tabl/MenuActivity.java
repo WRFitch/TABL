@@ -64,7 +64,7 @@ public class MenuActivity extends AppCompatActivity {
                             }
                         }
                         else if (mUserItems.contains(position)){
-                            mUserItems.remove(position);
+                            mUserItems.remove(mUserItems.indexOf(position));
                         }
 
                     }
