@@ -61,7 +61,7 @@ public class FindRestaurantActivity extends AppCompatActivity
     private GoogleMap mMap;
     private LocationManager mLocationManager;
     //instantiating currentLocation keeps the app from crashing without a previous location
-    private Location currentLocation = new Location("dummyloc");
+    private Location currentLocation = new Location("dummylocation");
     private final static String KEY_LOCATION = "location";
     private final float DEFAULT_ZOOM = 16f;
 
@@ -147,9 +147,29 @@ public class FindRestaurantActivity extends AppCompatActivity
         mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
     }
 
+    @SuppressLint("MissingPermission")
     @Override
     protected void onPause() {
+        mMap.setMyLocationEnabled(false);
         super.onPause();
+    }
+
+    @SuppressLint("MissingPermission")
+    @Override
+    protected void onResume() {
+        mapFragment.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(GoogleMap map) {
+                loadMap(map);
+            }
+        });
+        super.onResume();
+    }
+
+    @SuppressLint("MissingPermission")
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
     }
 
     @Override
@@ -161,7 +181,7 @@ public class FindRestaurantActivity extends AppCompatActivity
     protected void loadMap(GoogleMap googleMap) {
         TablUtils.getLocationPerms(this, this);
         mMap = googleMap;
-        googleMap.setMyLocationEnabled(true);
+        mMap.setMyLocationEnabled(true);
         mMap.getUiSettings().setMyLocationButtonEnabled(false);
         updateLocation();
         currentLocation = mLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
