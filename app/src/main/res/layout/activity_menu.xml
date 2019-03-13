@@ -10,7 +10,7 @@
     <TextView
         android:id="@+id/resnametextView"
         android:layout_width="match_parent"
-        android:layout_height="57dp"
+        android:layout_height="60dp"
         android:background="@drawable/bg_header"
         android:text="@string/bella_italia"
         android:textAppearance="@style/TextAppearance.AppCompat.Display2"
