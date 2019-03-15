@@ -39,7 +39,7 @@
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/filter_icon"
+        app:srcCompat="@drawable/debug_filter_icon"
         tools:background="@drawable/bg_header"
         android:contentDescription="@string/fb" />
 
