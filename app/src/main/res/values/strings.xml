@@ -68,6 +68,7 @@
     <string name="cancel_dialog">Cancel</string>
     <string name="dialog_confirm_gps">OK</string>
     <string name="remember_warning">TEST WARNING</string>
+    
 
     <!--Help Page Strings -->
     <string name="help">Help</string>
@@ -92,4 +93,5 @@
     <string name="dismiss_label">Dismiss</string>
     <string name="clear_all_label">Clear all</string>
     <string name="fb">TODO</string>
+    <string name="cancel">Cancel</string>
 </resources>

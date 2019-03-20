@@ -5,16 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="174dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Add a tip"
-        tools:layout_editor_absoluteX="107dp"
-        tools:layout_editor_absoluteY="43dp" />
-
     <android.support.design.widget.TextInputLayout
         android:layout_width="395dp"
         android:layout_height="wrap_content"
@@ -22,8 +12,13 @@
         tools:layout_editor_absoluteY="87dp">
 
         <android.support.design.widget.TextInputEditText
+            android:id="@+id/EnterAmount"
             android:layout_width="270dp"
             android:layout_height="48dp"
+            android:layout_constraintHorizontal_bias="0.0"
+            android:layout_constraintBottom_toBottomOf="parent"
+            android:layout_constraintEnd_toEndOf="parent"
+            android:layout_constraintStart_toStartOf="parent"
             android:hint="Add Tip" />
     </android.support.design.widget.TextInputLayout>
 
@@ -31,9 +26,13 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cancel "
+        android:text="@string/cancel"
         tools:layout_editor_absoluteX="50dp"
-        tools:layout_editor_absoluteY="146dp" />
+        tools:layout_editor_absoluteY="146dp"
+        android:layout_constraintBottom_toBottomOf="parent"
+        android:layout_constraintEnd_toEndOf="parent"
+        android:layout_constraintHorizontal_bias="0.516"
+        android:layout_constraintStart_toStartOf="parent"/>
 
     <Button
         android:id="@+id/button2"
@@ -42,4 +41,12 @@
         android:text="Add(£0.00"
         tools:layout_editor_absoluteX="289dp"
         tools:layout_editor_absoluteY="146dp" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="88dp"
+        android:layout_height="38dp"
+        android:text="Add a tIP"
+        tools:layout_editor_absoluteX="158dp"
+        tools:layout_editor_absoluteY="48dp" />
 </android.support.constraint.ConstraintLayout>
