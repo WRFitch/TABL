@@ -8,7 +8,7 @@
 <resources>
     <!-- System Strings -->
     <string name="app_name">TABL</string>
-    <string name="version_name">Version 0.2.3</string>
+    <string name="version_name">Version 0.3.1</string>
 
     <!-- Util Strings -->
     <string name="todo">Function not implemented</string>
@@ -36,8 +36,25 @@
 
     </string-array>
 
+    <!--submenu List -->
+    <string-array name="SubMenu_List">
 
+        <item>Offers</item>
+        <item>Starters</item>
+        <item>Mains</item>
+        <item>Desserts</item>
+        <item>Drinks</item>
+        <item>Sides</item>
 
+    </string-array>
+
+    <!-- Filter List -->
+    <string-array name="Filter_menu">
+        <item>Halal</item>
+        <item>Vegetarian</item>
+        <item>Vegan</item>
+        <item>Gluten Free</item>
+    </string-array>
 
 
 
@@ -51,6 +68,7 @@
     <string name="cancel_dialog">Cancel</string>
     <string name="dialog_confirm_gps">OK</string>
     <string name="remember_warning">TEST WARNING</string>
+
 
     <!--Help Page Strings -->
     <string name="help">Help</string>
@@ -68,4 +86,15 @@
     <string name="Help">Help</string>
     <string name="group_18">Group 18</string>
     <string name="More">More</string>
+    <string name="bella_italia">Bella Italia</string>
+    <string name="_10_high_street_uxbridge">10 High Street, Uxbridge</string>
+    <string name="dialog_title">Filters</string>
+    <string name="ok_label">OK</string>
+    <string name="dismiss_label">Dismiss</string>
+    <string name="clear_all_label">Clear all</string>
+    <string name="fb">TODO</string>
+    <string name="cancel">Cancel</string>
+    <string name="add_tip">Add Tip</string>
+    <string name="add_a_tip">Add a tIP</string>
+    <string name="add_0_00">Add(£0.00</string>
 </resources>

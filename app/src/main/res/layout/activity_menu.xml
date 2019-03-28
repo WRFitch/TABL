@@ -10,9 +10,9 @@
     <TextView
         android:id="@+id/resnametextView"
         android:layout_width="match_parent"
-        android:layout_height="57dp"
+        android:layout_height="60dp"
         android:background="@drawable/bg_header"
-        android:text="Bella Italia"
+        android:text="@string/bella_italia"
         android:textAppearance="@style/TextAppearance.AppCompat.Display2"
         android:textColor="@color/white"
         android:textStyle="bold"
@@ -25,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="21dp"
         android:background="@drawable/bg_header"
-        android:text="10 High Street, Uxbridge"
+        android:text="@string/_10_high_street_uxbridge"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,9 +39,20 @@
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/filter_icon"
-        tools:background="@drawable/bg_header" />
+        app:srcCompat="@drawable/debug_filter_icon"
+        tools:background="@drawable/bg_header"
+        android:contentDescription="@string/fb" />
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/submenu_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="49dp"
+        android:orientation="horizontal"
+        android:scrollbars="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adrsTextView">
+    </android.support.v7.widget.RecyclerView>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/menu_recycler_view"
@@ -52,7 +63,7 @@
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/adrsTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/submenu_recycler_view" />
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_navigation"
@@ -64,19 +75,5 @@
         app:itemTextColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/bottom_navigation" />
-
-    <HorizontalScrollView
-        android:id="@+id/submenu_recycler_view"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/adrsTextView">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="vertical" />
-    </HorizontalScrollView>
 
 </android.support.constraint.ConstraintLayout>

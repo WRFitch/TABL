@@ -13,23 +13,21 @@ import com.example.android.tabl.R;
 
 public class SubMenu {
 
-
     private String name;
-    private String description;
+
 
     public SubMenu(){
-
-        this.name = "test_subname";
-
+        this.name = "Mains";
     }
 
     public SubMenu(Context c){
         Resources res = c.getResources();
-        this.name = res.getString(R.string.name_of_item);
+        this.name = res.getString(R.string.menu_item);
 
     }
 
     public SubMenu(String name){
+
         this.name = name;
     }
 

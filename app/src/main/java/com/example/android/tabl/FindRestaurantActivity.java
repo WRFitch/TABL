@@ -61,16 +61,17 @@ public class FindRestaurantActivity extends AppCompatActivity
     private GoogleMap mMap;
     private LocationManager mLocationManager;
     //instantiating currentLocation keeps the app from crashing without a previous location
-    private Location currentLocation = new Location("dummyloc");
+    private Location currentLocation = new Location("dummylocation");
     private final static String KEY_LOCATION = "location";
     private final float DEFAULT_ZOOM = 16f;
+    private boolean gotLocPerms = false;
+    private boolean locDialogOpen = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_restaurant);
         mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        checkGPSTurnedOn();
 
         if (savedInstanceState != null && savedInstanceState.keySet().contains(KEY_LOCATION)) {
             currentLocation = savedInstanceState.getParcelable(KEY_LOCATION);
@@ -143,13 +144,34 @@ public class FindRestaurantActivity extends AppCompatActivity
     @SuppressLint("MissingPermission")
     protected void onStart() {
         super.onStart();
+        checkGPSTurnedOn();
         TablUtils.getLocationPerms(this, this);
         mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
     }
 
+    @SuppressLint("MissingPermission")
     @Override
     protected void onPause() {
+        mMap.setMyLocationEnabled(false);
         super.onPause();
+    }
+
+    @SuppressLint("MissingPermission")
+    @Override
+    protected void onResume() {
+        mapFragment.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(GoogleMap map) {
+                loadMap(map);
+            }
+        });
+        super.onResume();
+    }
+
+    @SuppressLint("MissingPermission")
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
     }
 
     @Override
@@ -159,9 +181,9 @@ public class FindRestaurantActivity extends AppCompatActivity
 
     @SuppressLint("MissingPermission")
     protected void loadMap(GoogleMap googleMap) {
-        TablUtils.getLocationPerms(this, this);
+        //TablUtils.getLocationPerms(this, this);
         mMap = googleMap;
-        googleMap.setMyLocationEnabled(true);
+        mMap.setMyLocationEnabled(true);
         mMap.getUiSettings().setMyLocationButtonEnabled(false);
         updateLocation();
         currentLocation = mLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
@@ -172,8 +194,10 @@ public class FindRestaurantActivity extends AppCompatActivity
 
     @SuppressLint("MissingPermission")
     public void updateLocation() {
-        TablUtils.getLocationPerms(this, this);
-        checkGPSTurnedOn();
+        if(!gotLocPerms && !locDialogOpen) {
+            TablUtils.getLocationPerms(this, this);
+            checkGPSTurnedOn();
+        }
         mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 10000, 100, this);
         mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 20, this);
     }
@@ -209,7 +233,7 @@ public class FindRestaurantActivity extends AppCompatActivity
     }
 
     public void onProviderEnabled(String provider) {
-        TablUtils.getLocationPerms(this, this);
+        //TablUtils.getLocationPerms(this, this);
         updateLocation();
         updateCameraNoAnimation(currentLocation);
     }
@@ -222,6 +246,7 @@ public class FindRestaurantActivity extends AppCompatActivity
         if( !mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
             !mLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)){
             AlertDialog.Builder builder = new AlertDialog.Builder(FindRestaurantActivity.this);
+            locDialogOpen = true;
 
             builder.setMessage(R.string.gps_dialog_info_text)
                     .setTitle(R.string.gps_dialog_title);
@@ -229,6 +254,7 @@ public class FindRestaurantActivity extends AppCompatActivity
                 public void onClick(DialogInterface dialog, int id) {
                     requestTurnOnGPS();
                     getParent().recreate();
+                    gotLocPerms = true;
                 }
             });
             builder.setNegativeButton(R.string.use_search_not_gps, new DialogInterface.OnClickListener() {
