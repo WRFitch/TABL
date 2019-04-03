@@ -70,11 +70,10 @@ public class MenuActivity extends AppCompatActivity {
                     }
                 });
 
-                mBuilder.setCancelable(false);
+                mBuilder.setCancelable(true);
                 mBuilder.setPositiveButton(R.string.ok_label, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int which) {
-
                     //where we filter out the menu based on user selection
                     }
                 });

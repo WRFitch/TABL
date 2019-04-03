@@ -1,14 +1,21 @@
 package com.example.android.tabl;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.InputType;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 public class BasketActivity extends AppCompatActivity {
 
     private Button checkoutButton, selectTableButton, addTipButton;
+    private String dialogText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +60,33 @@ public class BasketActivity extends AppCompatActivity {
         addTipButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // code to open dialog box HERE
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(BasketActivity.this);
+                alertDialogBuilder.setTitle("Add a Tip");
+                alertDialogBuilder.setCancelable(true);
+
+                final EditText input = new EditText(BasketActivity.this);
+                // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+                input.setInputType(InputType.TYPE_CLASS_NUMBER
+                        | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                alertDialogBuilder.setView(input);
+                
+                alertDialogBuilder.setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int which) {
+                                dialogInterface.dismiss();
+                            }
+                        });
+
+                alertDialogBuilder.setPositiveButton("Add Tip",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int which) {
+                                //add
+                            }
+                        });
+                AlertDialog mDialog = alertDialogBuilder.create();
+                mDialog.show();
             }
         });
 

@@ -245,9 +245,9 @@ public class FindRestaurantActivity extends AppCompatActivity
     private void checkGPSTurnedOn(){
         if( !mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
             !mLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)){
-            AlertDialog.Builder builder = new AlertDialog.Builder(FindRestaurantActivity.this);
             locDialogOpen = true;
-
+            AlertDialog.Builder builder = new AlertDialog.Builder(FindRestaurantActivity.this);
+            builder.setCancelable(false);
             builder.setMessage(R.string.gps_dialog_info_text)
                     .setTitle(R.string.gps_dialog_title);
             builder.setPositiveButton(R.string.turn_on_gps, new DialogInterface.OnClickListener() {
