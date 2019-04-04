@@ -15,7 +15,6 @@ import android.widget.EditText;
 public class BasketActivity extends AppCompatActivity {
 
     private Button checkoutButton, selectTableButton, addTipButton;
-    private String dialogText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,11 +64,8 @@ public class BasketActivity extends AppCompatActivity {
                 alertDialogBuilder.setCancelable(true);
 
                 final EditText input = new EditText(BasketActivity.this);
-                // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-                input.setInputType(InputType.TYPE_CLASS_NUMBER
-                        | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                input.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
                 alertDialogBuilder.setView(input);
-                
                 alertDialogBuilder.setNegativeButton("Cancel",
                         new DialogInterface.OnClickListener() {
                             @Override
@@ -77,7 +73,6 @@ public class BasketActivity extends AppCompatActivity {
                                 dialogInterface.dismiss();
                             }
                         });
-
                 alertDialogBuilder.setPositiveButton("Add Tip",
                         new DialogInterface.OnClickListener() {
                             @Override
