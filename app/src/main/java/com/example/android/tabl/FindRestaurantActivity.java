@@ -29,6 +29,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,11 +54,13 @@ import java.util.List;
 public class FindRestaurantActivity extends AppCompatActivity
         implements OnMapReadyCallback, LocationListener{
 
+    //activity stuff
     private List<Restaurant> restaurantList = new ArrayList<>();
     private RecyclerView recyclerView;
     private RestaurantsAdapter rAdapter;
     private FloatingActionButton fab;
 
+    //map stuff
     private SupportMapFragment mapFragment;
     private GoogleMap mMap;
     private LocationManager mLocationManager;
@@ -67,11 +71,15 @@ public class FindRestaurantActivity extends AppCompatActivity
     private boolean gotLocPerms = false;
     private boolean locDialogOpen = false;
 
+    //firebase stuff
+    private DatabaseReference mDatabase;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_restaurant);
         mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
         if (savedInstanceState != null && savedInstanceState.keySet().contains(KEY_LOCATION)) {
             currentLocation = savedInstanceState.getParcelable(KEY_LOCATION);
