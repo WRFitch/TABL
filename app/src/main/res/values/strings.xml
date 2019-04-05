@@ -14,6 +14,7 @@
     <string name="todo">Function not implemented</string>
     <string name="var_undefined">UNDEFINED</string>
     <string name="var_unavailable">(unavailable)</string>
+    <string name="connection_failure">No Internet Connection!</string>
 
     <!-- FindRestaurantActivity Strings -->
     <string name="title_activity_restaurant_map">Map</string>

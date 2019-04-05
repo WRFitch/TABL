@@ -6,6 +6,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.view.View;
@@ -62,6 +64,5 @@ public class TablUtils {
                                 Manifest.permission.ACCESS_COARSE_LOCATION },
                 1);
     }
-
 
 }

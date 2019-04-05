@@ -66,14 +66,14 @@ public class BasketActivity extends AppCompatActivity {
                 final EditText input = new EditText(BasketActivity.this);
                 input.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
                 alertDialogBuilder.setView(input);
-                alertDialogBuilder.setNegativeButton("Cancel",
+                alertDialogBuilder.setNegativeButton((String) getString(R.string.cancel),
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int which) {
                                 dialogInterface.dismiss();
                             }
                         });
-                alertDialogBuilder.setPositiveButton("Add Tip",
+                alertDialogBuilder.setPositiveButton((String) getString(R.string.add_tip),
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int which) {
