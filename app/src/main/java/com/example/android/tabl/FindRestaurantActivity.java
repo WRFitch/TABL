@@ -32,6 +32,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,6 +75,7 @@ public class FindRestaurantActivity extends AppCompatActivity
 
     //firebase stuff
     private DatabaseReference mDatabase;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -294,6 +296,7 @@ public class FindRestaurantActivity extends AppCompatActivity
     }
 
     private void prepRestaurantData() {
+        if(!TablNetUtils.isNetworkAvailable(this)) return;
         //current implementation uses test data! something like i->getCachedRestaurant
         for (int i = 0; i < 5; i++) {
             restaurantList.add(new Restaurant(FindRestaurantActivity.this));
