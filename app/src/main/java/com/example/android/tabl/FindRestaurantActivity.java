@@ -20,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.example.android.tabl.utils.FirebaseUtils;
 import com.example.android.tabl.utils.RecyclerItemClickListener;
 import com.example.android.tabl.restaurant_recyclerview.Restaurant;
 import com.example.android.tabl.restaurant_recyclerview.RestaurantsAdapter;
@@ -44,12 +45,12 @@ import java.util.List;
  */
 
 /**
- * TODO: implement status bar or toolbar or whatever it's called
  * TODO: implement additional search method in appbar.
  * TODO: implement passing restaurant data to MenuActivity
  * TODO: implement swiping restaurantList up & down
- * TODO: implement onPause method to stop the GPS draining someone's battery
- * TODO: implement onDestroy() and other important map methods
+ * TODO: Implement restaurant get radius
+ * TODO: check getRestaurants() works with android's weird asynchronous stuff
+ * TODO: how to refresh getRestaurants()?
  */
 
 public class FindRestaurantActivity extends AppCompatActivity
@@ -71,6 +72,7 @@ public class FindRestaurantActivity extends AppCompatActivity
     private final float DEFAULT_ZOOM = 16f;
     private boolean gotLocPerms = false;
     private boolean locDialogOpen = false;
+    private double mapRadius = 1; //this is in DEGREES, NOT KM
 
     //firebase stuff
     private DatabaseReference mDatabase;
@@ -131,7 +133,7 @@ public class FindRestaurantActivity extends AppCompatActivity
         recyclerView.setLayoutManager(rLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(rAdapter);
-        prepRestaurantData();
+        updateRestaurantData();
 
         showRestaurantsOnMap();
     }
@@ -288,13 +290,18 @@ public class FindRestaurantActivity extends AppCompatActivity
         }
     }
 
-    private void prepRestaurantData() {
-        if(!TablUtils.isNetworkAvailable(this)) return;
-        //current implementation uses test data! something like i->getCachedRestaurant
-        for (int i = 0; i < 5; i++) {
-            restaurantList.add(new Restaurant(FindRestaurantActivity.this));
+    private void updateRestaurantData() {
+        if(!TablUtils.isNetworkAvailable(this)) {
+            TablUtils.errorMsg(fab, "No Internet Connection!");
+            return;
+        }
+        restaurantList = FirebaseUtils.getRestaurantsInRadius(currentLocation, mapRadius);
+        if(restaurantList == null) {
+            TablUtils.errorMsg(fab, "Data not received from Firebase");
+            return;
         }
         rAdapter.notifyDataSetChanged();
+        showRestaurantsOnMap();
     }
 
     //call next activity. Make sure to pass parcelable restaurant data.
