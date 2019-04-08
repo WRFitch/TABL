@@ -23,7 +23,6 @@ import android.view.View;
 import com.example.android.tabl.utils.RecyclerItemClickListener;
 import com.example.android.tabl.restaurant_recyclerview.Restaurant;
 import com.example.android.tabl.restaurant_recyclerview.RestaurantsAdapter;
-import com.example.android.tabl.utils.TablNetUtils;
 import com.example.android.tabl.utils.TablUtils;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -84,7 +83,7 @@ public class FindRestaurantActivity extends AppCompatActivity
         mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        if(!TablNetUtils.isNetworkAvailable(this))
+        if(!TablUtils.isNetworkAvailable(this))
             TablUtils.errorMsg(fab, getString(R.string.connection_failure));
         if (savedInstanceState != null && savedInstanceState.keySet().contains(KEY_LOCATION)) {
             currentLocation = savedInstanceState.getParcelable(KEY_LOCATION);
@@ -180,12 +179,6 @@ public class FindRestaurantActivity extends AppCompatActivity
             }
         });
         super.onResume();
-    }
-
-    @SuppressLint("MissingPermission")
-    @Override
-    protected void onDestroy(){
-        super.onDestroy();
     }
 
     @Override
@@ -296,7 +289,7 @@ public class FindRestaurantActivity extends AppCompatActivity
     }
 
     private void prepRestaurantData() {
-        if(!TablNetUtils.isNetworkAvailable(this)) return;
+        if(!TablUtils.isNetworkAvailable(this)) return;
         //current implementation uses test data! something like i->getCachedRestaurant
         for (int i = 0; i < 5; i++) {
             restaurantList.add(new Restaurant(FindRestaurantActivity.this));

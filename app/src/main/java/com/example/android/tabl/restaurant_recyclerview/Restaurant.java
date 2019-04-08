@@ -26,6 +26,7 @@ public class Restaurant {
     private String[] flags;
     private String[] menuIds;
     private LatLng location; //find best location datatype to use
+    private double distFromUser;
 
     public Restaurant(){
     }
@@ -38,6 +39,7 @@ public class Restaurant {
         this.id = res.getString(R.string.default_id);
         this.flags = res.getStringArray(R.array.menu_titles);
         this.location = new LatLng(30, 30);
+        this.distFromUser = 0;
         //this.menuIds = res.getStringArray(R.array.menu_ids);
     }
 

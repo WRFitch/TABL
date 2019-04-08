@@ -25,6 +25,7 @@
     <string name="turn_on_gps">Turn on GPS</string>
     <string name="use_search_not_gps">Use Search Instead</string>
     <string name="search">Search(…, &#8230;)</string>
+    <String name="distance">km</String>
 
     <!-- Menu List -->
     <string-array name="Menu_List">

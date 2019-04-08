@@ -41,7 +41,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
         Restaurant restaurant = restaurantsList.get(position);
         holder.restaurant_name.setText(restaurant.getName());
         holder.restaurant_address.setText(restaurant.getAddress());
-        holder.restaurant_distance_from_user.setText(restaurant.getDistanceFromUser());
+        holder.restaurant_distance_from_user.setText(restaurant.getDistanceFromUser() + "km");
     }
 
     @Override
