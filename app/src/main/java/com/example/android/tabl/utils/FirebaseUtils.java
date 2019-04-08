@@ -6,8 +6,12 @@ package com.example.android.tabl.utils;
  * @WRFitch
  */
 
+import android.location.Location;
+
 import com.example.android.tabl.restaurant_recyclerview.Restaurant;
-import com.google.firebase.firestore.core.FirestoreClient;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 
 import java.util.ArrayList;
 
@@ -18,9 +22,14 @@ import java.util.ArrayList;
 
 public class FirebaseUtils {
 
+    static FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+    //this is bad, and I should feel bad.
+    static String restaurantCollection = "restaurants";
 
-    public static ArrayList<Restaurant> getRestaurants(String collection, String doc, double radius){
+    public static ArrayList<Restaurant> getRestaurants(Location userLoc, double radius){
+        CollectionReference restaurantsRef = db.collection(restaurantCollection);
+        
         return null;
     }
 }
