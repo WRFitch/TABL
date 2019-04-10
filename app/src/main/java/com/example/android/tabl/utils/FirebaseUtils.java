@@ -33,7 +33,7 @@ public class FirebaseUtils {
     static FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     //this is bad, and I should feel bad.
-    static String restaurantCollection = "restaurants";
+    static String restaurantCollection = "Restaurants";
 
     public static ArrayList<Restaurant> getRestaurantsInRadius(Location userLoc, double radius){
         final ArrayList<Restaurant> restaurantList = new ArrayList<Restaurant>();
@@ -48,8 +48,7 @@ public class FirebaseUtils {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
-                        restaurantList.add(new Restaurant());
-                        return;
+                        restaurantList.add(new Restaurant(document.getData()));
                     }
                 }
             }

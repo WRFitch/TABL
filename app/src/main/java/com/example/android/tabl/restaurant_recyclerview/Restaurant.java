@@ -2,9 +2,12 @@ package com.example.android.tabl.restaurant_recyclerview;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.location.Location;
 
 import com.example.android.tabl.R;
 import com.google.android.gms.maps.model.LatLng;
+
+import java.util.Map;
 
 /**
  * Restaurant object for FindRestaurantActivity
@@ -29,6 +32,14 @@ public class Restaurant {
     private double distFromUser;
 
     public Restaurant(){
+    }
+
+    public Restaurant(Map map){
+        //there has to be a better way!
+        this.name = (String) map.get("Name");
+        this.address = (String) map.get("Address");
+        this.location = new LatLng((Integer) map.get("Latitude"), (Integer) map.get("Longitude"));
+        this.distFromUser = 0;
     }
 
     //unfinished default constructor. Passing context is bad and I shouldn't do it.
