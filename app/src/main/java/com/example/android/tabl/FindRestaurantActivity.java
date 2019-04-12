@@ -20,6 +20,7 @@ import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.android.tabl.utils.FirebaseUtils;
 import com.example.android.tabl.utils.RecyclerItemClickListener;
@@ -90,7 +91,7 @@ public class FindRestaurantActivity extends AppCompatActivity
         db = FirebaseFirestore.getInstance();
 
         if(!TablUtils.isNetworkAvailable(this))
-            TablUtils.errorMsg(fab, getString(R.string.connection_failure));
+            Toast.makeText(this, R.string.connection_failure, Toast.LENGTH_SHORT);
         if (savedInstanceState != null && savedInstanceState.keySet().contains(KEY_LOCATION)) {
             currentLocation = savedInstanceState.getParcelable(KEY_LOCATION);
         }
@@ -302,6 +303,8 @@ public class FindRestaurantActivity extends AppCompatActivity
             return;
         }
         db = FirebaseFirestore.getInstance();//THE BUG IS HERE WHAT THE FUCK
+        //this isn't connecting to the remote database, it's creating its own local db
+        //and then trying to read that. No wonder it's not returning anything
         restaurantList = FirebaseUtils.getRestaurantsInRadius(currentLocation, mapRadius);
         if(restaurantList == null) {
             TablUtils.errorMsg(fab, "Data not received from Firebase");
@@ -339,5 +342,6 @@ public class FindRestaurantActivity extends AppCompatActivity
     @Override
     public void onRefresh(){
         updateRestaurantData();
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 }
