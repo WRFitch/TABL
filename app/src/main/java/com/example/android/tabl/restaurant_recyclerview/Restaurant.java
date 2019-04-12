@@ -32,6 +32,10 @@ public class Restaurant {
     private double distFromUser;
 
     public Restaurant(){
+        this.name = "test";
+        this.address = "testaddr";
+        this.location = new LatLng(30, 30);
+        this.distFromUser = 0;
     }
 
     public Restaurant(Map map){

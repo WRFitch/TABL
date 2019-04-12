@@ -31,8 +31,10 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -69,7 +71,7 @@ public class FindRestaurantActivity extends AppCompatActivity
     private GoogleMap mMap;
     private LocationManager mLocationManager;
     //instantiating currentLocation keeps the app from crashing without a previous location
-    private Location currentLocation = new Location("dummylocation");
+    private static Location currentLocation = new Location("dummylocation");
     private final static String KEY_LOCATION = "location";
     private final float DEFAULT_ZOOM = 16f;
     private boolean gotLocPerms = false;
@@ -77,15 +79,15 @@ public class FindRestaurantActivity extends AppCompatActivity
     private double mapRadius = 1; //this is in DEGREES, NOT KM
 
     //firebase stuff
-    private DatabaseReference mDatabase;
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    FirebaseFirestore db;
+    DocumentReference mRestaurantRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_restaurant);
         mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        db = FirebaseFirestore.getInstance();
 
         if(!TablUtils.isNetworkAvailable(this))
             TablUtils.errorMsg(fab, getString(R.string.connection_failure));
@@ -299,6 +301,7 @@ public class FindRestaurantActivity extends AppCompatActivity
             TablUtils.errorMsg(fab, "No Internet Connection!");
             return;
         }
+        db = FirebaseFirestore.getInstance();//THE BUG IS HERE WHAT THE FUCK
         restaurantList = FirebaseUtils.getRestaurantsInRadius(currentLocation, mapRadius);
         if(restaurantList == null) {
             TablUtils.errorMsg(fab, "Data not received from Firebase");
