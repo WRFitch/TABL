@@ -10,6 +10,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -54,10 +55,11 @@ import java.util.List;
  */
 
 public class FindRestaurantActivity extends AppCompatActivity
-        implements OnMapReadyCallback, LocationListener {
+        implements OnMapReadyCallback, LocationListener, SwipeRefreshLayout.OnRefreshListener {
 
     //activity stuff
     private List<Restaurant> restaurantList = new ArrayList<>();
+    SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView recyclerView;
     private RestaurantsAdapter rAdapter;
     private FloatingActionButton fab;
@@ -99,7 +101,6 @@ public class FindRestaurantActivity extends AppCompatActivity
             }
         });
 
-
         fab = findViewById(R.id.snapToLocationButton);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,6 +135,9 @@ public class FindRestaurantActivity extends AppCompatActivity
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(rAdapter);
         updateRestaurantData();
+
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
 
         showRestaurantsOnMap();
     }
@@ -327,5 +331,10 @@ public class FindRestaurantActivity extends AppCompatActivity
                 return super.onOptionsItemSelected(item);
 
         }
+    }
+
+    @Override
+    public void onRefresh(){
+        updateRestaurantData();
     }
 }

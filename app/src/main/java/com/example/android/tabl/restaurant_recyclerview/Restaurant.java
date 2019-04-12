@@ -38,7 +38,7 @@ public class Restaurant {
         //there has to be a better way!
         this.name = (String) map.get("Name");
         this.address = (String) map.get("Address");
-        this.location = new LatLng((Integer) map.get("Latitude"), (Integer) map.get("Longitude"));
+        this.location = new LatLng((Double) map.get("Latitude"), (Double) map.get("Longitude"));
         this.distFromUser = 0;
     }
 
