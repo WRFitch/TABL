@@ -9,6 +9,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
@@ -17,6 +18,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,6 +34,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -39,7 +43,9 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * First main screen of TABL. Allows user to select the restaurant they intend to order from using
@@ -80,7 +86,7 @@ public class FindRestaurantActivity extends AppCompatActivity
     private double mapRadius = 1; //this is in DEGREES, NOT KM
 
     //firebase stuff
-    FirebaseFirestore db;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
     DocumentReference mRestaurantRef;
 
     @Override
@@ -89,6 +95,7 @@ public class FindRestaurantActivity extends AppCompatActivity
         setContentView(R.layout.activity_find_restaurant);
         mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         db = FirebaseFirestore.getInstance();
+        testDB();
 
         if(!TablUtils.isNetworkAvailable(this))
             Toast.makeText(this, R.string.connection_failure, Toast.LENGTH_SHORT);
@@ -302,11 +309,9 @@ public class FindRestaurantActivity extends AppCompatActivity
             TablUtils.errorMsg(fab, "No Internet Connection!");
             return;
         }
-        db = FirebaseFirestore.getInstance();//THE BUG IS HERE WHAT THE FUCK
-        //this isn't connecting to the remote database, it's creating its own local db
-        //and then trying to read that. No wonder it's not returning anything
+        db = FirebaseFirestore.getInstance();
         restaurantList = FirebaseUtils.getRestaurantsInRadius(currentLocation, mapRadius);
-        if(restaurantList == null) {
+        if(restaurantList == null || restaurantList.isEmpty()) {
             TablUtils.errorMsg(fab, "Data not received from Firebase");
             return;
         }
@@ -342,6 +347,34 @@ public class FindRestaurantActivity extends AppCompatActivity
     @Override
     public void onRefresh(){
         updateRestaurantData();
+        testDB();
         mSwipeRefreshLayout.setRefreshing(false);
+    }
+
+    public void testDB(){
+        // Create a new user with a first, middle, and last name
+        Map<String, Object> user = new HashMap<>();
+        user.put("first", "Alan");
+        user.put("middle", "Mathison");
+        user.put("last", "Turing");
+        user.put("born", 1912);
+
+// Add a new document with a generated ID
+        db.collection("users")
+                .add(user)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                       Toast.makeText(fab.getContext(), "DocumentSnapshot added with ID: " +
+                               documentReference.getId(), Toast.LENGTH_LONG).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(fab.getContext(), "Error adding document",
+                                Toast.LENGTH_LONG).show();
+                    }
+                });
     }
 }

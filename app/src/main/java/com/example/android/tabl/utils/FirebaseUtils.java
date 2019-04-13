@@ -8,16 +8,11 @@ package com.example.android.tabl.utils;
 
 import android.location.Location;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.TabLayout;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.android.tabl.restaurant_recyclerview.Restaurant;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -26,12 +21,6 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.List;
-
-/**
- * TODO: implement test data
- * TODO: implement data caching for favourite items
- */
 
 public class FirebaseUtils {
 
@@ -39,7 +28,6 @@ public class FirebaseUtils {
 
     //this is bad, and I should feel bad.
     static String restaurantCollection = "Restaurants";
-    public static View view1;
 
     /*
     //old, perhaps-functional one
@@ -72,7 +60,8 @@ public class FirebaseUtils {
         db = FirebaseFirestore.getInstance(FirebaseApp.getInstance());
         final ArrayList<Restaurant> restaurantList = new ArrayList<Restaurant>();
         CollectionReference restaurantsRef = db.collection(restaurantCollection);
-        Query query = restaurantsRef
+        Query query = restaurantsRef.whereEqualTo("Name", "Bella Italia");
+        Query query1 = restaurantsRef
                 .whereLessThanOrEqualTo("Longitude", userLoc.getLongitude()+radius)
                 .whereGreaterThanOrEqualTo("Longitude", userLoc.getLongitude()-radius);
         Query query2 = restaurantsRef
@@ -84,6 +73,7 @@ public class FirebaseUtils {
                 if (task.isSuccessful()) {
                     //currently query not returning anything based on poor db reference or poor query
                     for (QueryDocumentSnapshot document : task.getResult()) {
+
                         restaurantList.add(new Restaurant());
                     }
                 }
