@@ -317,9 +317,11 @@ public class FindRestaurantActivity extends AppCompatActivity
         showRestaurantsOnMap();
     }
 
+    //Abandon all hope ye who enter here
     private void getRestaurantsInRadius() {
         db = FirebaseFirestore.getInstance();
         CollectionReference restaurantsRef = db.collection("Restaurants");
+        //query whether or not each restaurant is in range of user
         Query lonQuery = restaurantsRef
                 .whereLessThanOrEqualTo("Longitude", userLoc.getLongitude() + mapRadius)
                 .whereGreaterThanOrEqualTo("Longitude", userLoc.getLongitude() - mapRadius);
@@ -335,8 +337,14 @@ public class FindRestaurantActivity extends AppCompatActivity
                     //using set auto checks for duplicate values
                     restaurantList.clear();
                     for(Task t: task.getResult()){
-                        for(QueryDocumentSnapshot document: (QuerySnapshot) t.getResult())
-                        restaurantList.add(new Restaurant(document.getData(), userLoc));
+                        docLoop:
+                        for(QueryDocumentSnapshot document: (QuerySnapshot) t.getResult()) {
+                            for(Restaurant r: restaurantList) {
+                                if (document.getData().get("Name").equals(r.getName()))
+                                    continue docLoop; //we can go deeper
+                            }
+                            restaurantList.add(new Restaurant(document.getData(), userLoc));
+                        }
                     }
                     rAdapter.notifyDataSetChanged();
                 } else {
