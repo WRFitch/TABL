@@ -122,10 +122,10 @@ public class FindRestaurantActivity extends AppCompatActivity
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int position)  {
-                                restaurantList.get(position).getName();
-                                //pass menuTitles to menuactivity
-                                //preload favourites menu
-                                callMenuActivity(getApplicationContext());
+                                Intent intent = new Intent(getBaseContext(), MenuActivity.class);
+                                intent.putExtra("restaurant_name",
+                                        restaurantList.get(position).getName());
+                                startActivity(intent);
                             }
                             @Override
                             public void onLongItemClick(View view, int position) {
@@ -317,9 +317,11 @@ public class FindRestaurantActivity extends AppCompatActivity
         showRestaurantsOnMap();
     }
 
+    //Abandon all hope ye who enter here
     private void getRestaurantsInRadius() {
         db = FirebaseFirestore.getInstance();
         CollectionReference restaurantsRef = db.collection("Restaurants");
+        //query whether or not each restaurant is in range of user
         Query lonQuery = restaurantsRef
                 .whereLessThanOrEqualTo("Longitude", userLoc.getLongitude() + mapRadius)
                 .whereGreaterThanOrEqualTo("Longitude", userLoc.getLongitude() - mapRadius);
@@ -335,8 +337,13 @@ public class FindRestaurantActivity extends AppCompatActivity
                     //using set auto checks for duplicate values
                     restaurantList.clear();
                     for(Task t: task.getResult()){
-                        for(QueryDocumentSnapshot document: (QuerySnapshot) t.getResult())
-                        restaurantList.add(new Restaurant(document.getData(), userLoc));
+                        docLoop:
+                        for(QueryDocumentSnapshot document: (QuerySnapshot) t.getResult()) {
+                            for(Restaurant r: restaurantList) {
+                                if (document.getData().get("Name").equals(r.getName())) continue docLoop; //we can go deeper
+                            }
+                            restaurantList.add(new Restaurant(document.getData(), userLoc));
+                        }
                     }
                     rAdapter.notifyDataSetChanged();
                 } else {
@@ -344,12 +351,6 @@ public class FindRestaurantActivity extends AppCompatActivity
                 }
             }
         });
-    }
-
-    //call next activity. Make sure to pass parcelable restaurant data.
-    private void callMenuActivity(Context c) {
-        Intent intent = new Intent(c, MenuActivity.class);
-        startActivity(intent);
     }
 
     private void callSearchRestaurantActivity(Context c){
