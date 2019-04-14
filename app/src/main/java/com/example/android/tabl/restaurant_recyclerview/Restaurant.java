@@ -135,6 +135,9 @@ public class Restaurant {
         return returnVal;
     }
 
+    public LatLng getLatLngLocation(){
+        return new LatLng(this.location.getLatitude(), this.location.getLongitude());
+    }
     public String[] getMenuIds(){
         return this.menuIds;
     }

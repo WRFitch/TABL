@@ -32,8 +32,11 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -44,8 +47,10 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * First main screen of TABL. Allows user to select the restaurant they intend to order from using
@@ -116,7 +121,7 @@ public class FindRestaurantActivity extends AppCompatActivity
                 new RecyclerItemClickListener(this, recyclerView,
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
-                            public void onItemClick(View view, int position) {
+                            public void onItemClick(View view, int position)  {
                                 restaurantList.get(position).getName();
                                 //pass menuTitles to menuactivity
                                 //preload favourites menu
@@ -220,6 +225,7 @@ public class FindRestaurantActivity extends AppCompatActivity
         }
         mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 10000, 100, this);
         mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 20, this);
+        userLoc = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
     }
 
     @SuppressLint("MissingPermission")
@@ -296,8 +302,9 @@ public class FindRestaurantActivity extends AppCompatActivity
 
     private void showRestaurantsOnMap() {
         for (Restaurant r : restaurantList) {
-            //currently crashes app - "null object reference"
-            //mMap.addMarker(new MarkerOptions().position(r.updateLocation()).title(r.getName()));
+            mMap.addMarker(new MarkerOptions()
+                    .position(r.getLatLngLocation())
+                    .title(r.getName()));
         }
     }
 
@@ -310,25 +317,29 @@ public class FindRestaurantActivity extends AppCompatActivity
         showRestaurantsOnMap();
     }
 
-    private void getRestaurantsInRadius(){
+    private void getRestaurantsInRadius() {
         db = FirebaseFirestore.getInstance();
         CollectionReference restaurantsRef = db.collection("Restaurants");
-        Query query = restaurantsRef
-                .whereLessThanOrEqualTo("Longitude", userLoc.getLongitude()+mapRadius)
-                .whereGreaterThanOrEqualTo("Longitude", userLoc.getLongitude()-mapRadius);
-        Query query2 = restaurantsRef
-                .whereLessThanOrEqualTo("Latitude", userLoc.getLatitude()+mapRadius)
-                .whereGreaterThanOrEqualTo("Latitude", userLoc.getLatitude()-mapRadius);
-        query.get().addOnCompleteListener( new OnCompleteListener<QuerySnapshot>() {
+        Query lonQuery = restaurantsRef
+                .whereLessThanOrEqualTo("Longitude", userLoc.getLongitude() + mapRadius)
+                .whereGreaterThanOrEqualTo("Longitude", userLoc.getLongitude() - mapRadius);
+        Query latQuery = restaurantsRef
+                .whereLessThanOrEqualTo("Latitude", userLoc.getLatitude() + mapRadius)
+                .whereGreaterThanOrEqualTo("Latitude", userLoc.getLatitude() - mapRadius);
+        Task lonTask = lonQuery.get();
+        Task latTask = latQuery.get();
+        Task locTask = Tasks.whenAllComplete(lonTask, latTask).addOnCompleteListener(new OnCompleteListener<List<Task<?>>>() {
             @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+            public void onComplete(@NonNull Task<List<Task<?>>> task) {
                 if (task.isSuccessful()) {
+                    //using set auto checks for duplicate values
                     restaurantList.clear();
-                    for (QueryDocumentSnapshot document : task.getResult()) {
+                    for(Task t: task.getResult()){
+                        for(QueryDocumentSnapshot document: (QuerySnapshot) t.getResult())
                         restaurantList.add(new Restaurant(document.getData(), userLoc));
-                        rAdapter.notifyDataSetChanged();
                     }
-                }else{
+                    rAdapter.notifyDataSetChanged();
+                } else {
                     TablUtils.errorMsg(fab, "Data not received from Firebase");
                 }
             }
