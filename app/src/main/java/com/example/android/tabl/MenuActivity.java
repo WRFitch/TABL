@@ -66,15 +66,13 @@ public class MenuActivity extends AppCompatActivity {
                         else if (mUserItems.contains(position)){
                             mUserItems.remove(mUserItems.indexOf(position));
                         }
-
                     }
                 });
 
-                mBuilder.setCancelable(false);
+                mBuilder.setCancelable(true);
                 mBuilder.setPositiveButton(R.string.ok_label, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int which) {
-
                     //where we filter out the menu based on user selection
                     }
                 });
@@ -89,9 +87,9 @@ public class MenuActivity extends AppCompatActivity {
                 mBuilder.setNeutralButton(R.string.clear_all_label, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int which) {
+                        mUserItems.clear();
                        for (int i = 0; i < checkedItems.length; i++){
                            checkedItems[i] = false;
-                           mUserItems.clear();
                        }
                     }
                 });
@@ -154,12 +152,12 @@ public class MenuActivity extends AppCompatActivity {
         subMenuRecyclerView.setLayoutManager(sMenuLayoutManager);
         subMenuRecyclerView.setItemAnimator(new DefaultItemAnimator());
         subMenuRecyclerView.setAdapter(smAdapter);
-        prepsubMenuData();
+        prepSubmenuData();
 
     }
 
 
-    private void prepsubMenuData() {
+    private void prepSubmenuData() {
         for (int i = 0; i < 20; i++) {
             subMenusList.add(new SubMenu());
         }

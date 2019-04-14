@@ -8,12 +8,13 @@
 <resources>
     <!-- System Strings -->
     <string name="app_name">TABL</string>
-    <string name="version_name">Version 0.3.1</string>
+    <string name="version_name">Version 0.5.1</string>
 
     <!-- Util Strings -->
     <string name="todo">Function not implemented</string>
     <string name="var_undefined">UNDEFINED</string>
     <string name="var_unavailable">(unavailable)</string>
+    <string name="connection_failure">No Internet Connection!</string>
 
     <!-- FindRestaurantActivity Strings -->
     <string name="title_activity_restaurant_map">Map</string>
@@ -24,6 +25,7 @@
     <string name="turn_on_gps">Turn on GPS</string>
     <string name="use_search_not_gps">Use Search Instead</string>
     <string name="search">Search(…, &#8230;)</string>
+    <string name="distance">km</string>
 
     <!-- Menu List -->
     <string-array name="Menu_List">
