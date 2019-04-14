@@ -18,13 +18,11 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.android.tabl.utils.FirebaseUtils;
 import com.example.android.tabl.utils.RecyclerItemClickListener;
 import com.example.android.tabl.restaurant_recyclerview.Restaurant;
 import com.example.android.tabl.restaurant_recyclerview.RestaurantsAdapter;
@@ -35,12 +33,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -53,9 +46,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 
 /**
  * First main screen of TABL. Allows user to select the restaurant they intend to order from using
@@ -87,8 +77,8 @@ public class FindRestaurantActivity extends AppCompatActivity
     private SupportMapFragment mapFragment;
     private GoogleMap mMap;
     private LocationManager mLocationManager;
-    //instantiating currentLocation keeps the app from crashing without a previous location
-    private static Location currentLocation = new Location("dummylocation");
+    //instantiating userLoc keeps the app from crashing without a previous location
+    private static Location userLoc = new Location("dummylocation");
     private final static String KEY_LOCATION = "location";
     private final float DEFAULT_ZOOM = 16f;
     private boolean gotLocPerms = false;
@@ -110,7 +100,7 @@ public class FindRestaurantActivity extends AppCompatActivity
         if(!TablUtils.isNetworkAvailable(this))
             Toast.makeText(this, R.string.connection_failure, Toast.LENGTH_SHORT);
         if (savedInstanceState != null && savedInstanceState.keySet().contains(KEY_LOCATION)) {
-            currentLocation = savedInstanceState.getParcelable(KEY_LOCATION);
+            userLoc = savedInstanceState.getParcelable(KEY_LOCATION);
         }
 
         mapFragment = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map));
@@ -220,9 +210,9 @@ public class FindRestaurantActivity extends AppCompatActivity
         mMap.setMyLocationEnabled(true);
         mMap.getUiSettings().setMyLocationButtonEnabled(false);
         updateLocation();
-        currentLocation = mLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-        if(currentLocation!=null)
-            updateCameraNoAnimation(currentLocation);
+        userLoc = mLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+        if(userLoc !=null)
+            updateCameraNoAnimation(userLoc);
 
     }
 
@@ -239,9 +229,9 @@ public class FindRestaurantActivity extends AppCompatActivity
     @SuppressLint("MissingPermission")
     public void getUserLocationNoAnimation() {
         updateLocation();
-        currentLocation = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        currentLocation = mMap.getMyLocation();
-        updateCameraNoAnimation(currentLocation);
+        userLoc = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        userLoc = mMap.getMyLocation();
+        updateCameraNoAnimation(userLoc);
     }
 
     public void updateCameraNoAnimation(Location currentLocation) {
@@ -252,9 +242,9 @@ public class FindRestaurantActivity extends AppCompatActivity
     @SuppressLint("MissingPermission")
     public void updateCameraWithAnimation() {
         updateLocation();
-        currentLocation = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        currentLocation = mMap.getMyLocation();
-        LatLng currentLatLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+        userLoc = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        userLoc = mMap.getMyLocation();
+        LatLng currentLatLng = new LatLng(userLoc.getLatitude(), userLoc.getLongitude());
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, DEFAULT_ZOOM));
     }
 
@@ -269,7 +259,7 @@ public class FindRestaurantActivity extends AppCompatActivity
     public void onProviderEnabled(String provider) {
         //TablUtils.getLocationPerms(this, this);
         updateLocation();
-        updateCameraNoAnimation(currentLocation);
+        updateCameraNoAnimation(userLoc);
     }
 
     public void onProviderDisabled(String provider) {
@@ -328,23 +318,18 @@ public class FindRestaurantActivity extends AppCompatActivity
     private void getRestaurantsInRadius(){
         db = FirebaseFirestore.getInstance();
         CollectionReference restaurantsRef = db.collection("Restaurants");
-        Query query1 = restaurantsRef
-                .whereLessThanOrEqualTo("Longitude", currentLocation.getLongitude()+mapRadius)
-                .whereGreaterThanOrEqualTo("Longitude", currentLocation.getLongitude()-mapRadius);
+        Query query = restaurantsRef
+                .whereLessThanOrEqualTo("Longitude", userLoc.getLongitude()+mapRadius)
+                .whereGreaterThanOrEqualTo("Longitude", userLoc.getLongitude()-mapRadius);
         Query query2 = restaurantsRef
-                .whereLessThanOrEqualTo("Latitude", currentLocation.getLatitude()+mapRadius)
-                .whereGreaterThanOrEqualTo("Latitude", currentLocation.getLatitude()-mapRadius);
-
-        // Create a reference to the cities collection
-        CollectionReference citiesRef = db.collection("cities");
-        // Create a query against the collection.
-        Query query = citiesRef.whereEqualTo("state", "CA");
+                .whereLessThanOrEqualTo("Latitude", userLoc.getLatitude()+mapRadius)
+                .whereGreaterThanOrEqualTo("Latitude", userLoc.getLatitude()-mapRadius);
         query.get().addOnCompleteListener( new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
-                        restaurantList.add(new Restaurant());
+                        restaurantList.add(new Restaurant(document.getData()));
                         rAdapter.notifyDataSetChanged();
                     }
                 }else{
