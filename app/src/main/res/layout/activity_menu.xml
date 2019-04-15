@@ -34,14 +34,14 @@
 
     <ImageButton
         android:id="@+id/filterbtn"
-        android:layout_width="64dp"
-        android:layout_height="37dp"
+        android:layout_width="53dp"
+        android:layout_height="30dp"
         android:layout_marginTop="16dp"
+        android:contentDescription="@string/fb"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/debug_filter_icon"
-        tools:background="@drawable/bg_header"
-        android:contentDescription="@string/fb" />
+        tools:background="@drawable/bg_header" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/submenu_recycler_view"

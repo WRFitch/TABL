@@ -37,8 +37,6 @@ public class MenuActivity extends AppCompatActivity {
     private boolean[] checkedItems;
     private ArrayList<Integer> mUserItems = new ArrayList<>();
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -206,9 +204,5 @@ public class MenuActivity extends AppCompatActivity {
     private void stashLocalData(){
 
     }
-
-
-
     private int[] image_id = {R.drawable.halal_sign, R.drawable.gluten_free_symbol,R.drawable.vegan_symbol};
-
 }
