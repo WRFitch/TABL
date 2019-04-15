@@ -44,11 +44,10 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
-        filterButton = (ImageButton)findViewById(R.id.filterbtn);
-
         listItems = getResources().getStringArray(R.array.Filter_menu);
         checkedItems = new boolean[listItems.length];
 
+        filterButton = (ImageButton)findViewById(R.id.filterbtn);
         filterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -203,12 +202,7 @@ public class MenuActivity extends AppCompatActivity {
                 }
             };
 
-    private void stashLocalData(){
-
+    private ArrayList<FoodItem> getSubMenu(String subMenuName){
+        return null;
     }
-
-
-
-    private int[] image_id = {R.drawable.halal_sign, R.drawable.gluten_free_symbol,R.drawable.vegan_symbol};
-
 }

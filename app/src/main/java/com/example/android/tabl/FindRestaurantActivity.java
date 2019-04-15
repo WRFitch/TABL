@@ -102,7 +102,7 @@ public class FindRestaurantActivity extends AppCompatActivity
         db = FirebaseFirestore.getInstance();
 
         if(!TablUtils.isNetworkAvailable(this))
-            Toast.makeText(this, R.string.connection_failure, Toast.LENGTH_SHORT);
+            Toast.makeText(this, R.string.connection_failure, Toast.LENGTH_SHORT).show();
         if (savedInstanceState != null && savedInstanceState.keySet().contains(KEY_LOCATION)) {
             userLoc = savedInstanceState.getParcelable(KEY_LOCATION);
         }

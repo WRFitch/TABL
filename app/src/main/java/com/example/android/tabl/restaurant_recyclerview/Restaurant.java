@@ -116,8 +116,8 @@ public class Restaurant {
     }
 
     //calc restaurant distance from user
-    public String getDistanceFromUser() {
-        return Double.toString(distFromUser);
+    public double getDistanceFromUser() {
+        return distFromUser;
     }
 
     //debug ver - do not add to final app!
