@@ -48,7 +48,7 @@ public class Restaurant {
         this.location = new Location(LocationManager.GPS_PROVIDER);
         this.location.setLatitude((Double) map.get("Latitude"));
         this.location.setLongitude((Double) map.get("Longitude"));
-        this.distFromUser = userLoc.distanceTo(this.location);
+        this.distFromUser = userLoc.distanceTo(this.location)/1000;
     }
 
     //unfinished default constructor. Passing context is bad and I shouldn't do it.
