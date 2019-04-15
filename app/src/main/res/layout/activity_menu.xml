@@ -34,19 +34,19 @@
 
     <ImageButton
         android:id="@+id/filterbtn"
-        android:layout_width="53dp"
-        android:layout_height="30dp"
+        android:layout_width="64dp"
+        android:layout_height="37dp"
         android:layout_marginTop="16dp"
-        android:contentDescription="@string/fb"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/debug_filter_icon"
-        tools:background="@drawable/bg_header" />
+        tools:background="@color/colorPrimary"
+        android:contentDescription="@string/fb" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/submenu_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="49dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:scrollbars="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -58,7 +58,7 @@
         android:id="@+id/menu_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="0dp"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"

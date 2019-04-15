@@ -3,6 +3,7 @@ package com.example.android.tabl.restaurant_recyclerview;
 import android.content.Context;
 import android.content.res.Resources;
 import android.location.Location;
+import android.location.LocationManager;
 
 import com.example.android.tabl.R;
 import com.google.android.gms.maps.model.LatLng;
@@ -28,18 +29,26 @@ public class Restaurant {
     private String address;
     private String[] flags;
     private String[] menuIds;
-    private LatLng location; //find best location datatype to use
+    private Location location;
     private double distFromUser;
 
     public Restaurant(){
+        this.name = "test";
+        this.address = "testaddr";
+        this.location = new Location(LocationManager.GPS_PROVIDER);
+        this.location.setLatitude(30);
+        this.location.setLongitude(30);
+        this.distFromUser = 0;
     }
 
-    public Restaurant(Map map){
+    public Restaurant(Map map, Location userLoc){
         //there has to be a better way!
         this.name = (String) map.get("Name");
         this.address = (String) map.get("Address");
-        this.location = new LatLng((Integer) map.get("Latitude"), (Integer) map.get("Longitude"));
-        this.distFromUser = 0;
+        this.location = new Location(LocationManager.GPS_PROVIDER);
+        this.location.setLatitude((Double) map.get("Latitude"));
+        this.location.setLongitude((Double) map.get("Longitude"));
+        this.distFromUser = userLoc.distanceTo(this.location);
     }
 
     //unfinished default constructor. Passing context is bad and I shouldn't do it.
@@ -49,14 +58,16 @@ public class Restaurant {
         this.address = res.getString(R.string.default_addr);
         this.id = res.getString(R.string.default_id);
         this.flags = res.getStringArray(R.array.menu_titles);
-        this.location = new LatLng(30, 30);
+        this.location = new Location(LocationManager.GPS_PROVIDER);
+        this.location.setLatitude(30);
+        this.location.setLongitude(30);
         this.distFromUser = 0;
         //this.menuIds = res.getStringArray(R.array.menu_ids);
     }
 
     public Restaurant(String name, String id, String address, String distanceFromUser,
                       String[] flags,
-                      LatLng location){
+                      Location location){
         this.name = name;
         this.id = id;
         this.address = address;
@@ -88,11 +99,11 @@ public class Restaurant {
         this.flags = flags;
     }
 
-    public LatLng getLocation() {
+    public Location getLocation() {
         return location;
     }
 
-    public void setLocation(LatLng location) {
+    public void setLocation(Location location) {
         this.location = location;
     }
 
@@ -105,8 +116,8 @@ public class Restaurant {
     }
 
     //calc restaurant distance from user
-    public String getDistanceFromUser() {
-        return null;
+    public double getDistanceFromUser() {
+        return distFromUser;
     }
 
     //debug ver - do not add to final app!
@@ -124,6 +135,9 @@ public class Restaurant {
         return returnVal;
     }
 
+    public LatLng getLatLngLocation(){
+        return new LatLng(this.location.getLatitude(), this.location.getLongitude());
+    }
     public String[] getMenuIds(){
         return this.menuIds;
     }
