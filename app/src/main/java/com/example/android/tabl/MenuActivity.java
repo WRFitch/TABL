@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.android.tabl.menu_recyclerview.FoodItem;
 import com.example.android.tabl.menu_recyclerview.FoodItemAdapter;
@@ -20,10 +21,12 @@ import com.example.android.tabl.submenu_recyclerview.SubMenu;
 import com.example.android.tabl.submenu_recyclerview.SubMenuAdapter;
 import com.example.android.tabl.utils.RecyclerItemClickListener;
 import com.example.android.tabl.utils.TablUtils;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +36,7 @@ public class MenuActivity extends AppCompatActivity {
     //data variables
     private List<FoodItem> foodItemsList = new ArrayList<>();
     private List<SubMenu> subMenusList = new ArrayList<>();
+    List<String> subNames;
     private String[] filterList;
     private boolean[] filtersChecked;
     private ArrayList<Integer> mUserItems = new ArrayList<>();
@@ -53,7 +57,7 @@ public class MenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-        restaurantName = getIntent().getExtras().getString("restaurant_name");
+        restaurantName = getIntent().getExtras().getString("restaurantName");
 
         filterList = getResources().getStringArray(R.array.Filter_menu);
         filtersChecked = new boolean[filterList.length];
@@ -128,14 +132,44 @@ public class MenuActivity extends AppCompatActivity {
 
     private void prepSubmenuData() {
         db = FirebaseFirestore.getInstance();
-        DocumentReference menuRef = db.document("Menus/"+ restaurantName);
-        //Query submenuQuery = menuRef.get()
-
-
-        for (int i = 0; i < 20; i++) {
-            subMenusList.add(new SubMenu());
-        }
-        smAdapter.notifyDataSetChanged();
+        CollectionReference menuRef = db.collection("Menus");
+        Query query = menuRef.whereEqualTo("Name", restaurantName);
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    if(task.getResult().getDocuments().size() == 0) {
+                        Toast.makeText(filterButton.getContext(), "Error getting menu data for "
+                                        + restaurantName, Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    List<String> subNames = (List<String>) task.getResult().getDocuments().get(0).get("SubmenuNames");//so fragile
+                    for (String subMenuName : subNames) {
+                        subMenusList.add(new SubMenu(subMenuName));
+                    }
+                    smAdapter.notifyDataSetChanged();
+                } else {
+                    Toast.makeText(filterButton.getContext(), "Error getting menu data!",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        /*new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    List<String> subNames = (List<String>) task.getResult().getData().get("SubmenuNames");
+                    //if(subNames==null) return;
+                    for (String subMenuName : subNames) {
+                        subMenusList.add(new SubMenu(subMenuName));
+                    }
+                    smAdapter.notifyDataSetChanged();
+                } else {
+                    Toast.makeText(filterButton.getContext(), "Error getting menu data!",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        });*/
     }
 
     private void prepFoodMenuData() {

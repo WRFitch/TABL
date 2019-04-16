@@ -73,6 +73,7 @@ public class FindRestaurantActivity extends AppCompatActivity
     private RecyclerView recyclerView;
     private RestaurantsAdapter rAdapter;
     private FloatingActionButton fab;
+    private String restaurantId;
 
     //map variables
     private SupportMapFragment mapFragment;
@@ -119,7 +120,7 @@ public class FindRestaurantActivity extends AppCompatActivity
                             @Override
                             public void onItemClick(View view, int position)  {
                                 Intent intent = new Intent(getBaseContext(), MenuActivity.class);
-                                intent.putExtra("restaurant_name",
+                                intent.putExtra("restaurantName",
                                         restaurantList.get(position).getName());
                                 startActivity(intent);
                             }
@@ -333,7 +334,6 @@ public class FindRestaurantActivity extends AppCompatActivity
             @Override
             public void onComplete(@NonNull Task<List<Task<?>>> task) {
                 if (task.isSuccessful()) {
-                    //using set auto checks for duplicate values
                     restaurantList.clear();
                     for(Task t: task.getResult()){
                         docLoop:
@@ -341,7 +341,7 @@ public class FindRestaurantActivity extends AppCompatActivity
                             for(Restaurant r: restaurantList) {
                                 if (document.getData().get("Name").equals(r.getName())) continue docLoop; //we can go deeper
                             }
-                            restaurantList.add(new Restaurant(document.getData(), userLoc));
+                            restaurantList.add(new Restaurant(document.getData(), userLoc, document.getId()));
                         }
                     }
                     rAdapter.notifyDataSetChanged();

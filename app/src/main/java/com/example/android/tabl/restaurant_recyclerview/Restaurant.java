@@ -31,6 +31,7 @@ public class Restaurant {
     private String[] menuIds;
     private Location location;
     private double distFromUser;
+    private long numOfTables;
 
     public Restaurant(){
         this.name = "test";
@@ -49,6 +50,12 @@ public class Restaurant {
         this.location.setLatitude((Double) map.get("Latitude"));
         this.location.setLongitude((Double) map.get("Longitude"));
         this.distFromUser = userLoc.distanceTo(this.location)/1000;
+        this.numOfTables = (long) map.get("NumOfTables");
+    }
+
+    public Restaurant(Map map, Location userLoc, String id){
+        this(map, userLoc);
+        this.id = id;
     }
 
     //unfinished default constructor. Passing context is bad and I shouldn't do it.
@@ -73,6 +80,10 @@ public class Restaurant {
         this.address = address;
         this.flags = flags;
         this.location = location;
+    }
+
+    public long getNumOfTables(){
+        return this.numOfTables;
     }
 
     public String getName() {
