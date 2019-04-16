@@ -34,11 +34,9 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -61,24 +59,23 @@ import java.util.Set;
 
 /**
  * TODO: implement additional search method in appbar.
- * TODO: implement passing restaurant data to MenuActivity
- * TODO: implement swiping restaurantList up & down
  * TODO: Implement restaurant get radius
- * TODO: check getRestaurants() works with android's weird asynchronous stuff
- * TODO: how to refresh getRestaurants()?
+ * TODO: update comments
+ * TODO: organise variables
  */
 
 public class FindRestaurantActivity extends AppCompatActivity
         implements OnMapReadyCallback, LocationListener, SwipeRefreshLayout.OnRefreshListener {
 
-    //activity stuff
+    //activity variables
     private List<Restaurant> restaurantList = new ArrayList<>();
     SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView recyclerView;
     private RestaurantsAdapter rAdapter;
     private FloatingActionButton fab;
+    private String restaurantId;
 
-    //map stuff
+    //map variables
     private SupportMapFragment mapFragment;
     private GoogleMap mMap;
     private LocationManager mLocationManager;
@@ -90,7 +87,7 @@ public class FindRestaurantActivity extends AppCompatActivity
     private boolean locDialogOpen = false;
     private double mapRadius = 100; //this is in DEGREES, NOT KM
 
-    //firebase stuff
+    //firebase variables
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
@@ -123,14 +120,18 @@ public class FindRestaurantActivity extends AppCompatActivity
                             @Override
                             public void onItemClick(View view, int position)  {
                                 Intent intent = new Intent(getBaseContext(), MenuActivity.class);
-                                intent.putExtra("restaurant_name",
+                                intent.putExtra("restaurantName",
                                         restaurantList.get(position).getName());
                                 startActivity(intent);
                             }
                             @Override
                             public void onLongItemClick(View view, int position) {
-                                //perhaps use this to display restaurant info/add to favourites?
-                                TablUtils.functionNotImplemented(view, "maybe add to favourites?");
+                                /*
+                                Possible Uses:
+                                - add to favourites/list
+                                - get directions
+                                - dialog menu with all these options
+                                 */
                             }
                         })
         );
@@ -314,7 +315,6 @@ public class FindRestaurantActivity extends AppCompatActivity
             return;
         }
         getRestaurantsInRadius();
-        showRestaurantsOnMap();
     }
 
     //Abandon all hope ye who enter here
@@ -334,7 +334,6 @@ public class FindRestaurantActivity extends AppCompatActivity
             @Override
             public void onComplete(@NonNull Task<List<Task<?>>> task) {
                 if (task.isSuccessful()) {
-                    //using set auto checks for duplicate values
                     restaurantList.clear();
                     for(Task t: task.getResult()){
                         docLoop:
@@ -342,10 +341,11 @@ public class FindRestaurantActivity extends AppCompatActivity
                             for(Restaurant r: restaurantList) {
                                 if (document.getData().get("Name").equals(r.getName())) continue docLoop; //we can go deeper
                             }
-                            restaurantList.add(new Restaurant(document.getData(), userLoc));
+                            restaurantList.add(new Restaurant(document.getData(), userLoc, document.getId()));
                         }
                     }
                     rAdapter.notifyDataSetChanged();
+                    showRestaurantsOnMap();
                 } else {
                     TablUtils.errorMsg(fab, "Data not received from Firebase");
                 }
