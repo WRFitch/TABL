@@ -24,6 +24,7 @@ import com.example.android.tabl.utils.TablUtils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -138,45 +139,52 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
-                    if(task.getResult().getDocuments().size() == 0) {
-                        Toast.makeText(filterButton.getContext(), "Error getting menu data for "
-                                        + restaurantName, Toast.LENGTH_SHORT).show();
+                    List<DocumentSnapshot> docList = task.getResult().getDocuments();
+                    if(docList.size() == 0) {
+                        menuQueryError();
                         return;
                     }
-                    List<String> subNames = (List<String>) task.getResult().getDocuments().get(0).get("SubmenuNames");//so fragile
-                    for (String subMenuName : subNames) {
-                        subMenusList.add(new SubMenu(subMenuName));
+                    List<String> subNames = (List<String>) docList.get(0).get("SubmenuNames");
+                    //I chose efficiency over readability, sue me (or move this 6 lines up)
+                    if(subNames == null) {
+                        menuQueryError();
+                        return;
                     }
+                    for (String subMenuName : subNames) {
+                        subMenusList.add(new SubMenu(subMenuName, null));
+                    }
+                    prepFoodMenuData();
                     smAdapter.notifyDataSetChanged();
                 } else {
-                    Toast.makeText(filterButton.getContext(), "Error getting menu data!",
-                            Toast.LENGTH_SHORT).show();
+                    menuQueryError();
                 }
             }
         });
-        /*new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    List<String> subNames = (List<String>) task.getResult().getData().get("SubmenuNames");
-                    //if(subNames==null) return;
-                    for (String subMenuName : subNames) {
-                        subMenusList.add(new SubMenu(subMenuName));
-                    }
-                    smAdapter.notifyDataSetChanged();
-                } else {
-                    Toast.makeText(filterButton.getContext(), "Error getting menu data!",
-                            Toast.LENGTH_SHORT).show();
-                }
-            }
-        });*/
+    }
+
+    private void menuQueryError(){
+        Toast.makeText(filterButton.getContext(), "Error getting menu data for " + restaurantName,
+                Toast.LENGTH_SHORT).show();
     }
 
     private void prepFoodMenuData() {
+
+        for(SubMenu subMenu: subMenusList){
+
+        }
+
         for (int i = 0; i < 20; i++) {
             foodItemsList.add(new FoodItem());
         }
         fAdapter.notifyDataSetChanged();
+    }
+
+    private ArrayList<FoodItem> getFoodItemList(){
+        return null;
+    }
+
+    private void updateFoodMenu(){
+
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
@@ -212,10 +220,6 @@ public class MenuActivity extends AppCompatActivity {
 
                 }
             };
-
-    private ArrayList<FoodItem> getSubMenu(String subMenuName) {
-        return null;
-    }
 
     private void showFilterDialog(){
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(MenuActivity.this);
