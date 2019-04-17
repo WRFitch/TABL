@@ -24,6 +24,7 @@ import com.example.android.tabl.utils.TablUtils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -31,6 +32,12 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
+
+/**
+ * Menu Activity class, allowing the users to view the menu and add items to the basket
+ *
+ *
+ */
 
 public class MenuActivity extends AppCompatActivity {
 
@@ -96,7 +103,7 @@ public class MenuActivity extends AppCompatActivity {
         foodRecyclerView.setLayoutManager(mLayoutManager);
         foodRecyclerView.setItemAnimator(new DefaultItemAnimator());
         foodRecyclerView.setAdapter(fAdapter);
-        prepFoodMenuData();
+        updateMenuData();
 
         subMenuRecyclerView = findViewById(R.id.submenu_recycler_view);
         subMenuRecyclerView.addOnItemTouchListener(
@@ -104,12 +111,11 @@ public class MenuActivity extends AppCompatActivity {
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int position) {
-                                //display selected menu
+                                updateFoodMenu(subMenusList.get(position));
                             }
-
                             @Override
                             public void onLongItemClick(View view, int position) {
-
+                                //is this necessary?
                             }
                         })
         );
@@ -123,7 +129,7 @@ public class MenuActivity extends AppCompatActivity {
         prepSubmenuData();
     }
 
-    private void updateMenuData(String restaurantName) {
+    private void updateMenuData() {
         if (!TablUtils.isNetworkAvailable(this)) {
             TablUtils.errorMsg(filterButton, "No Internet Connection!");
             return;
@@ -131,11 +137,12 @@ public class MenuActivity extends AppCompatActivity {
         prepSubmenuData();
     }
 
+    //abandon all hope ye who enter here
     private void prepSubmenuData() {
         db = FirebaseFirestore.getInstance();
         CollectionReference menuRef = db.collection("Menus");
-        Query query = menuRef.whereEqualTo("Name", restaurantName);
-        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        Query getSubMenuNamesQuery = menuRef.whereEqualTo("Name", restaurantName);
+        getSubMenuNamesQuery.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
@@ -150,10 +157,13 @@ public class MenuActivity extends AppCompatActivity {
                         menuQueryError();
                         return;
                     }
+                    ArrayList<FoodItem> foodList;
                     for (String subMenuName : subNames) {
-                        subMenusList.add(new SubMenu(subMenuName, null));
+                        foodList = getFoodMenuData(docList.get(0).getReference(), subMenuName);
+                        SubMenu subMenu = new SubMenu(subMenuName, foodList);
+                        subMenusList.add(subMenu);
                     }
-                    prepFoodMenuData();
+                    updateFoodMenu(subMenusList.get(0));
                     smAdapter.notifyDataSetChanged();
                 } else {
                     menuQueryError();
@@ -167,24 +177,21 @@ public class MenuActivity extends AppCompatActivity {
                 Toast.LENGTH_SHORT).show();
     }
 
-    private void prepFoodMenuData() {
+    private ArrayList<FoodItem> getFoodMenuData(DocumentReference docSnap, String subMenuTitle) {
+        docSnap.collection(subMenuTitle).get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
 
-        for(SubMenu subMenu: subMenusList){
+            }
+        });
+        //how to return arraylist to for loop without hating life?
+        return new ArrayList<>();
+    }
 
-        }
-
-        for (int i = 0; i < 20; i++) {
-            foodItemsList.add(new FoodItem());
-        }
+    private void updateFoodMenu(SubMenu subMenu){
+        foodItemsList = subMenu.getFoodList();
         fAdapter.notifyDataSetChanged();
-    }
-
-    private ArrayList<FoodItem> getFoodItemList(){
-        return null;
-    }
-
-    private void updateFoodMenu(){
-
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
