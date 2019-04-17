@@ -4,7 +4,8 @@ import android.content.Context;
 import android.content.res.Resources;
 
 import com.example.android.tabl.R;
-import com.google.android.gms.maps.model.LatLng;
+
+import java.util.Map;
 
 /**
  * Menu object for MenuActivity RecyclerView
@@ -17,13 +18,20 @@ public class FoodItem {
     private String name;
     private double price;
     private String description;
-    private String[] tags;
+    private String[] flags;
 
     public FoodItem(){
         this.name = "test_title";
         this.price = -1.5;
         this.description = "test description";
-        this.tags = new String[] {"vegan", "vegetarian", "gluten_free", "halal"};
+        this.flags = new String[] {"vegan", "vegetarian", "gluten_free", "halal"};
+    }
+
+    public FoodItem(Map map){
+        this.name = (String) map.get("Name");
+        this.price = (Double) map.get("Price");
+        this.description = (String) map.get("Description");
+        this.flags = (String[]) map.get("Flags");
     }
 
     //unfinished default constructor. Passing context is bad and I shouldn't do it.
@@ -37,7 +45,7 @@ public class FoodItem {
         this.name = name;
         this.price = price;
         this.description = description;
-        this.tags = tags;
+        this.flags = tags;
     }
 
     public String getName() {
@@ -64,11 +72,11 @@ public class FoodItem {
         this.description = description;
     }
 
-    public String[] getTags() {
-        return tags;
+    public String[] getFlags() {
+        return flags;
     }
 
-    public void setTags(String[] tags) {
-        this.tags = tags;
+    public void setFlags(String[] flags) {
+        this.flags = flags;
     }
 }

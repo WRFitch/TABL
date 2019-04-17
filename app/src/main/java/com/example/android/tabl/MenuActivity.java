@@ -177,16 +177,24 @@ public class MenuActivity extends AppCompatActivity {
                 Toast.LENGTH_SHORT).show();
     }
 
-    private ArrayList<FoodItem> getFoodMenuData(DocumentReference docSnap, String subMenuTitle) {
-        docSnap.collection(subMenuTitle).get()
+    private ArrayList<FoodItem> getFoodMenuData(DocumentReference docRef, String subMenuTitle) {
+        final ArrayList<FoodItem> returnList = new ArrayList<>();
+        docRef.collection(subMenuTitle).get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-
+                if(task.isSuccessful()) {
+                    for (DocumentSnapshot docSnap : task.getResult().getDocuments()) {
+                        if(docSnap.getData() == null) continue;
+                        returnList.add(new FoodItem(docSnap.getData()));
+                    }
+                }else{
+                    menuQueryError();
+                }
             }
         });
         //how to return arraylist to for loop without hating life?
-        return new ArrayList<>();
+        return returnList;
     }
 
     private void updateFoodMenu(SubMenu subMenu){
