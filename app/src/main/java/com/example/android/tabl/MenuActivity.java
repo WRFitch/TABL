@@ -111,8 +111,7 @@ public class MenuActivity extends AppCompatActivity {
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int position) {
-                                foodItemsList = subMenusList.get(position).getFoodList();
-                                fAdapter.notifyDataSetChanged();
+                                updateFoodMenu(subMenusList.get(position));
                             }
                             @Override
                             public void onLongItemClick(View view, int position) {
@@ -138,12 +137,11 @@ public class MenuActivity extends AppCompatActivity {
         prepSubmenuData();
     }
 
+    //abandon all hope ye who enter here
     private void prepSubmenuData() {
         db = FirebaseFirestore.getInstance();
         CollectionReference menuRef = db.collection("Menus");
         Query getSubMenuNamesQuery = menuRef.whereEqualTo("Name", restaurantName);
-        Task getSubmenuNamesTask = getSubMenuNamesQuery.get();
-        Query getFoodMenuQuery = menuRef.whereEqualTo("", "");
         getSubMenuNamesQuery.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -159,15 +157,13 @@ public class MenuActivity extends AppCompatActivity {
                         menuQueryError();
                         return;
                     }
+                    ArrayList<FoodItem> foodList;
                     for (String subMenuName : subNames) {
-                        SubMenu subMenu = new SubMenu(subMenuName,
-                                new ArrayList<FoodItem>());
-                        DocumentReference subMenuRef = docList.get(0).getReference();
-                        //int i = subMenuRef.collection(subMenuName);
+                        foodList = getFoodMenuData(docList.get(0).getReference(), subMenuName);
+                        SubMenu subMenu = new SubMenu(subMenuName, foodList);
                         subMenusList.add(subMenu);
-
                     }
-                    prepFoodMenuData(docList.get(0));
+                    updateFoodMenu(subMenusList.get(0));
                     smAdapter.notifyDataSetChanged();
                 } else {
                     menuQueryError();
@@ -181,24 +177,20 @@ public class MenuActivity extends AppCompatActivity {
                 Toast.LENGTH_SHORT).show();
     }
 
-    private void prepFoodMenuData(DocumentSnapshot docSnap) {
+    private ArrayList<FoodItem> getFoodMenuData(DocumentReference docSnap, String subMenuTitle) {
+        docSnap.collection(subMenuTitle).get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
 
-        for(SubMenu subMenu: subMenusList){
-            subMenu.getName();
-
-        }
-
-
+            }
+        });
+        //how to return arraylist to for loop without hating life?
+        return new ArrayList<>();
     }
 
-    private ArrayList<FoodItem> getCurrentFoodItemList(){
-        return null;
-    }
-
-    private void updateFoodMenu(){
-        for (int i = 0; i < 20; i++) {
-            foodItemsList.add(new FoodItem());
-        }
+    private void updateFoodMenu(SubMenu subMenu){
+        foodItemsList = subMenu.getFoodList();
         fAdapter.notifyDataSetChanged();
     }
 
