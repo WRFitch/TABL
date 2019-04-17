@@ -49,4 +49,8 @@ public class SubMenu {
     public void setFoodList(ArrayList<FoodItem> newFoodList){
         this.foodList = newFoodList;
     }
+
+    public void addToFoodList(FoodItem foodItem){
+        this.foodList.add(foodItem);
+    }
 }
