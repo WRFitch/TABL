@@ -21,17 +21,18 @@ public class SubMenu {
 
     public SubMenu(){
         this.name = "Mains";
+        this.foodList = new ArrayList<FoodItem>();
     }
 
     public SubMenu(Context c){
         Resources res = c.getResources();
         this.name = res.getString(R.string.menu_item);
-
+        this.foodList = new ArrayList<FoodItem>();
     }
 
     public SubMenu(String name, ArrayList<FoodItem> foodList){
         this.name = name;
-        this.foodList = foodList;
+        this.foodList = new ArrayList<>(foodList);
     }
 
     public String getName() {
@@ -43,11 +44,11 @@ public class SubMenu {
     }
 
     public ArrayList<FoodItem> getFoodList(){
-        return this.foodList;
+        return new ArrayList<>(this.foodList);
     }
 
     public void setFoodList(ArrayList<FoodItem> newFoodList){
-        this.foodList = newFoodList;
+        this.foodList = new ArrayList<>(newFoodList);
     }
 
     public void addToFoodList(FoodItem foodItem){
@@ -55,6 +56,6 @@ public class SubMenu {
     }
 
     public void clearFoodList(){
-        this.foodList = new ArrayList<>();
+        this.foodList = new ArrayList<FoodItem>();
     }
 }

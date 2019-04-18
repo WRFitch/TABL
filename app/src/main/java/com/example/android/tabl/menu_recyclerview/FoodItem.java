@@ -30,7 +30,7 @@ public class FoodItem {
     }
 
     public FoodItem(Map map){
-        this();
+
         try {
             this.name = (String) map.get("Name");
             this.price = (Double) map.get("Price");
@@ -43,6 +43,7 @@ public class FoodItem {
             }
         }
         catch (ClassCastException e){
+
         }
     }
 

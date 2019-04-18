@@ -21,8 +21,6 @@ public class SubMenuAdapter extends RecyclerView.Adapter<SubMenuAdapter.MyViewHo
         public MyViewHolder(View view) {
             super(view);
             submenu_item_name = view.findViewById(R.id.submenu_item_name);
-
-
         }
     }
 
@@ -30,17 +28,13 @@ public class SubMenuAdapter extends RecyclerView.Adapter<SubMenuAdapter.MyViewHo
 
     @Override
     public MyViewHolder onCreateViewHolder( ViewGroup parent, int viewType) {
-
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.submenu_list,parent,false);
         return new MyViewHolder(itemView);
-
     }
 
     public void onBindViewHolder(MyViewHolder holder, int position){
-
         SubMenu subMenu = subMenuList.get(position);
         holder.submenu_item_name.setText(subMenu.getName());
-
     }
 
     public int getItemCount(){

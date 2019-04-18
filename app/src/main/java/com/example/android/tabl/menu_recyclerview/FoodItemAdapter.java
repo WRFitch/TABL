@@ -41,7 +41,7 @@ public class FoodItemAdapter extends RecyclerView.Adapter<FoodItemAdapter.MyView
     public void onBindViewHolder(MyViewHolder holder, int position) {
         FoodItem foodItem = foodItemList.get(position);
         holder.menu_item_name.setText(foodItem.getName());
-        holder.menu_item_price.setText(Double.toString(foodItem.getPrice()));
+        holder.menu_item_price.setText("£" + String.format("%.2f", Double.toString(foodItem.getPrice())));
         holder.menu_item_description.setText(foodItem.getDescription());
     }
 

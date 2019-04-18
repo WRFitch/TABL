@@ -106,7 +106,6 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
         foodRecyclerView.setLayoutManager(mLayoutManager);
         foodRecyclerView.setItemAnimator(new DefaultItemAnimator());
         foodRecyclerView.setAdapter(fAdapter);
-        updateMenuData();
 
         subMenuRecyclerView = findViewById(R.id.submenu_recycler_view);
         subMenuRecyclerView.addOnItemTouchListener(
@@ -114,7 +113,8 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int position) {
-                                updateFoodMenu(subMenusList.get(position));
+                                currentSubMenu = subMenusList.get(position);
+                                updateFoodMenu(currentSubMenu);
                             }
                             @Override
                             public void onLongItemClick(View view, int position) {
@@ -169,8 +169,6 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
                         subMenusList.add(subMenu);
                         getFoodMenuData(docList.get(0).getReference(), subMenuName);
                     }
-                    currentSubMenu = subMenusList.get(0);
-                    updateFoodMenu(currentSubMenu);
                     smAdapter.notifyDataSetChanged();
                 } else {
                     menuQueryError();
@@ -190,7 +188,6 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()) {
-                    SubMenu subMenu;
                     for(SubMenu s: subMenusList){
                         if(s.getName().equals(subMenuTitle)){
                             s.clearFoodList();
@@ -198,9 +195,15 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
                                 if(docSnap.getData() == null) continue;
                                 s.addToFoodList(new FoodItem(docSnap.getData()));
                             }
+                            foodItemsList = new ArrayList<FoodItem>(s.getFoodList());
                             break;
                         }
                     }
+
+                    Toast.makeText(getApplicationContext(), foodItemsList.get(0).getName(), Toast.LENGTH_SHORT).show();
+                    fAdapter.notifyDataSetChanged();
+                    currentSubMenu = subMenusList.get(0);
+                    updateFoodMenu(currentSubMenu);
                 }else{
                     menuQueryError();
                 }
@@ -209,41 +212,10 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
     }
 
     private void updateFoodMenu(SubMenu subMenu){
-        foodItemsList = subMenu.getFoodList();
+        foodItemsList = new ArrayList<>(subMenu.getFoodList());
+        Toast.makeText(getApplicationContext(), foodItemsList.get(0).getName(), Toast.LENGTH_SHORT).show();
         fAdapter.notifyDataSetChanged();
     }
-
-    private BottomNavigationView.OnNavigationItemSelectedListener navListener =
-            new BottomNavigationView.OnNavigationItemSelectedListener() {
-                @Override
-                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                    switch (item.getItemId()) {
-                        case R.id.nav_more:
-                            // open MoreActivity
-                            Intent moreIntent = new Intent(getApplicationContext(),
-                                MoreActivity.class);
-                            moreIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(moreIntent);
-                            break;
-                        case R.id.nav_location:
-                            // go back to previous activity
-                            Intent fraIntent = new Intent(getApplicationContext(),
-                                    FindRestaurantActivity.class);
-                            fraIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(fraIntent);
-                            break;
-                        case R.id.nav_basket:
-                            // open BasketActivity
-                            Intent basketIntent = new Intent(getApplicationContext(),
-                                    BasketActivity.class);
-                            basketIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(basketIntent);
-                            break;
-                    }
-                    return true;
-
-                }
-            };
 
     private void showFilterDialog(){
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(MenuActivity.this);
@@ -294,11 +266,39 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
 
     @Override
     public void onRefresh() {
-        updateFoodMenu(getCurrentSubMenu());
+        updateFoodMenu(currentSubMenu);
         mSwipeRefreshLayout.setRefreshing(false);
     }
 
-    public SubMenu getCurrentSubMenu(){
-        return currentSubMenu;
-    }
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener =
+            new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                    switch (item.getItemId()) {
+                        case R.id.nav_more:
+                            // open MoreActivity
+                            Intent moreIntent = new Intent(getApplicationContext(),
+                                    MoreActivity.class);
+                            moreIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(moreIntent);
+                            break;
+                        case R.id.nav_location:
+                            // go back to previous activity
+                            Intent fraIntent = new Intent(getApplicationContext(),
+                                    FindRestaurantActivity.class);
+                            fraIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(fraIntent);
+                            break;
+                        case R.id.nav_basket:
+                            // open BasketActivity
+                            Intent basketIntent = new Intent(getApplicationContext(),
+                                    BasketActivity.class);
+                            basketIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(basketIntent);
+                            break;
+                    }
+                    return true;
+
+                }
+            };
 }
