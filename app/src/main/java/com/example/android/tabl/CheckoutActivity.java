@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.Button;
 import android.content.Intent;
 import android.view.View;
+import android.widget.ImageButton;
 
 import com.example.android.tabl.basket_checkout_recyclerview.BasketCheckout;
 import com.example.android.tabl.basket_checkout_recyclerview.BasketCheckoutAdapter;
@@ -28,6 +29,7 @@ public class CheckoutActivity extends AppCompatActivity {
     private final String TABLE_TITLE = "Table ";
 
     private Button cancelOrderButton, HelpWithOrderButton, addTipButton;
+    private ImageButton closeCheckoutButton;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,15 +42,18 @@ public class CheckoutActivity extends AppCompatActivity {
         checkoutList = new ArrayList<>();
         recyclerView = findViewById(R.id.checkoutRecyclerView);
         recyclerView.addOnItemTouchListener(
-                new RecyclerItemClickListener(this,recyclerView,
+                new RecyclerItemClickListener(this, recyclerView,
                         new RecyclerItemClickListener.OnItemClickListener() {
-                            @Override public void onItemClick(View view, int position) {
+                            @Override
+                            public void onItemClick(View view, int position) {
                                 checkoutList.get(position);
                                 //go back to basket/checkout view, passing table data
                                 //TODO: update to above comment
                                 finish();
                             }
-                            @Override public void onLongItemClick(View view, int position) {
+
+                            @Override
+                            public void onLongItemClick(View view, int position) {
                                 //open dialog box to change item
                             }
                         })
@@ -82,6 +87,16 @@ public class CheckoutActivity extends AppCompatActivity {
             }
         });
 
+        // close button goes back to the menu activity
+        closeCheckoutButton = findViewById(R.id.closeCheckoutButton);
+        closeCheckoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(CheckoutActivity.this, MenuActivity.class));
+            }
+        });
+
+
         basketCheckoutAdapter = new BasketCheckoutAdapter(checkoutList);
         RecyclerView.LayoutManager tLayoutManager = new LinearLayoutManager(
                 getApplicationContext());
@@ -91,15 +106,15 @@ public class CheckoutActivity extends AppCompatActivity {
         prepListData();
     }
 
-    public void prepListData(){
+    public void prepListData() {
         int numOfTables = getNumOfCheckoutItems();
-        for(int i = 1; i <= numOfTables; i++){
+        for (int i = 1; i <= numOfTables; i++) {
             checkoutList.add(new BasketCheckout(getApplicationContext()));
         }
         basketCheckoutAdapter.notifyDataSetChanged();
     }
 
-    private int getNumOfCheckoutItems(){
+    private int getNumOfCheckoutItems() {
         return checkoutList.size();
     }
 }

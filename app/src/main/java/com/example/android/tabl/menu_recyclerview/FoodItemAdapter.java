@@ -1,5 +1,6 @@
 package com.example.android.tabl.menu_recyclerview;
 
+import android.annotation.SuppressLint;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,11 +38,12 @@ public class FoodItemAdapter extends RecyclerView.Adapter<FoodItemAdapter.MyView
         return new MyViewHolder(itemView);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         FoodItem foodItem = foodItemList.get(position);
         holder.menu_item_name.setText(foodItem.getName());
-        holder.menu_item_price.setText(Double.toString(foodItem.getPrice()));
+        holder.menu_item_price.setText("£" + String.format("%.2f", foodItem.getPrice()));
         holder.menu_item_description.setText(foodItem.getDescription());
     }
 

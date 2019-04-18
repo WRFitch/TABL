@@ -25,11 +25,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.android.tabl.utils.TablUtils;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreSettings;
 
 public class SplashPageActivity extends AppCompatActivity{
 
     private boolean isNextReady = false;
     private TextView tv;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +75,15 @@ public class SplashPageActivity extends AppCompatActivity{
     //rewrite for efficiency
     private void prepNextActivity(){
         TablUtils.getLocationPerms(this, this);
+        firestoreSetup();
         //isNextReady = TablUtils.checkLocationPerms(this); //android's parallelisation can get out.
         isNextReady = true;
+    }
+
+    private void firestoreSetup(){
+        FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
+                .setPersistenceEnabled(true)
+                .build();
+        db.setFirestoreSettings(settings);
     }
 }

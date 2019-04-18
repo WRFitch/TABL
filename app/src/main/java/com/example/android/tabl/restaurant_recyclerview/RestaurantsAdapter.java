@@ -1,5 +1,6 @@
 package com.example.android.tabl.restaurant_recyclerview;
 
+import android.annotation.SuppressLint;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 
 import com.example.android.tabl.R;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.MyViewHolder>{
@@ -36,12 +38,15 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
         return new MyViewHolder(itemView);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Restaurant restaurant = restaurantsList.get(position);
         holder.restaurant_name.setText(restaurant.getName());
         holder.restaurant_address.setText(restaurant.getAddress());
-        holder.restaurant_distance_from_user.setText(restaurant.getDistanceFromUser() + "km");
+        DecimalFormat df = new DecimalFormat("#.##");
+        holder.restaurant_distance_from_user.setText(
+                df.format(restaurant.getDistanceFromUser()) + "km");
     }
 
     @Override
