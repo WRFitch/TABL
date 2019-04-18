@@ -53,4 +53,8 @@ public class SubMenu {
     public void addToFoodList(FoodItem foodItem){
         this.foodList.add(foodItem);
     }
+
+    public void clearFoodList(){
+        this.foodList = new ArrayList<>();
+    }
 }

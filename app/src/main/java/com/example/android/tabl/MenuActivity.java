@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -39,7 +40,7 @@ import java.util.List;
  *
  */
 
-public class MenuActivity extends AppCompatActivity {
+public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
 
     //data variables
     private List<FoodItem> foodItemsList = new ArrayList<>();
@@ -48,8 +49,9 @@ public class MenuActivity extends AppCompatActivity {
     private String[] filterList;
     private boolean[] filtersChecked;
     private ArrayList<Integer> mUserItems = new ArrayList<>();
+    private SubMenu currentSubMenu = new SubMenu();
 
-    private ArrayList<FoodItem> bucket = new ArrayList<>();
+    private ArrayList<FoodItem> basket = new ArrayList<>();
 
     private FirebaseFirestore db;
     private String restaurantName;
@@ -60,6 +62,7 @@ public class MenuActivity extends AppCompatActivity {
     private FoodItemAdapter fAdapter;
     private SubMenuAdapter smAdapter;
     private ImageButton filterButton;
+    SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,6 +130,9 @@ public class MenuActivity extends AppCompatActivity {
         subMenuRecyclerView.setItemAnimator(new DefaultItemAnimator());
         subMenuRecyclerView.setAdapter(smAdapter);
         updateMenuData();
+
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.menu_swipe_container);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
     }
 
     private void updateMenuData() {
@@ -158,13 +164,13 @@ public class MenuActivity extends AppCompatActivity {
                         menuQueryError();
                         return;
                     }
-                    ArrayList<FoodItem> foodList;
                     for (String subMenuName : subNames) {
                         SubMenu subMenu = new SubMenu(subMenuName, new ArrayList<FoodItem>());
                         subMenusList.add(subMenu);
                         getFoodMenuData(docList.get(0).getReference(), subMenuName);
                     }
-                    updateFoodMenu(subMenusList.get(0));
+                    currentSubMenu = subMenusList.get(0);
+                    updateFoodMenu(currentSubMenu);
                     smAdapter.notifyDataSetChanged();
                 } else {
                     menuQueryError();
@@ -178,18 +184,22 @@ public class MenuActivity extends AppCompatActivity {
                 Toast.LENGTH_SHORT).show();
     }
 
-    private void getFoodMenuData(DocumentReference docRef, String subMenuTitle) {
-        final ArrayList<FoodItem> returnList = new ArrayList<>();
+    private void getFoodMenuData(DocumentReference docRef, final String subMenuTitle) {
         docRef.collection(subMenuTitle).get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()) {
-                    for (DocumentSnapshot docSnap : task.getResult().getDocuments()) {
-                        if(docSnap.getData() == null) continue;
-                        //this is so messy
-                        subMenusList.get(subMenusList.size()-1).addToFoodList(new FoodItem(docSnap.getData()));
-                        returnList.add(new FoodItem(docSnap.getData()));
+                    SubMenu subMenu;
+                    for(SubMenu s: subMenusList){
+                        if(s.getName().equals(subMenuTitle)){
+                            s.clearFoodList();
+                            for (DocumentSnapshot docSnap : task.getResult().getDocuments()) {
+                                if(docSnap.getData() == null) continue;
+                                s.addToFoodList(new FoodItem(docSnap.getData()));
+                            }
+                            break;
+                        }
                     }
                 }else{
                     menuQueryError();
@@ -217,8 +227,6 @@ public class MenuActivity extends AppCompatActivity {
                             break;
                         case R.id.nav_location:
                             // go back to previous activity
-                            // downloaded data should be cached automatically, making any
-                            // caching method here unnecessary
                             Intent fraIntent = new Intent(getApplicationContext(),
                                     FindRestaurantActivity.class);
                             fraIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -281,6 +289,16 @@ public class MenuActivity extends AppCompatActivity {
 
     //placeholder method
     private void showAddItemDialog(FoodItem item){
-        bucket.add(item);
+        basket.add(item);
+    }
+
+    @Override
+    public void onRefresh() {
+        updateFoodMenu(getCurrentSubMenu());
+        mSwipeRefreshLayout.setRefreshing(false);
+    }
+
+    public SubMenu getCurrentSubMenu(){
+        return currentSubMenu;
     }
 }
