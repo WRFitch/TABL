@@ -20,7 +20,7 @@ public class SubMenu {
     private ArrayList<FoodItem> foodList;
 
     public SubMenu(){
-        this.name = "Mains";
+        this.name = "Default";
         this.foodList = new ArrayList<FoodItem>();
     }
 

@@ -30,20 +30,23 @@ public class FoodItem {
     }
 
     public FoodItem(Map map){
-
+        this.name = (String) map.get("Name");
+        //*manic laughter*
         try {
-            this.name = (String) map.get("Name");
             this.price = (Double) map.get("Price");
-            this.description = (String) map.get("Description");
-            ArrayList<String> flagsList = (ArrayList<String>) map.get("Flags");
-            if (flagsList == null) {
-                this.setFlags(new String[0]);
-            } else {
-                this.flags = flagsList.toArray(new String[flagsList.size()]);
+        } catch(ClassCastException e){
+            try {
+                this.price = ((ArrayList<Double>) map.get("Price")).get(0);
+            }catch(ClassCastException f){
+                this.price = Double.parseDouble((String) map.get("Price"));
             }
         }
-        catch (ClassCastException e){
-
+        this.description = (String) map.get("Description");
+        ArrayList<String> flagsList = (ArrayList<String>) map.get("Flags");
+        if (flagsList == null) {
+            this.setFlags(new String[0]);
+        } else {
+            this.flags = flagsList.toArray(new String[flagsList.size()]);
         }
     }
 

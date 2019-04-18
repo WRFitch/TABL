@@ -182,7 +182,7 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
                 Toast.LENGTH_SHORT).show();
     }
 
-    private void getFoodMenuData(DocumentReference docRef, final String subMenuTitle) {
+    private void getFoodMenuData(final DocumentReference docRef, final String subMenuTitle) {
         docRef.collection(subMenuTitle).get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -193,6 +193,8 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
                             s.clearFoodList();
                             for (DocumentSnapshot docSnap : task.getResult().getDocuments()) {
                                 if(docSnap.getData() == null) continue;
+                                //Toast.makeText(getApplicationContext(), (String) docSnap.get("Description"),
+                                  //      Toast.LENGTH_SHORT).show();
                                 s.addToFoodList(new FoodItem(docSnap.getData()));
                             }
                             break;
@@ -208,8 +210,13 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
     }
 
     private void updateFoodMenu(SubMenu subMenu){
+        if(subMenu.getFoodList() == null || subMenu.getFoodList().size() == 0){
+            Toast.makeText(getApplicationContext(), "no items in list!", Toast.LENGTH_SHORT).show();
+            return;
+        }
         foodItemsList = new ArrayList<>(subMenu.getFoodList());
-        Toast.makeText(getApplicationContext(), foodItemsList.get(0).getDescription(), Toast.LENGTH_LONG).show();
+        fAdapter = new FoodItemAdapter(foodItemsList);
+        foodRecyclerView.setAdapter(fAdapter);
         fAdapter.notifyDataSetChanged();
     }
 
