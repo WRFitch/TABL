@@ -8,7 +8,7 @@
 <resources>
     <!-- System Strings -->
     <string name="app_name">TABL</string>
-    <string name="version_name">Version 0.6.2</string>
+    <string name="version_name">Version 0.6.3</string>
 
     <!-- Util Strings -->
     <string name="todo">Function not implemented</string>

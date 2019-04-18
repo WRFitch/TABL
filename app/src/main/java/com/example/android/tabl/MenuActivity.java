@@ -126,7 +126,7 @@ public class MenuActivity extends AppCompatActivity {
         subMenuRecyclerView.setLayoutManager(sMenuLayoutManager);
         subMenuRecyclerView.setItemAnimator(new DefaultItemAnimator());
         subMenuRecyclerView.setAdapter(smAdapter);
-        prepSubmenuData();
+        updateMenuData();
     }
 
     private void updateMenuData() {
@@ -145,6 +145,7 @@ public class MenuActivity extends AppCompatActivity {
         getSubMenuNamesQuery.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                subMenusList.clear();
                 if (task.isSuccessful()) {
                     List<DocumentSnapshot> docList = task.getResult().getDocuments();
                     if(docList.size() == 0) {
@@ -159,9 +160,9 @@ public class MenuActivity extends AppCompatActivity {
                     }
                     ArrayList<FoodItem> foodList;
                     for (String subMenuName : subNames) {
-                        foodList = getFoodMenuData(docList.get(0).getReference(), subMenuName);
-                        SubMenu subMenu = new SubMenu(subMenuName, foodList);
+                        SubMenu subMenu = new SubMenu(subMenuName, new ArrayList<FoodItem>());
                         subMenusList.add(subMenu);
+                        getFoodMenuData(docList.get(0).getReference(), subMenuName);
                     }
                     updateFoodMenu(subMenusList.get(0));
                     smAdapter.notifyDataSetChanged();
@@ -177,7 +178,7 @@ public class MenuActivity extends AppCompatActivity {
                 Toast.LENGTH_SHORT).show();
     }
 
-    private ArrayList<FoodItem> getFoodMenuData(DocumentReference docRef, String subMenuTitle) {
+    private void getFoodMenuData(DocumentReference docRef, String subMenuTitle) {
         final ArrayList<FoodItem> returnList = new ArrayList<>();
         docRef.collection(subMenuTitle).get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -186,6 +187,8 @@ public class MenuActivity extends AppCompatActivity {
                 if(task.isSuccessful()) {
                     for (DocumentSnapshot docSnap : task.getResult().getDocuments()) {
                         if(docSnap.getData() == null) continue;
+                        //this is so messy
+                        subMenusList.get(subMenusList.size()-1).addToFoodList(new FoodItem(docSnap.getData()));
                         returnList.add(new FoodItem(docSnap.getData()));
                     }
                 }else{
@@ -193,8 +196,6 @@ public class MenuActivity extends AppCompatActivity {
                 }
             }
         });
-        //how to return arraylist to for loop without hating life?
-        return returnList;
     }
 
     private void updateFoodMenu(SubMenu subMenu){
