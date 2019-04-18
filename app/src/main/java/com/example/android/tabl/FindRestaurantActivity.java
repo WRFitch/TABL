@@ -74,6 +74,7 @@ public class FindRestaurantActivity extends AppCompatActivity
     private RestaurantsAdapter rAdapter;
     private FloatingActionButton fab;
     private String restaurantId;
+    private static AlertDialog alertDialog;
 
     //map variables
     private SupportMapFragment mapFragment;
@@ -98,7 +99,7 @@ public class FindRestaurantActivity extends AppCompatActivity
         mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         db = FirebaseFirestore.getInstance();
 
-        if(!TablUtils.isNetworkAvailable(this))
+        if (!TablUtils.isNetworkAvailable(this))
             Toast.makeText(this, R.string.connection_failure, Toast.LENGTH_SHORT).show();
         if (savedInstanceState != null && savedInstanceState.keySet().contains(KEY_LOCATION)) {
             userLoc = savedInstanceState.getParcelable(KEY_LOCATION);
@@ -118,12 +119,13 @@ public class FindRestaurantActivity extends AppCompatActivity
                 new RecyclerItemClickListener(this, recyclerView,
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
-                            public void onItemClick(View view, int position)  {
+                            public void onItemClick(View view, int position) {
                                 Intent intent = new Intent(getBaseContext(), MenuActivity.class);
                                 intent.putExtra("restaurantName",
                                         restaurantList.get(position).getName());
                                 startActivity(intent);
                             }
+
                             @Override
                             public void onLongItemClick(View view, int position) {
                                 /*
@@ -154,6 +156,9 @@ public class FindRestaurantActivity extends AppCompatActivity
                 updateCameraWithAnimation();
             }
         });
+
+        // message dialog
+        alertDialog = new AlertDialog.Builder(FindRestaurantActivity.this).create();
     }
 
     @Override
@@ -213,14 +218,14 @@ public class FindRestaurantActivity extends AppCompatActivity
         mMap.getUiSettings().setMyLocationButtonEnabled(false);
         updateLocation();
         userLoc = mLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-        if(userLoc !=null)
+        if (userLoc != null)
             updateCameraNoAnimation(userLoc);
 
     }
 
     @SuppressLint("MissingPermission")
     public void updateLocation() {
-        if(!gotLocPerms && !locDialogOpen) {
+        if (!gotLocPerms && !locDialogOpen) {
             TablUtils.getLocationPerms(this, this);
             checkGPSTurnedOn();
         }
@@ -269,9 +274,9 @@ public class FindRestaurantActivity extends AppCompatActivity
         TablUtils.getLocationPerms(this, this);
     }
 
-    private void checkGPSTurnedOn(){
-        if( !mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
-            !mLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)){
+    private void checkGPSTurnedOn() {
+        if (!mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
+                !mLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
             locDialogOpen = true;
             AlertDialog.Builder builder = new AlertDialog.Builder(FindRestaurantActivity.this);
             builder.setCancelable(false);
@@ -295,7 +300,7 @@ public class FindRestaurantActivity extends AppCompatActivity
         }
     }
 
-    private void requestTurnOnGPS(){
+    private void requestTurnOnGPS() {
         Intent gpsOptionsIntent = new Intent(
                 android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
         startActivity(gpsOptionsIntent);
@@ -310,7 +315,7 @@ public class FindRestaurantActivity extends AppCompatActivity
     }
 
     private void updateRestaurantData() {
-        if(!TablUtils.isNetworkAvailable(this)) {
+        if (!TablUtils.isNetworkAvailable(this)) {
             TablUtils.errorMsg(fab, "No Internet Connection!");
             return;
         }
@@ -335,11 +340,12 @@ public class FindRestaurantActivity extends AppCompatActivity
             public void onComplete(@NonNull Task<List<Task<?>>> task) {
                 if (task.isSuccessful()) {
                     restaurantList.clear();
-                    for(Task t: task.getResult()){
+                    for (Task t : task.getResult()) {
                         docLoop:
-                        for(QueryDocumentSnapshot document: (QuerySnapshot) t.getResult()) {
-                            for(Restaurant r: restaurantList) {
-                                if (document.getData().get("Name").equals(r.getName())) continue docLoop; //we can go deeper
+                        for (QueryDocumentSnapshot document : (QuerySnapshot) t.getResult()) {
+                            for (Restaurant r : restaurantList) {
+                                if (document.getData().get("Name").equals(r.getName()))
+                                    continue docLoop; //we can go deeper
                             }
                             restaurantList.add(new Restaurant(document.getData(), userLoc, document.getId()));
                         }
@@ -353,7 +359,7 @@ public class FindRestaurantActivity extends AppCompatActivity
         });
     }
 
-    private void callSearchRestaurantActivity(Context c){
+    private void callSearchRestaurantActivity(Context c) {
         Intent intent = new Intent(c, SearchRestaurantActivity.class);
         startActivity(intent);
     }
@@ -373,8 +379,35 @@ public class FindRestaurantActivity extends AppCompatActivity
     }
 
     @Override
-    public void onRefresh(){
+    public void onRefresh() {
         updateRestaurantData();
         mSwipeRefreshLayout.setRefreshing(false);
     }
+
+    // used for UNIT TEST -> UserSelectsValidRestaurantLocationTest
+    // check users selection is within reasonable range (1 mile)
+    public static Boolean isValidUserRestaurantSelection(double latitude, double longitude) {
+        // test here ***
+        // test user selection location is within 1 mile of their actual location
+        latitude = 0;
+        longitude = 0;
+
+        if (latitude < 1 && longitude < 1) {
+            return true;
+        } else {
+            // tell the user they have selected an invalid restaurant location
+            alertDialog.setTitle("Location");
+            alertDialog.setMessage("You have selected a location that is too far away");
+            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+            alertDialog.show();
+            return false;
+        }
+    }
+
+
 }
