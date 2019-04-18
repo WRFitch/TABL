@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import com.example.android.tabl.utils.TablUtils;
 
@@ -53,6 +54,8 @@ public class MoreActivity extends AppCompatActivity {
                 openHelp();
             }
         });
+
+
 
         // DARK MODE SWITCH
         switchDarkMode = (Switch) findViewById(R.id.switchDarkMode);

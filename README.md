@@ -9,4 +9,4 @@ For each item on the TODO list, open a separate branch, implement the function, 
 #### TODO (Android Application) 
 See sprint/Sprint4.md
 
-#### Weekly Plan
+#### Weekly Plan 

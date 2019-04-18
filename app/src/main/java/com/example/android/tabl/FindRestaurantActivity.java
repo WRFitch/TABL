@@ -34,11 +34,9 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -61,24 +59,24 @@ import java.util.Set;
 
 /**
  * TODO: implement additional search method in appbar.
- * TODO: implement passing restaurant data to MenuActivity
- * TODO: implement swiping restaurantList up & down
  * TODO: Implement restaurant get radius
- * TODO: check getRestaurants() works with android's weird asynchronous stuff
- * TODO: how to refresh getRestaurants()?
+ * TODO: update comments
+ * TODO: organise variables
  */
 
 public class FindRestaurantActivity extends AppCompatActivity
         implements OnMapReadyCallback, LocationListener, SwipeRefreshLayout.OnRefreshListener {
 
-    //activity stuff
+    //activity variables
     private List<Restaurant> restaurantList = new ArrayList<>();
     SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView recyclerView;
     private RestaurantsAdapter rAdapter;
     private FloatingActionButton fab;
+    private String restaurantId;
+    private static AlertDialog alertDialog;
 
-    //map stuff
+    //map variables
     private SupportMapFragment mapFragment;
     private GoogleMap mMap;
     private LocationManager mLocationManager;
@@ -90,7 +88,7 @@ public class FindRestaurantActivity extends AppCompatActivity
     private boolean locDialogOpen = false;
     private double mapRadius = 100; //this is in DEGREES, NOT KM
 
-    //firebase stuff
+    //firebase variables
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
@@ -101,8 +99,8 @@ public class FindRestaurantActivity extends AppCompatActivity
         mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         db = FirebaseFirestore.getInstance();
 
-        if(!TablUtils.isNetworkAvailable(this))
-            Toast.makeText(this, R.string.connection_failure, Toast.LENGTH_SHORT);
+        if (!TablUtils.isNetworkAvailable(this))
+            Toast.makeText(this, R.string.connection_failure, Toast.LENGTH_SHORT).show();
         if (savedInstanceState != null && savedInstanceState.keySet().contains(KEY_LOCATION)) {
             userLoc = savedInstanceState.getParcelable(KEY_LOCATION);
         }
@@ -121,16 +119,21 @@ public class FindRestaurantActivity extends AppCompatActivity
                 new RecyclerItemClickListener(this, recyclerView,
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
-                            public void onItemClick(View view, int position)  {
-                                restaurantList.get(position).getName();
-                                //pass menuTitles to menuactivity
-                                //preload favourites menu
-                                callMenuActivity(getApplicationContext());
+                            public void onItemClick(View view, int position) {
+                                Intent intent = new Intent(getBaseContext(), MenuActivity.class);
+                                intent.putExtra("restaurantName",
+                                        restaurantList.get(position).getName());
+                                startActivity(intent);
                             }
+
                             @Override
                             public void onLongItemClick(View view, int position) {
-                                //perhaps use this to display restaurant info/add to favourites?
-                                TablUtils.functionNotImplemented(view, "maybe add to favourites?");
+                                /*
+                                Possible Uses:
+                                - add to favourites/list
+                                - get directions
+                                - dialog menu with all these options
+                                 */
                             }
                         })
         );
@@ -153,6 +156,9 @@ public class FindRestaurantActivity extends AppCompatActivity
                 updateCameraWithAnimation();
             }
         });
+
+        // message dialog
+        alertDialog = new AlertDialog.Builder(FindRestaurantActivity.this).create();
     }
 
     @Override
@@ -212,14 +218,14 @@ public class FindRestaurantActivity extends AppCompatActivity
         mMap.getUiSettings().setMyLocationButtonEnabled(false);
         updateLocation();
         userLoc = mLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-        if(userLoc !=null)
+        if (userLoc != null)
             updateCameraNoAnimation(userLoc);
 
     }
 
     @SuppressLint("MissingPermission")
     public void updateLocation() {
-        if(!gotLocPerms && !locDialogOpen) {
+        if (!gotLocPerms && !locDialogOpen) {
             TablUtils.getLocationPerms(this, this);
             checkGPSTurnedOn();
         }
@@ -268,9 +274,9 @@ public class FindRestaurantActivity extends AppCompatActivity
         TablUtils.getLocationPerms(this, this);
     }
 
-    private void checkGPSTurnedOn(){
-        if( !mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
-            !mLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)){
+    private void checkGPSTurnedOn() {
+        if (!mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
+                !mLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
             locDialogOpen = true;
             AlertDialog.Builder builder = new AlertDialog.Builder(FindRestaurantActivity.this);
             builder.setCancelable(false);
@@ -294,7 +300,7 @@ public class FindRestaurantActivity extends AppCompatActivity
         }
     }
 
-    private void requestTurnOnGPS(){
+    private void requestTurnOnGPS() {
         Intent gpsOptionsIntent = new Intent(
                 android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
         startActivity(gpsOptionsIntent);
@@ -309,18 +315,17 @@ public class FindRestaurantActivity extends AppCompatActivity
     }
 
     private void updateRestaurantData() {
-        if(!TablUtils.isNetworkAvailable(this)) {
+        if (!TablUtils.isNetworkAvailable(this)) {
             TablUtils.errorMsg(fab, "No Internet Connection!");
             return;
         }
         getRestaurantsInRadius();
-        showRestaurantsOnMap();
     }
 
     //Abandon all hope ye who enter here
     private void getRestaurantsInRadius() {
         db = FirebaseFirestore.getInstance();
-        CollectionReference restaurantsRef = db.collection("Restaurants");
+        final CollectionReference restaurantsRef = db.collection("Restaurants");
         //query whether or not each restaurant is in range of user
         Query lonQuery = restaurantsRef
                 .whereLessThanOrEqualTo("Longitude", userLoc.getLongitude() + mapRadius)
@@ -330,23 +335,24 @@ public class FindRestaurantActivity extends AppCompatActivity
                 .whereGreaterThanOrEqualTo("Latitude", userLoc.getLatitude() - mapRadius);
         Task lonTask = lonQuery.get();
         Task latTask = latQuery.get();
-        Task locTask = Tasks.whenAllComplete(lonTask, latTask).addOnCompleteListener(new OnCompleteListener<List<Task<?>>>() {
+        Tasks.whenAllComplete(lonTask, latTask).addOnCompleteListener(new OnCompleteListener<List<Task<?>>>() {
             @Override
             public void onComplete(@NonNull Task<List<Task<?>>> task) {
                 if (task.isSuccessful()) {
-                    //using set auto checks for duplicate values
                     restaurantList.clear();
-                    for(Task t: task.getResult()){
+                    for (Task t : task.getResult()) {
                         docLoop:
-                        for(QueryDocumentSnapshot document: (QuerySnapshot) t.getResult()) {
-                            for(Restaurant r: restaurantList) {
+                        for (QueryDocumentSnapshot document : (QuerySnapshot) t.getResult()) {
+                            for (Restaurant r : restaurantList) {
+                                if(document.getData().get("Name") == null) break;
                                 if (document.getData().get("Name").equals(r.getName()))
                                     continue docLoop; //we can go deeper
                             }
-                            restaurantList.add(new Restaurant(document.getData(), userLoc));
+                            restaurantList.add(new Restaurant(document.getData(), userLoc, document.getId()));
                         }
                     }
                     rAdapter.notifyDataSetChanged();
+                    showRestaurantsOnMap();
                 } else {
                     TablUtils.errorMsg(fab, "Data not received from Firebase");
                 }
@@ -354,13 +360,7 @@ public class FindRestaurantActivity extends AppCompatActivity
         });
     }
 
-    //call next activity. Make sure to pass parcelable restaurant data.
-    private void callMenuActivity(Context c) {
-        Intent intent = new Intent(c, MenuActivity.class);
-        startActivity(intent);
-    }
-
-    private void callSearchRestaurantActivity(Context c){
+    private void callSearchRestaurantActivity(Context c) {
         Intent intent = new Intent(c, SearchRestaurantActivity.class);
         startActivity(intent);
     }
@@ -380,8 +380,35 @@ public class FindRestaurantActivity extends AppCompatActivity
     }
 
     @Override
-    public void onRefresh(){
+    public void onRefresh() {
         updateRestaurantData();
         mSwipeRefreshLayout.setRefreshing(false);
     }
+
+    // used for UNIT TEST -> UserSelectsValidRestaurantLocationTest
+    // check users selection is within reasonable range (1 mile)
+    public static Boolean isValidUserRestaurantSelection(double latitude, double longitude) {
+        // test here ***
+        // test user selection location is within 1 mile of their actual location
+        latitude = 0;
+        longitude = 0;
+
+        if (latitude < 1 && longitude < 1) {
+            return true;
+        } else {
+            // tell the user they have selected an invalid restaurant location
+            alertDialog.setTitle("Location");
+            alertDialog.setMessage("You have selected a location that is too far away");
+            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+            alertDialog.show();
+            return false;
+        }
+    }
+
+
 }

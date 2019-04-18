@@ -19,7 +19,7 @@ import com.example.android.tabl.utils.TablUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchRestaurantActivity extends AppCompatActivity{
+public class SearchRestaurantActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private List<Restaurant> restaurantList = new ArrayList<>();

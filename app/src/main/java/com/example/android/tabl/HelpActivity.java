@@ -1,11 +1,14 @@
 package com.example.android.tabl;
 
 import android.app.ExpandableListActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.ImageButton;
 
 import com.example.android.tabl.HelpExpandableList.HelpExpandableListAdapter;
 
@@ -20,6 +23,8 @@ public class HelpActivity extends AppCompatActivity {
     private List<String> listDataHeader;
     private HashMap<String,List<String>> listHash;
 
+    private ImageButton closeHelpActivityButton;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +37,16 @@ public class HelpActivity extends AppCompatActivity {
         initData();
         listAdapter = new HelpExpandableListAdapter(this,listDataHeader,listHash);
         listView.setAdapter(listAdapter);
+
+        // essentially a 'back' button - will go to previous activity
+        closeHelpActivityButton = findViewById(R.id.closeHelpActivityButton);
+        closeHelpActivityButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //startActivity(new Intent(HelpActivity.this, MoreActivity.class));
+                finish();
+            }
+        });
     }
 
     private void initData(){
