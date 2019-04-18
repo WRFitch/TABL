@@ -325,7 +325,7 @@ public class FindRestaurantActivity extends AppCompatActivity
     //Abandon all hope ye who enter here
     private void getRestaurantsInRadius() {
         db = FirebaseFirestore.getInstance();
-        CollectionReference restaurantsRef = db.collection("Restaurants");
+        final CollectionReference restaurantsRef = db.collection("Restaurants");
         //query whether or not each restaurant is in range of user
         Query lonQuery = restaurantsRef
                 .whereLessThanOrEqualTo("Longitude", userLoc.getLongitude() + mapRadius)
@@ -335,7 +335,7 @@ public class FindRestaurantActivity extends AppCompatActivity
                 .whereGreaterThanOrEqualTo("Latitude", userLoc.getLatitude() - mapRadius);
         Task lonTask = lonQuery.get();
         Task latTask = latQuery.get();
-        Task locTask = Tasks.whenAllComplete(lonTask, latTask).addOnCompleteListener(new OnCompleteListener<List<Task<?>>>() {
+        Tasks.whenAllComplete(lonTask, latTask).addOnCompleteListener(new OnCompleteListener<List<Task<?>>>() {
             @Override
             public void onComplete(@NonNull Task<List<Task<?>>> task) {
                 if (task.isSuccessful()) {
@@ -344,6 +344,7 @@ public class FindRestaurantActivity extends AppCompatActivity
                         docLoop:
                         for (QueryDocumentSnapshot document : (QuerySnapshot) t.getResult()) {
                             for (Restaurant r : restaurantList) {
+                                if(document.getData().get("Name") == null) break;
                                 if (document.getData().get("Name").equals(r.getName()))
                                     continue docLoop; //we can go deeper
                             }

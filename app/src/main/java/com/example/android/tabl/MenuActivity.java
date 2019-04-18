@@ -45,7 +45,6 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
     //data variables
     private List<FoodItem> foodItemsList = new ArrayList<>();
     private List<SubMenu> subMenusList = new ArrayList<>();
-    List<String> subNames;
     private String[] filterList;
     private boolean[] filtersChecked;
     private ArrayList<Integer> mUserItems = new ArrayList<>();
@@ -83,29 +82,7 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
-        foodRecyclerView = findViewById(R.id.menu_recycler_view);
-        foodRecyclerView.addOnItemTouchListener(
-                new RecyclerItemClickListener(this, foodRecyclerView,
-                        new RecyclerItemClickListener.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(View view, int position) {
-                                showAddItemDialog(foodItemsList.get(position));
-                            }
 
-                            @Override
-                            public void onLongItemClick(View view, int position) {
-                                //perhaps use this to display item info/add to favourites?
-                                TablUtils.functionNotImplemented(view, "maybe add to favourites?");
-                            }
-                        })
-        );
-
-        fAdapter = new FoodItemAdapter(foodItemsList);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(
-                getApplicationContext());
-        foodRecyclerView.setLayoutManager(mLayoutManager);
-        foodRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        foodRecyclerView.setAdapter(fAdapter);
 
         subMenuRecyclerView = findViewById(R.id.submenu_recycler_view);
         subMenuRecyclerView.addOnItemTouchListener(
@@ -129,6 +106,29 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
         subMenuRecyclerView.setLayoutManager(sMenuLayoutManager);
         subMenuRecyclerView.setItemAnimator(new DefaultItemAnimator());
         subMenuRecyclerView.setAdapter(smAdapter);
+
+        foodRecyclerView = findViewById(R.id.menu_recycler_view);
+        foodRecyclerView.addOnItemTouchListener(
+                new RecyclerItemClickListener(this, foodRecyclerView,
+                        new RecyclerItemClickListener.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(View view, int position) {
+                                showAddItemDialog(foodItemsList.get(position));
+                            }
+
+                            @Override
+                            public void onLongItemClick(View view, int position) {
+                                //perhaps use this to display item info/add to favourites?
+                                TablUtils.functionNotImplemented(view, "maybe add to favourites?");
+                            }
+                        })
+        );
+
+        fAdapter = new FoodItemAdapter(foodItemsList);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        foodRecyclerView.setLayoutManager(mLayoutManager);
+        foodRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        foodRecyclerView.setAdapter(fAdapter);
         updateMenuData();
 
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.menu_swipe_container);
@@ -195,13 +195,9 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
                                 if(docSnap.getData() == null) continue;
                                 s.addToFoodList(new FoodItem(docSnap.getData()));
                             }
-                            foodItemsList = new ArrayList<FoodItem>(s.getFoodList());
                             break;
                         }
                     }
-
-                    Toast.makeText(getApplicationContext(), foodItemsList.get(0).getName(), Toast.LENGTH_SHORT).show();
-                    fAdapter.notifyDataSetChanged();
                     currentSubMenu = subMenusList.get(0);
                     updateFoodMenu(currentSubMenu);
                 }else{
@@ -213,7 +209,7 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
 
     private void updateFoodMenu(SubMenu subMenu){
         foodItemsList = new ArrayList<>(subMenu.getFoodList());
-        Toast.makeText(getApplicationContext(), foodItemsList.get(0).getName(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), foodItemsList.get(0).getDescription(), Toast.LENGTH_LONG).show();
         fAdapter.notifyDataSetChanged();
     }
 

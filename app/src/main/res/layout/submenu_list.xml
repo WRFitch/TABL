@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:text="name"
         android:textColor="@color/white"
+        android:textSize="@dimen/font_size_med"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         android:clickable="true"/>
