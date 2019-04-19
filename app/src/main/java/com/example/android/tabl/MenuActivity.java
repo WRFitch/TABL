@@ -179,7 +179,7 @@ public class MenuActivity extends AppCompatActivity {
         fAdapter.notifyDataSetChanged();
     }
 
-    private BottomNavigationView.OnNavigationItemSelectedListener navListener =
+    private BottomNavigation View.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
