@@ -164,7 +164,6 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
                         menuQueryError();
                         return;
                     }
-                    List<String> subNames = (List<String>) task.getResult().getDocuments().get(0).get("SubmenuNames");//so fragile
                     for (String subMenuName : subNames) {
                         SubMenu subMenu = new SubMenu(subMenuName, new ArrayList<FoodItem>());
                         subMenusList.add(subMenu);
