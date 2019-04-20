@@ -27,10 +27,12 @@
         tools:ignore="ContentDescription" />
 
     <ImageButton
-        android:id="@+id/imageButton2"
-        android:layout_width="47dp"
-        android:layout_height="51dp"
-        android:layout_marginTop="20dp"
+        android:id="@+id/closeHelpActivityButton"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="32dp"
         android:src="@drawable/exit_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
