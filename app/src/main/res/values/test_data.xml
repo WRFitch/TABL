@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- a file of test data. This should not be in the release branch. -->
+
+<resources>
+    <!--resources for restaurantView-->
+    <string-array name="nearby_restaurants">
+        <item>-34,174</item>
+        <item>-35,175</item>
+        <item>-34.5,177</item>
+        <item>-33.5,178</item>
+        <item>-33,169</item>
+    </string-array>
+
+    <string name="default_restaurant">RESTAURANT_NAME</string>
+    <string name="default_id">-1</string>
+    <string name="default_addr">111 Streetname, Townname</string>
+    <string name="default_distance">-1</string>
+    <string name="menuId">-1</string>
+    <integer name="menuIntId">-1</integer>
+    
+ <!-- Adit Monika made this for basket checkout recycler-->
+    <string name="name_of_item">ITEM_NAME</string>
+    <string name="itemID">-1</string>
+    <string name="default_price">ITEM PRICE</string>
+    <integer name="default_quantity">-1</integer>
+    <string name="default_options">OPTIONS</string>
+
+    <!-- SubMenu Test Data-->
+
+    <string-array name="submenu_titles">
+        <item>Featured</item>
+        <item>Starters</item>
+        <item>Mains</item>
+        <item>Drinks</item>
+        <item>Desserts</item>
+    </string-array>
+    <string name="submenu_item">submenu_item_title</string>
+    
+    <!-- resources for menu view -->
+    <string-array name="menu_titles">
+        <item>Featured</item>
+        <item>Starters</item>
+        <item>Mains</item>
+        <item>Drinks</item>
+        <item>Desserts</item>
+    </string-array>
+    <string name="menu_item">MENU_ITEM_TITLE</string>
+    <string name="menu_desc">Description of menu item.</string>
+    <string name="menu_price">10.10</string>
+
+    <!-- this may be more extensible to add a set of string flags and if those
+     flags match an icon, display the icon. However, this may be faster.-->
+    <bool name="vegan">true</bool>
+    <bool name="vegetarian">true</bool>
+    <bool name="halal">true</bool>
+    <bool name="gluten_free">true</bool>
+
+    <integer name="num_of_tables">20</integer>
+
+
+
+</resources>

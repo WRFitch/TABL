@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "512770529895",
+    "firebase_url": "https://tabl-8e59a.firebaseio.com",
+    "project_id": "tabl-8e59a",
+    "storage_bucket": "tabl-8e59a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:512770529895:android:136ab9cf7d85a759",
+        "android_client_info": {
+          "package_name": "com.example.android.tabl"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "512770529895-et73km7pnrb25chrs1fuk8avld0fspqs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6y8ST4KnMh5NPMXs8wheqkRsIIyrGZ1M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "512770529895-et73km7pnrb25chrs1fuk8avld0fspqs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

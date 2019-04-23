@@ -1,41 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.android.tabl">
-    <!--
-         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
-         Google Maps Android API v2, but you must specify either coarse or fine
-         location permissions for the 'MyLocation' functionality.
-    -->
+
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-feature android:name="android.hardware.location.gps" />
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/debug_ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".MenuActivity"></activity>
-        <!--
-             The API key for Google Maps-based APIs is defined as a string resource.
-             (See the file "res/values/google_maps_api.xml").
-             Note that the API key is linked to the encryption key used to sign the APK.
-             You need a different API key for each encryption key, including the release key that is used to
-             sign the APK for publishing.
-             You can define the keys for the debug and release targets in src/debug/ and src/release/.
-        -->
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
+        <!-- starting activity -->
         <activity
-            android:name=".RestaurantMap"
-            android:label="@string/title_activity_restaurant_map">
+            android:name=".SplashPageActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <!-- main app flow -->
+        <activity
+            android:name=".FindRestaurantActivity"
+            android:label="Select Restaurant" >
+            <!-- pointer to search resources-->
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
+        <activity
+            android:name=".MenuActivity"
+            android:label="Menu"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".FindRestaurantActivity" >
+            <!-- backwards compatibility for api levels <21 -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".FindRestaurantActivity"
+            />
+        </activity>
+        <activity
+            android:name=".SelectTableActivity"
+            android:label="Select Table"
+            android:parentActivityName=".BasketActivity" >
+            <!-- backwards compatibility for api levels <21 -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".BasketActivity"
+                />
+        </activity>
+        <activity
+            android:name=".BasketActivity"
+            android:label="Basket"
+            android:parentActivityName=".MenuActivity" >
+            <!-- backwards compatibility for api levels <21 -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MenuActivity"
+                />
+        </activity>
+        <activity
+            android:name=".CheckoutActivity"
+            android:label="Ongoing Order"
+            android:parentActivityName=".BasketActivity" >
+            <!-- backwards compatibility for api levels <21 -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".BasketActivity"
+                />
+        </activity>
+
+        <!-- utility views -->
+        <activity
+            android:name=".MoreActivity"
+            android:label="More"
+            android:parentActivityName=".MenuActivity" >
+            <!-- backwards compatibility for api levels <21 -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MenuActivity"
+                />
+        </activity>
+        <activity
+            android:name=".PastOrdersActivity"
+            android:exported="true"
+            android:label="Past Orders"
+            android:parentActivityName=".MoreActivity" >
+            <!-- backwards compatibility for api levels <21 -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MoreActivity"
+                />
+        </activity>
+        <activity
+            android:name=".SearchRestaurantActivity"
+            android:label="Search"
+            android:parentActivityName=".FindRestaurantActivity" >
+            <!-- backwards compatibility for api levels <21 -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".FindRestaurantActivity"
+                />
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+
+            <!--
+            <meta-data android:name="android.app.searchable"
+                android:resource=""
+            />
+                -->
+        </activity>
+        <activity
+            android:name=".HelpActivity"
+            android:label="Help"
+            android:parentActivityName=".MoreActivity" >
+            <!-- backwards compatibility for api levels <21 -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MoreActivity"
+                />
         </activity>
     </application>
 
