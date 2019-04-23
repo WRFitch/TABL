@@ -3,7 +3,7 @@
 this includes everything on Fix List.md
 
 ## Organisation
-  - Complete delegation - further define group options
+  - Complete delegation - further define the group options
 
 ## App
 - Complete Splash Screen 
