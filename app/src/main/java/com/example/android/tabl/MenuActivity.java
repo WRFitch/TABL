@@ -301,7 +301,6 @@ public class MenuActivity extends AppCompatActivity implements SwipeRefreshLayou
                             break;
                     }
                     return true;
-
                 }
             };
 }

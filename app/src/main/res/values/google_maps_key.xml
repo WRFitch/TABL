@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--
+THIS IS NOT TO BE COMMITTED TO GIT. KEEP IT IN .gitignore
+-->
+    <string name="google_maps_key" translatable="false" templateMergeStrategy="preserve">
+        AIzaSyDuUGFLaCqMDVoC0TqCotf9uICVpcWnR1c
+    </string>
+
+
+
+</resources>
