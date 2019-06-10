@@ -1,12 +1,14 @@
-# cs2001-18-19-2018-19-group-18 
+#TABL 
+## A group project between six computer science students at Brunel University
 
-## TABL - an app to allow users to order food on their phones, without needing an app for each restaurant. 
+This project took place over the course of six months, during which time I experimented with multiple aspects of software engineering, including making the required mistakes for such learning, including but not limited to:
 
-For each item on the TODO list, open a separate branch, implement the function, then merge when you're done. This should prevent any major merge conflicts and keep us delivering a testable app. The main branch of this repository should be the most polished version, any work in progress should be confined to its own branch until it is implemented and tested. See Contributing.md for details. 
+- Committing API keys to version control.  
+- Poor commit messages & structure.
+- Repository management was undertaken through guesswork and ancient git texts written on stone tablets. 
+- NoSQL Firebase queries are a mess. There's plenty of poor code in this project, but these might be the worst thing I've ever done. 
+- No coherent structure or design behind the project in general - everything was developed as we learnt how it worked, with cleanup left for ~~never~~ "later".
+- No iteration in design during development.
+- No unit or integration tests
 
-[UI prototype](https://xd.adobe.com/view/0c960684-092a-4486-4bf5-192b4e8bfabb-7aa7/)
-
-#### TODO (Android Application) 
-See sprint/Sprint4.md
-
-#### Weekly Plan 
+Apart from this limited write-up, everything in this project is left as it was at the end of the project, so I can laugh at it in future. 
